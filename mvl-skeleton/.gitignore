@@ -1,0 +1,6 @@
+runs/
+images/
+scene/assets/
+scene/capture*/
+.env
+__pycache__/

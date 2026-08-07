@@ -1,0 +1,273 @@
+# machine_checks.py — 機械検査(決定的・コードで判定するハード制約)
+# シーンJSON(+あればUnityの実測report.json)に対して実行する。
+# 検査項目: 欠落 / 貫通 / 浮遊・めり込み / 範囲外 / スケール逸脱 / 動線(到達可能性)
+import json
+import math
+from collections import deque
+from pathlib import Path
+
+FLOOR_TOL = 0.02      # 接地判定の許容差 [m]
+PEN_TOL = 0.02        # 貫通とみなす最小めり込み深さ [m]
+REST_TOL = 0.06       # rests_on の親上面との許容差 [m]
+
+
+# ---------- AABB ----------
+
+def nominal_aabb(obj):
+    """target_dimensions と rotation_y_deg から公称AABBを計算(Unity実測が無い場合の代替)"""
+    d = obj.get("target_dimensions") or {}
+    w, h, dep = d.get("width", 0.1), d.get("height", 0.1), d.get("depth", 0.1)
+    th = math.radians(obj.get("rotation_y_deg", 0))
+    # 回転後の水平フットプリント
+    rw = abs(w * math.cos(th)) + abs(dep * math.sin(th))
+    rd = abs(w * math.sin(th)) + abs(dep * math.cos(th))
+    x, y, z = obj["position"]
+    return ([x - rw / 2, y, z - rd / 2], [x + rw / 2, y + h, z + rd / 2])
+
+
+def collect_aabbs(scene, report=None):
+    """{id: (aabb_min, aabb_max, measured?)} — report.jsonの実測を優先"""
+    measured = {}
+    if report:
+        for r in report.get("objects", []):
+            measured[r["id"]] = (r["aabb_min"], r["aabb_max"])
+    out = {}
+    for obj in scene["objects"]:
+        if obj["id"] in measured:
+            mn, mx = measured[obj["id"]]
+            out[obj["id"]] = (list(mn), list(mx), True)
+        else:
+            mn, mx = nominal_aabb(obj)
+            out[obj["id"]] = (mn, mx, False)
+    return out
+
+
+def overlap_1d(a_min, a_max, b_min, b_max):
+    return min(a_max, b_max) - max(a_min, b_min)
+
+
+# ---------- 各検査 ----------
+
+def check_missing(scene):
+    v = []
+    counts = {}
+    for obj in scene["objects"]:
+        counts[obj["class"]] = counts.get(obj["class"], 0) + 1
+    for req in scene.get("spec", {}).get("required_objects", []):
+        have = counts.get(req["class"], 0)
+        need = req.get("min_count", 1)
+        if have < need:
+            v.append({"type": "missing", "object_class": req["class"],
+                      "detail": f"必須 {req['class']} が {have}/{need}",
+                      "suggested_repair": "add_object"})
+    return v
+
+
+def check_penetration(scene, aabbs):
+    v = []
+    objs = {o["id"]: o for o in scene["objects"]}
+    ids = [o["id"] for o in scene["objects"]]
+    for i in range(len(ids)):
+        for j in range(i + 1, len(ids)):
+            a, b = objs[ids[i]], objs[ids[j]]
+            # 載っている関係(ランプ←→机)と敷物は貫通扱いしない
+            if a.get("rests_on") == b["id"] or b.get("rests_on") == a["id"]:
+                continue
+            if a.get("walkable_over") or b.get("walkable_over"):
+                continue
+            (amn, amx, _), (bmn, bmx, _) = aabbs[a["id"]], aabbs[b["id"]]
+            depths = [overlap_1d(amn[k], amx[k], bmn[k], bmx[k]) for k in range(3)]
+            if all(d > PEN_TOL for d in depths):
+                v.append({"type": "penetration", "object_ids": [a["id"], b["id"]],
+                          "detail": f"めり込み深さ x/y/z = {[round(d, 3) for d in depths]}",
+                          "overlap": depths,
+                          "suggested_repair": "push_apart"})
+    return v
+
+
+def check_floating(scene, aabbs):
+    v = []
+    objs = {o["id"]: o for o in scene["objects"]}
+    floor_y = scene["room"].get("floor_y", 0.0)
+    for obj in scene["objects"]:
+        mn, mx, _ = aabbs[obj["id"]]
+        if obj.get("rests_on"):
+            parent = objs.get(obj["rests_on"])
+            if parent is None:
+                v.append({"type": "floating", "object_id": obj["id"],
+                          "detail": f"rests_on先 {obj['rests_on']} が存在しない",
+                          "suggested_repair": "snap_to_floor"})
+                continue
+            p_top = aabbs[parent["id"]][1][1]
+            gap = mn[1] - p_top
+            if abs(gap) > REST_TOL:
+                v.append({"type": "floating", "object_id": obj["id"],
+                          "detail": f"{obj['rests_on']} の上面から {gap:+.3f}m",
+                          "gap": gap, "snap_to": p_top,
+                          "suggested_repair": "snap_to_parent"})
+        elif obj.get("must_touch_floor", True):
+            gap = mn[1] - floor_y
+            if gap > FLOOR_TOL:
+                v.append({"type": "floating", "object_id": obj["id"],
+                          "detail": f"床から {gap:.3f}m 浮遊", "gap": gap,
+                          "suggested_repair": "snap_to_floor"})
+            elif gap < -FLOOR_TOL:
+                v.append({"type": "sunken", "object_id": obj["id"],
+                          "detail": f"床に {-gap:.3f}m めり込み", "gap": gap,
+                          "suggested_repair": "snap_to_floor"})
+    return v
+
+
+def check_bounds(scene, aabbs):
+    v = []
+    b = scene["room"]["bounds"]
+    for obj in scene["objects"]:
+        mn, mx, _ = aabbs[obj["id"]]
+        out = (mn[0] < -0.01 or mn[2] < -0.01 or
+               mx[0] > b["width"] + 0.01 or mx[2] > b["depth"] + 0.01 or
+               mx[1] > b["height"] + 0.01)
+        if out:
+            v.append({"type": "out_of_bounds", "object_id": obj["id"],
+                      "detail": f"AABB {[round(x, 2) for x in mn]}〜{[round(x, 2) for x in mx]} が部屋 "
+                                f"{b['width']}x{b['depth']}x{b['height']} を超過",
+                                 "aabb_min": list(mn), "aabb_max": list(mx),   # ← この行を追加
+                      "suggested_repair": "clamp_into_room"})
+    return v
+
+
+def check_scale(scene, aabbs):
+    v = []
+    for obj in scene["objects"]:
+        rng = obj.get("class_height_range")
+        if not rng:
+            continue
+        mn, mx, measured = aabbs[obj["id"]]
+        h = mx[1] - mn[1]
+        if h < rng[0] * 0.9 or h > rng[1] * 1.1:
+            v.append({"type": "scale", "object_id": obj["id"],
+                      "detail": f"高さ {h:.2f}m がクラス許容 {rng} を逸脱"
+                                + ("(実測)" if measured else "(公称)"),
+                      "measured_height": h,
+                      "suggested_repair": "rescale"})
+    return v
+
+
+def walkability_grid(scene, aabbs):
+    """歩行可能グリッド(True=歩ける)を返す。障害物AABBのフットプリントをagent_radiusで膨張"""
+    b = scene["room"]["bounds"]
+    wk = scene.get("walkable", {})
+    cell = wk.get("grid_cell", 0.1)
+    radius = wk.get("agent_radius", 0.3)
+    nx, nz = max(1, int(b["width"] / cell)), max(1, int(b["depth"] / cell))
+    grid = [[True] * nz for _ in range(nx)]
+    for obj in scene["objects"]:
+        if obj.get("walkable_over") or obj.get("rests_on"):
+            continue
+        mn, mx, _ = aabbs[obj["id"]]
+        if mn[1] > 1.9:  # 頭上より高い物(照明等)は障害物でない
+            continue
+        x0 = int((mn[0] - radius) / cell); x1 = int((mx[0] + radius) / cell)
+        z0 = int((mn[2] - radius) / cell); z1 = int((mx[2] + radius) / cell)
+        for ix in range(max(0, x0), min(nx, x1 + 1)):
+            for iz in range(max(0, z0), min(nz, z1 + 1)):
+                grid[ix][iz] = False
+    return grid, cell, nx, nz
+
+
+def check_walkability(scene, aabbs):
+    v = []
+    grid, cell, nx, nz = walkability_grid(scene, aabbs)
+    ent = scene["room"].get("entrance", {}).get("position", [0.2, 0.2])
+    sx, sz = min(nx - 1, int(ent[0] / cell)), min(nz - 1, int(ent[1] / cell))
+    # 入口セルが塞がっていれば近傍の空きセルを探す
+    if not grid[sx][sz]:
+        found = False
+        for r in range(1, 8):
+            for dx in range(-r, r + 1):
+                for dz in range(-r, r + 1):
+                    x, z = sx + dx, sz + dz
+                    if 0 <= x < nx and 0 <= z < nz and grid[x][z]:
+                        sx, sz, found = x, z, True
+                        break
+                if found: break
+            if found: break
+        if not found:
+            v.append({"type": "walkability", "detail": "入口周辺が完全に塞がっている",
+                      "suggested_repair": "push_apart"})
+            return v
+    # BFS
+    seen = [[False] * nz for _ in range(nx)]
+    q = deque([(sx, sz)])
+    seen[sx][sz] = True
+    reach = 0
+    while q:
+        x, z = q.popleft()
+        reach += 1
+        for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            X, Z = x + dx, z + dz
+            if 0 <= X < nx and 0 <= Z < nz and grid[X][Z] and not seen[X][Z]:
+                seen[X][Z] = True
+                q.append((X, Z))
+    free = sum(row.count(True) for row in grid)
+    ratio = reach / free if free else 0.0
+    if ratio < 0.85:
+        v.append({"type": "walkability",
+                  "detail": f"自由床面の到達率 {ratio:.0%}(孤立領域あり)",
+                  "reach_ratio": ratio, "suggested_repair": "push_apart"})
+    # 必須オブジェクトに近づけるか(隣接セルに到達可能セルがあるか)
+    req_classes = {r["class"] for r in scene.get("spec", {}).get("required_objects", [])}
+    # 変更後:
+    objs_by_id = {o["id"]: o for o in scene["objects"]}
+    for obj in scene["objects"]:
+        if obj["class"] not in req_classes:
+            continue
+        # 机上の物などは土台に到達できれば良い(rests_on連鎖を辿る)
+        base = obj
+        hops = 0
+        while base.get("rests_on") and base["rests_on"] in objs_by_id and hops < 5:
+            base = objs_by_id[base["rests_on"]]
+            hops += 1
+        mn, mx, _ = aabbs[base["id"]]
+        ok = False
+        margin = scene.get("walkable", {}).get("agent_radius", 0.3) + 0.25
+        x0 = int((mn[0] - margin) / cell); x1 = int((mx[0] + margin) / cell)
+        z0 = int((mn[2] - margin) / cell); z1 = int((mx[2] + margin) / cell)
+        for ix in range(max(0, x0), min(nx, x1 + 1)):
+            for iz in range(max(0, z0), min(nz, z1 + 1)):
+                if seen[ix][iz]:
+                    ok = True
+                    break
+            if ok: break
+        if not ok:
+            v.append({"type": "walkability", "object_id": obj["id"],
+                      "detail": f"必須オブジェクト {obj['id']} に入口から到達できない",
+                      "suggested_repair": "push_apart"})
+    return v
+
+
+# ---------- エントリポイント ----------
+
+def run_all(scene, report=None):
+    """全検査を実行して違反リストを返す"""
+    aabbs = collect_aabbs(scene, report)
+    violations = []
+    violations += check_missing(scene)
+    violations += check_penetration(scene, aabbs)
+    violations += check_floating(scene, aabbs)
+    violations += check_bounds(scene, aabbs)
+    violations += check_scale(scene, aabbs)
+    violations += check_walkability(scene, aabbs)
+    return violations
+
+
+if __name__ == "__main__":
+    import argparse
+    ap = argparse.ArgumentParser(description="シーンJSONの機械検査")
+    ap.add_argument("scene_json")
+    ap.add_argument("--report", help="Unityのreport.json(あれば実測AABBを使う)")
+    args = ap.parse_args()
+    scene = json.loads(Path(args.scene_json).read_text(encoding="utf-8"))
+    report = json.loads(Path(args.report).read_text(encoding="utf-8")) if args.report else None
+    vs = run_all(scene, report)
+    print(json.dumps(vs, ensure_ascii=False, indent=2))
+    print(f"\n違反 {len(vs)} 件")
