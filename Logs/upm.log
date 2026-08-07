@@ -1,0 +1,4 @@
+[2026-08-07T03:49:15.007Z][INFO] Command-line: 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.6f1\\Editor\\Data\\Resources\\PackageManager\\Server\\UnityPackageManager.exe' server -s 25344 --ipc-path Unity-Upm-25344 -l 2 --log-file C:\\Users\\Astra\\Desktop\\sao/Logs/upm.log
+[2026-08-07T03:49:15.033Z][INFO] IPC server started (IPC path=Unity-Upm-25344).
+[2026-08-07T03:49:15.033Z][INFO] Hint: To connect to this UPM instance, launch Unity with the command-line parameter -upmIpcPath Upm-25344.
+[2026-08-07T03:49:16.043Z][INFO] Shutting down UnityPackageManager.exe: parent process [25344] is no longer running.
