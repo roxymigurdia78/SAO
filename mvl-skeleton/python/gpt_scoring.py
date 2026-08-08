@@ -11,7 +11,7 @@ from pathlib import Path
 
 from openai import OpenAI
 
-MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o")
+MODEL = os.environ.get("OPENAI_MODEL", "gpt-5")
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
 _client = None
@@ -27,7 +27,7 @@ def client():
 def _img_part(path):
     b64 = base64.b64encode(Path(path).read_bytes()).decode()
     return {"type": "image_url",
-            "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}}
+            "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "low"}}
 
 
 def _extract_json(text):
@@ -46,8 +46,10 @@ def _ask(prompt_text, image_paths, max_retries=3):
             resp = client().chat.completions.create(
                 model=MODEL,
                 messages=[{"role": "user", "content": parts}],
-                temperature=0.1,
             )
+            u = resp.usage
+            print(f"[usage] in={u.prompt_tokens} out={u.completion_tokens}")
+            
             return _extract_json(resp.choices[0].message.content)
         except Exception as e:  # JSON崩れ・一時エラーはリトライ
             last_err = e
@@ -59,6 +61,7 @@ def score_scene(image_paths, scene):
     tmpl = (PROMPT_DIR / "rubric_prompt.txt").read_text(encoding="utf-8")
     object_list = ", ".join(f"{o['id']}({o['class']})" for o in scene["objects"])
     prompt = tmpl.format(
+
         space_type=scene["spec"].get("space_type", ""),
         theme=scene["spec"].get("theme", ""),
         object_list=object_list,
