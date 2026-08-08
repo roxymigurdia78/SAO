@@ -111,7 +111,7 @@
       "position": [
         1.2,
         0.0,
-        2.3
+        2.95
       ],
       "rotation_y_deg": 0,
       "target_dimensions": {
@@ -142,7 +142,7 @@
         "bookshelf_v3.glb"
       ],
       "position": [
-        3.7,
+        3.95,
         0.0,
         3.0
       ],
@@ -176,7 +176,7 @@
       ],
       "position": [
         0.85,
-        0.73,
+        1.2,
         3.25
       ],
       "rotation_y_deg": 150,
@@ -211,12 +211,12 @@
       "position": [
         3.6,
         0.0,
-        3.0
+        0.5
       ],
       "rotation_y_deg": 0,
       "target_dimensions": {
         "width": 1.0,
-        "height": 0.1,
+        "height": 2.6,
         "depth": 1.0
       },
       "class_height_range": [

@@ -60,7 +60,7 @@ def main():
     prev_mean = None
     prev_violation_count = None
     stall = 0
-
+    prev_applied = []
     for i in range(args.max_iters):
         it_dir = run_dir / f"iter_{i:02d}"
         cap_dir = it_dir / "capture"
@@ -109,6 +109,11 @@ def main():
                 print(f"[iter {i}] 悪化を検出 → 巻き戻し")
                 meta["rolled_back"] = True
                 scene = copy.deepcopy(prev_scene)
+                # この反復で適用した修正は悪化を招いたので、以後試さない
+                failed = scene.setdefault("_failed_repairs", [])
+                for a in (prev_applied or []):
+                    if a not in failed:
+                        failed.append(a)
                 save_json(it_dir / "meta.json", meta)
                 # 巻き戻したので、この反復の状態は採用せず次の修正候補を変える
                 # (同じ修正を繰り返さないよう _tried_variants 等はscene内に残る)
@@ -139,6 +144,7 @@ def main():
         # --- 5) 修正 ---
         new_scene, applied = repair.apply_repairs(scene, violations, worst, assets_dir)
         meta["applied_repairs"] = applied
+        prev_applied = applied
         save_json(it_dir / "meta.json", meta)
         if not applied:
             print(f"[iter {i}] 適用可能な修正なし → 停止")

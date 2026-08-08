@@ -119,11 +119,8 @@ def rescale(scene, v):
     old_h = d.get("height", target)
     if old_h <= 0:
         return None
-    k = target / old_h
-    for key in ("width", "height", "depth"):
-        if key in d:
-            d[key] = round(d[key] * k, 3)
-    return f"{obj['id']}: 高さ {old_h:.2f}→{target:.2f}(再スケール)"
+    d["height"] = round(target, 3)
+    return f"{obj['id']}: 高さ {old_h:.2f}→{target:.2f}(再スケール・高さのみ)"
 
 
 def add_object(scene, v, assets_dir):
@@ -189,8 +186,16 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets"):
     new = copy.deepcopy(scene)
     applied = []
     aabbs = mc.collect_aabbs(new)
+     # 過去に悪化を招いた修正は再試行しない(オブジェクトID+オペレータで照合)
+    failed = set()
+    for msg in new.get("_failed_repairs", []):
+        oid = msg.split(":")[0].strip()
+        failed.add(oid)
     for v in violations:
         op = v.get("suggested_repair")
+        target_id = v.get("object_id") or (v.get("object_ids") or [None])[0]
+        if target_id in failed:
+            continue
         msg = None
         if op == "snap_to_floor":
             msg = snap_to_floor(new, v)
@@ -208,8 +213,13 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets"):
         if msg:
             applied.append(msg)
     # VLM指摘の低品質オブジェクト(機械検査違反が無い時だけ動かす=修正は1テーマずつ)
-    if not applied and worst_object and worst_object.get("suggested_repair") == "swap_variant":
+    # retexture/relight は9月実装。8月は代替としてバリアント差し替えを試みる
+    VLM_OPS = ("swap_variant", "retexture", "relight")
+    if not applied and worst_object and worst_object.get("suggested_repair") in VLM_OPS:
         msg = swap_variant(new, worst_object)
         if msg:
+            requested = worst_object.get("suggested_repair")
+            if requested != "swap_variant":
+                msg += f" ※VLM要求={requested}(未実装のため代替)"
             applied.append(msg)
     return new, applied
