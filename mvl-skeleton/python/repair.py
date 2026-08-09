@@ -216,6 +216,8 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets"):
     # retexture/relight は9月実装。8月は代替としてバリアント差し替えを試みる
     VLM_OPS = ("swap_variant", "retexture", "relight")
     if not applied and worst_object and worst_object.get("suggested_repair") in VLM_OPS:
+        if worst_object.get("id") in failed:
+            return new, applied   # 悪化実績のあるオブジェクトへの差し替えは再試行しない
         msg = swap_variant(new, worst_object)
         if msg:
             requested = worst_object.get("suggested_repair")

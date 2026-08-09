@@ -61,6 +61,7 @@ def main():
     prev_violation_count = None
     stall = 0
     prev_applied = []
+
     for i in range(args.max_iters):
         it_dir = run_dir / f"iter_{i:02d}"
         cap_dir = it_dir / "capture"
@@ -108,15 +109,20 @@ def main():
             if worsened:
                 print(f"[iter {i}] 悪化を検出 → 巻き戻し")
                 meta["rolled_back"] = True
-                scene = copy.deepcopy(prev_scene)
                 # この反復で適用した修正は悪化を招いたので、以後試さない
                 failed = scene.setdefault("_failed_repairs", [])
                 for a in (prev_applied or []):
                     if a not in failed:
                         failed.append(a)
+                # 巻き戻す(今の状態は捨てるが、記録だけ引き継ぐため退避)
+                discarded = scene
+                scene = copy.deepcopy(prev_scene)
+                scene["_failed_repairs"] = list(discarded.get("_failed_repairs", []))
+                for o_new in scene["objects"]:
+                    o_old = next((o for o in discarded["objects"] if o["id"] == o_new["id"]), None)
+                    if o_old and "_tried_variants" in o_old:
+                        o_new["_tried_variants"] = list(o_old["_tried_variants"])
                 save_json(it_dir / "meta.json", meta)
-                # 巻き戻したので、この反復の状態は採用せず次の修正候補を変える
-                # (同じ修正を繰り返さないよう _tried_variants 等はscene内に残る)
                 continue
 
         # 採用: この反復を基準に更新
