@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "scene_id": "wizard_study_seed2",
+  "spec": {
+    "space_type": "wizard_study",
+    "theme": "古い魔法使いの書斎。使い込まれた木の家具と革の本",
+    "required_objects": [
+      { "class": "table", "min_count": 1 },
+      { "class": "chair", "min_count": 1 },
+      { "class": "bookshelf", "min_count": 1 },
+      { "class": "lantern", "min_count": 1 }
+    ],
+    "mood_keywords": ["ancient", "warm", "wooden"]
+  },
+  "room": {
+    "bounds": { "width": 4.0, "depth": 3.5, "height": 2.5 },
+    "origin_note": "部屋の床の左奥隅が(0,0,0)。x=幅方向, z=奥行方向, y=高さ。単位はメートル",
+    "floor_y": 0.0,
+    "entrance": { "position": [2.0, 0.2], "facing_deg": 0 },
+    "wall_material": "aged plaster with dark wood beams",
+    "floor_material": "dark worn wooden planks",
+    "lighting": {
+      "sun": { "rotation_euler_deg": [35, -60, 0], "intensity": 1.3, "color_hex": "FFE8C8", "mode": "Mixed" },
+      "ambient_intensity": 0.9
+    }
+  },
+  "assets_dir": "assets",
+  "objects": [
+    {
+      "id": "table_01",
+      "class": "table",
+      "asset": "table_v1.glb",
+      "asset_variants": ["table_v1.glb", "table_v2.glb"],
+      "position": [3.0, 0.0, 1.0],
+      "rotation_y_deg": 90,
+      "target_dimensions": { "width": 1.2, "height": 0.73, "depth": 0.6 },
+      "class_height_range": [0.65, 0.9],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": { "source": "legacy_asset", "prompt": "wooden table", "generated_at": "2026-07" },
+      "quality_score": null
+    },
+    {
+      "id": "chair_01",
+      "class": "chair",
+      "asset": "chair_v1.glb",
+      "asset_variants": ["chair_v1.glb", "chair_v2.glb", "chair_v3.glb"],
+      "position": [2.9, 0.0, 1.0],
+      "rotation_y_deg": 0,
+      "target_dimensions": { "width": 0.55, "height": 0.95, "depth": 0.55 },
+      "class_height_range": [0.75, 1.15],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": { "source": "legacy_asset", "prompt": "antique chair", "generated_at": "2026-07" },
+      "quality_score": null
+    },
+    {
+      "id": "shelf_01",
+      "class": "bookshelf",
+      "asset": "shelf_v1.glb",
+      "asset_variants": ["shelf_v1.glb", "shelf_v2.glb", "shelf_v3.glb"],
+      "position": [0.3, 0.0, 1.75],
+      "rotation_y_deg": 90,
+      "target_dimensions": { "width": 0.9, "height": 1.8, "depth": 0.35 },
+      "class_height_range": [1.5, 2.2],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": { "source": "legacy_asset", "prompt": "antique bookshelf", "generated_at": "2026-07" },
+      "quality_score": null
+    },
+    {
+      "id": "lantern_01",
+      "class": "lantern",
+      "asset": "lantern_v1.glb",
+      "asset_variants": ["lantern_v1.glb"],
+      "position": [2.9, 1.5, 1.2],
+      "rotation_y_deg": 150,
+      "target_dimensions": { "width": 0.24, "height": 0.5, "depth": 0.24 },
+      "class_height_range": [0.3, 0.7],
+      "must_touch_floor": false,
+      "rests_on": "table_01",
+      "locked": false,
+      "provenance": { "source": "legacy_asset", "prompt": "ornate lantern", "generated_at": "2026-07" },
+      "quality_score": null
+    },
+    {
+      "id": "plant_01",
+      "class": "plant",
+      "asset": "plant_v1.glb",
+      "asset_variants": ["plant_v1.glb", "plant_v2.glb"],
+      "position": [0.5, 0.0, 3.1],
+      "rotation_y_deg": 0,
+      "target_dimensions": { "width": 0.4, "height": 0.9, "depth": 0.4 },
+      "class_height_range": [0.5, 1.4],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": { "source": "legacy_asset", "prompt": "fantasy flower", "generated_at": "2026-07" },
+      "quality_score": null
+    }
+  ],
+  "walkable": { "agent_radius": 0.3, "min_corridor_width": 0.6, "grid_cell": 0.1 },
+  "views": "auto",
+  "history": []
+}

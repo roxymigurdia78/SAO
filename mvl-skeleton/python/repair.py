@@ -11,7 +11,8 @@ import math
 from pathlib import Path
 
 import machine_checks as mc
-
+# TODO 9月: push_apartが内包+壁詰みで進めない場合、直交軸や大きい方の移動・relocateへの切替を検討
+# TODO 9月: 巻き戻し時のブラックリストが複数修正を連帯責任にする問題(単修正のみ記録 or 一手ずつ再試行)
 
 def _obj(scene, oid):
     for o in scene["objects"]:
@@ -61,7 +62,12 @@ def push_apart(scene, v, aabbs):
         return None
     mover = min(candidates, key=vol)
     other = b if mover is a else a
-    (amn, amx, _), (bmn, bmx, _) = aabbs[mover["id"]], aabbs[other["id"]]
+    va = v.get("aabbs") or {}
+    if mover["id"] in va and other["id"] in va:
+        amn, amx = va[mover["id"]]
+        bmn, bmx = va[other["id"]]
+    else:
+        (amn, amx, _), (bmn, bmx, _) = aabbs[mover["id"]], aabbs[other["id"]]
     # 水平軸のうち重なりが小さい方に押し出す(+方向/-方向は部屋中心から遠ざからない側)
     ox = mc.overlap_1d(amn[0], amx[0], bmn[0], bmx[0])
     oz = mc.overlap_1d(amn[2], amx[2], bmn[2], bmx[2])
@@ -74,6 +80,9 @@ def push_apart(scene, v, aabbs):
     mover["position"][axis] = old + sign * depth
     _clamp_obj(scene, mover)
     ax = "x" if axis == 0 else "z"
+    if abs(mover["position"][axis] - old) < 0.005:
+        mover["position"][axis] = old
+        return None  # 実質動かない修正は「適用」と数えない
     return f"{mover['id']}: {ax} {old:.2f}→{mover['position'][axis]:.2f}(貫通解消)"
 
 def clamp_into_room(scene, v):
@@ -157,6 +166,61 @@ def add_object(scene, v, assets_dir):
     })
     return f"{cls}_{n:02d} を {pos} に追加(欠落補充)※target_dimensions要確認"
 
+# TODO 9月: 巻き戻し時の_failed_repairs照合がrelocateのmsg形式で効いているか検証
+def relocate_blocker(scene, v):
+    """入口/動線を塞ぐオブジェクトを、歩行グリッドの空き領域へ移動する"""
+    # 対象特定: violationにobject_idがあればそれ、なければ入口に最も近い可動物
+    oid = v.get("object_id")
+    ent = scene["room"].get("entrance", {}).get("position", [0.2, 0.2])
+    if oid:
+        target = _obj(scene, oid)
+    else:
+        movables = [o for o in scene["objects"]
+                    if not _is_locked(o) and not o.get("rests_on") and not o.get("walkable_over")]
+        if not movables:
+            return None
+        target = min(movables, key=lambda o: (o["position"][0] - ent[0]) ** 2
+                                            + (o["position"][2] - ent[1]) ** 2)
+    if target is None or _is_locked(target):
+        return None
+    # 移動先: 対象を除いた歩行グリッドで、入口から遠い空きセルを選ぶ
+    rest = {**scene, "objects": [o for o in scene["objects"] if o["id"] != target["id"]]}
+    aabbs = mc.collect_aabbs(rest)
+    grid, cell, nx, nz = mc.walkability_grid(rest, aabbs)
+    b = scene["room"]["bounds"]
+    MARGIN = 0.5  # 壁際・隅を避ける(孤立防止)
+    best, best_d = None, -1
+    for ix in range(nx):
+        for iz in range(nz):
+            if not grid[ix][iz]:
+                continue
+            x, z = ix * cell + cell / 2, iz * cell + cell / 2
+            if not (MARGIN <= x <= b["width"] - MARGIN and MARGIN <= z <= b["depth"] - MARGIN):
+                continue
+            # 周囲セルも空いている「開けた場所」を優先(押し込まれ孤立の防止)
+            openness = sum(1 for dx in (-1, 0, 1) for dz in (-1, 0, 1)
+                           if 0 <= ix + dx < nx and 0 <= iz + dz < nz and grid[ix + dx][iz + dz])
+            if openness < 9:
+                continue
+            d = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
+            if d > best_d:
+                best, best_d = (x, z), d
+    if best is None:
+        # 制約を満たすセルが無ければ従来基準(最遠の空きセル)に落とす
+        for ix in range(nx):
+            for iz in range(nz):
+                if not grid[ix][iz]:
+                    continue
+                x, z = ix * cell + cell / 2, iz * cell + cell / 2
+                d = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
+                if d > best_d:
+                    best, best_d = (x, z), d
+    if best is None:
+        return None
+    old = list(target["position"])
+    target["position"][0], target["position"][2] = round(best[0], 2), round(best[1], 2)
+    _clamp_obj(scene, target)
+    return f"{target['id']}: [{old[0]:.1f},{old[2]:.1f}]→[{target['position'][0]:.1f},{target['position'][2]:.1f}](動線確保のため移動)"
 
 def swap_variant(scene, worst):
     """VLMが指摘した最低品質オブジェクトのアセットを次のバリアントに差し替え"""
@@ -204,12 +268,16 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets"):
         elif op == "push_apart" and v.get("object_ids"):
             msg = push_apart(new, v, aabbs)
             aabbs = mc.collect_aabbs(new)  # 位置が動いたので再計算
+        elif op == "push_apart" and not v.get("object_ids") and v.get("type") == "walkability":
+            msg = relocate_blocker(new, v)
+            aabbs = mc.collect_aabbs(new)
         elif op == "clamp_into_room":
             msg = clamp_into_room(new, v)
         elif op == "rescale":
             msg = rescale(new, v)
         elif op == "add_object":
             msg = add_object(new, v, assets_dir)
+       
         if msg:
             applied.append(msg)
     # VLM指摘の低品質オブジェクト(機械検査違反が無い時だけ動かす=修正は1テーマずつ)

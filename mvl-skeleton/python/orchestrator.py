@@ -100,7 +100,7 @@ def main():
         # --- 3) 採否判定(前反復と比較。悪化なら巻き戻し) ---
         if prev_scene is not None:
             worsened = len(violations) > prev_violation_count
-            if not worsened and captures and prev_captures and not args.skip_vlm:
+            if not worsened and len(violations) == prev_violation_count and captures and prev_captures and not args.skip_vlm:
                 import gpt_scoring
                 winner = gpt_scoring.pairwise([str(p) for p in prev_captures],
                                               [str(p) for p in captures], scene)

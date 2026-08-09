@@ -81,6 +81,7 @@ def check_penetration(scene, aabbs):
                 v.append({"type": "penetration", "object_ids": [a["id"], b["id"]],
                           "detail": f"めり込み深さ x/y/z = {[round(d, 3) for d in depths]}",
                           "overlap": depths,
+                          "aabbs": {a["id"]: [amn, amx], b["id"]: [bmn, bmx]},
                           "suggested_repair": "push_apart"})
     return v
 
