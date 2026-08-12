@@ -6,6 +6,8 @@ import math
 from collections import deque
 from pathlib import Path
 
+import contact_offset as co
+
 FLOOR_TOL = 0.02      # 接地判定の許容差 [m]
 PEN_TOL = 0.02        # 貫通とみなす最小めり込み深さ [m]
 REST_TOL = 0.06       # rests_on の親上面との許容差 [m]
@@ -44,6 +46,31 @@ def collect_aabbs(scene, report=None):
 
 def overlap_1d(a_min, a_max, b_min, b_max):
     return min(a_max, b_max) - max(a_min, b_min)
+
+
+# ---------- 接地面 / 天面 ----------
+# 「AABB底面=接地面」「AABB上面=天面」は多くのアセットで成り立たない。
+# (下向きの装飾突起、天板より高く伸びる背板 など。2026-08-11の目視で発覚)
+# アセットごとの実測オフセット(contact_offsets.json)で補正する。
+
+def _assets_dir(scene):
+    return scene.get("assets_dir", "assets")
+
+
+def contact_y(scene, obj, aabb):
+    """そのオブジェクトが「実際に接地する面」のY座標と、AABB底面からのオフセット[m]"""
+    mn, mx = aabb[0], aabb[1]
+    h = mx[1] - mn[1]
+    off = co.lookup(_assets_dir(scene), obj.get("asset"), obj, "contact_offset") * h
+    return mn[1] + off, off
+
+
+def support_y(scene, obj, aabb):
+    """そのオブジェクトの「物を載せられる天面」のY座標(机なら天板、椅子なら座面)"""
+    mn, mx = aabb[0], aabb[1]
+    h = mx[1] - mn[1]
+    off = co.lookup(_assets_dir(scene), obj.get("asset"), obj, "support_offset") * h
+    return mx[1] - off, off
 
 
 # ---------- 各検査 ----------
@@ -92,29 +119,50 @@ def check_floating(scene, aabbs):
     floor_y = scene["room"].get("floor_y", 0.0)
     for obj in scene["objects"]:
         mn, mx, _ = aabbs[obj["id"]]
+        c_y, c_off = contact_y(scene, obj, (mn, mx))
+        review = co.needs_review(_assets_dir(scene), obj.get("asset"), obj)
+        note = f"(接地オフセット{c_off:+.3f}m)" if abs(c_off) > 1e-6 else ""
+        if review:
+            note = note[:-1] + " + 未確定)" if note else "(接地オフセット未確定)"
+        tol = REST_TOL * 2 if review else REST_TOL
         if obj.get("rests_on"):
             parent = objs.get(obj["rests_on"])
             if parent is None:
                 v.append({"type": "floating", "object_id": obj["id"],
                           "detail": f"rests_on先 {obj['rests_on']} が存在しない",
+                          "contact_offset_m": c_off,
                           "suggested_repair": "snap_to_floor"})
                 continue
-            p_top = aabbs[parent["id"]][1][1]
-            gap = mn[1] - p_top
-            if abs(gap) > REST_TOL:
+            p_mn, p_mx, _ = aabbs[parent["id"]]
+            p_top, s_off = support_y(scene, parent, (p_mn, p_mx))
+            if abs(s_off) > 1e-6:
+                note += f"(親の天面はAABB上端より{s_off:.3f}m下)"
+            gap = c_y - p_top
+            if abs(gap) > tol:
+                detail = f"{obj['rests_on']} の天面から {gap:+.3f}m {note}".rstrip()
+                if review:
+                    detail += " (オフセット未確定)"
                 v.append({"type": "floating", "object_id": obj["id"],
-                          "detail": f"{obj['rests_on']} の上面から {gap:+.3f}m",
-                          "gap": gap, "snap_to": p_top,
+                          "detail": detail,
+                          "gap": gap, "snap_to": p_top, "contact_offset_m": c_off,
                           "suggested_repair": "snap_to_parent"})
         elif obj.get("must_touch_floor", True):
-            gap = mn[1] - floor_y
+            gap = c_y - floor_y
             if gap > FLOOR_TOL:
+                detail = f"床から {gap:.3f}m 浮遊 {note}".rstrip()
+                if review:
+                    detail += " (オフセット未確定)"
                 v.append({"type": "floating", "object_id": obj["id"],
-                          "detail": f"床から {gap:.3f}m 浮遊", "gap": gap,
+                          "detail": detail, "gap": gap,
+                          "snap_to": floor_y, "contact_offset_m": c_off,
                           "suggested_repair": "snap_to_floor"})
             elif gap < -FLOOR_TOL:
+                detail = f"床に {-gap:.3f}m めり込み {note}".rstrip()
+                if review:
+                    detail += " (オフセット未確定)"
                 v.append({"type": "sunken", "object_id": obj["id"],
-                          "detail": f"床に {-gap:.3f}m めり込み", "gap": gap,
+                          "detail": detail, "gap": gap,
+                          "snap_to": floor_y, "contact_offset_m": c_off,
                           "suggested_repair": "snap_to_floor"})
     return v
 

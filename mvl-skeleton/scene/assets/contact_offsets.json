@@ -1,0 +1,1249 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "method": "surface_sampling+spread_profile",
+    "params": {
+      "n_slabs": 64,
+      "tau_body": 0.1,
+      "tau_support": 0.35,
+      "periphery": 0.2
+    },
+    "updated_at": "2026-08-12 14:58:04"
+  },
+  "chair_v1.glb": {
+    "sha256": "39ba0f5e2279f355",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.6406,
+    "support_planes": [
+      {
+        "y_frac": 0.3594,
+        "area_frac": 0.9807,
+        "clearance_frac": 0.3594,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "chair_v2.glb": {
+    "sha256": "777dbb3e5517f492",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.6406,
+    "support_planes": [
+      {
+        "y_frac": 0.3594,
+        "area_frac": 0.9803,
+        "clearance_frac": 0.3594,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "chair_v3.glb": {
+    "sha256": "d2f63085bd7db43b",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.6406,
+    "support_planes": [
+      {
+        "y_frac": 0.3594,
+        "area_frac": 0.9807,
+        "clearance_frac": 0.3594,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0018,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "crystal_v1.glb": {
+    "sha256": "cd09ef3d56659583",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.6953,
+    "support_planes": [
+      {
+        "y_frac": 0.3047,
+        "area_frac": 0.6946,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.9,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0012,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "lantern_v1.glb": {
+    "sha256": "09685acaa84a9532",
+    "schema_version": 2,
+    "contact_offset": 0.0938,
+    "support_offset": 0.3047,
+    "support_planes": [
+      {
+        "y_frac": 0.6953,
+        "area_frac": 0.214,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.9,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0011,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "plant_v1.glb": {
+    "sha256": "bcc22d2c82f838f7",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.3516,
+    "support_planes": [
+      {
+        "y_frac": 0.6484,
+        "area_frac": 0.2072,
+        "clearance_frac": 0.0938,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "unknown",
+    "confidence": 0.0,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0009,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "plant_v2.glb": {
+    "sha256": "2b26540751a39d42",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.1484,
+    "support_planes": [
+      {
+        "y_frac": 0.8516,
+        "area_frac": 0.2318,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "unknown",
+    "confidence": 0.0,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.9922,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "shelf_v1.glb": {
+    "sha256": "acac3c11072c92c4",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.125,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "y_frac": 0.9531,
+        "area_frac": 0.0993,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9375,
+        "area_frac": 0.2722,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9062,
+        "area_frac": 0.0008,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8906,
+        "area_frac": 0.0076,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.875,
+        "area_frac": 0.0356,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8594,
+        "area_frac": 0.0048,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8438,
+        "area_frac": 0.1337,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7812,
+        "area_frac": 0.002,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7656,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.75,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7344,
+        "area_frac": 0.5472,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6875,
+        "area_frac": 0.1733,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6562,
+        "area_frac": 0.0108,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6094,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5938,
+        "area_frac": 0.5168,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5469,
+        "area_frac": 0.024,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5312,
+        "area_frac": 0.1269,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5,
+        "area_frac": 0.0308,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4844,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4688,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4531,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4375,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4219,
+        "area_frac": 0.5713,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.375,
+        "area_frac": 0.1857,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3438,
+        "area_frac": 0.0228,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3281,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2812,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2656,
+        "area_frac": 0.5564,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2188,
+        "area_frac": 0.1878,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1875,
+        "area_frac": 0.052,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1719,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1562,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1094,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0938,
+        "area_frac": 0.8879,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.0588,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0469,
+        "area_frac": 0.5917,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0156,
+        "area_frac": 0.1549,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0018,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "shelf_v2.glb": {
+    "sha256": "fc6d6fd9b8b3c116",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0781,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "y_frac": 0.9531,
+        "area_frac": 0.0003,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9375,
+        "area_frac": 0.0003,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9219,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9062,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8906,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.875,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8594,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8438,
+        "area_frac": 0.2598,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7812,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7656,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.75,
+        "area_frac": 0.0122,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7344,
+        "area_frac": 0.0359,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7188,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7031,
+        "area_frac": 0.0522,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6875,
+        "area_frac": 0.2739,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6562,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6094,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5938,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5781,
+        "area_frac": 0.0551,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5469,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5312,
+        "area_frac": 0.1695,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4844,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4688,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4531,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4375,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4219,
+        "area_frac": 0.0536,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4062,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3906,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.375,
+        "area_frac": 0.0003,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3594,
+        "area_frac": 0.3043,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3281,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2812,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2656,
+        "area_frac": 0.0528,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.25,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2344,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2188,
+        "area_frac": 0.1847,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1719,
+        "area_frac": 0.0013,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1562,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1094,
+        "area_frac": 0.0223,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0938,
+        "area_frac": 0.1083,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0469,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0312,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0156,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.9947,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "shelf_v3.glb": {
+    "sha256": "1912e1ec15ec4964",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0781,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "y_frac": 0.9531,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9375,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9219,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.9062,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8906,
+        "area_frac": 0.0179,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.875,
+        "area_frac": 0.0041,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8594,
+        "area_frac": 0.0522,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8438,
+        "area_frac": 0.073,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8281,
+        "area_frac": 0.0583,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.8125,
+        "area_frac": 0.0037,
+        "clearance_frac": 0.1719,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1875,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7812,
+        "area_frac": 0.0,
+        "clearance_frac": 0.2031,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7656,
+        "area_frac": 0.0,
+        "clearance_frac": 0.2188,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.75,
+        "area_frac": 0.0,
+        "clearance_frac": 0.2344,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7344,
+        "area_frac": 0.1567,
+        "clearance_frac": 0.25,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.7031,
+        "area_frac": 0.0204,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6875,
+        "area_frac": 0.0684,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6719,
+        "area_frac": 0.009,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6562,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.6094,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5938,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5781,
+        "area_frac": 0.1654,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5469,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5312,
+        "area_frac": 0.0591,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.5156,
+        "area_frac": 0.1219,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4844,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4688,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4531,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4375,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.4219,
+        "area_frac": 0.1804,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3906,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.375,
+        "area_frac": 0.1508,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3438,
+        "area_frac": 0.0114,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3281,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.3125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2969,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2812,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2656,
+        "area_frac": 0.0037,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.25,
+        "area_frac": 0.1791,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2188,
+        "area_frac": 0.0818,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.2031,
+        "area_frac": 0.0847,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1875,
+        "area_frac": 0.0051,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1719,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1562,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0938,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1406,
+        "area_frac": 0.0,
+        "clearance_frac": 0.1094,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.125,
+        "area_frac": 0.0,
+        "clearance_frac": 0.125,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.1094,
+        "area_frac": 0.0011,
+        "clearance_frac": 0.1406,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0938,
+        "area_frac": 0.305,
+        "clearance_frac": 0.1562,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0312,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0469,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0469,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0312,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0625,
+        "confidence": 0.6
+      },
+      {
+        "y_frac": 0.0156,
+        "area_frac": 0.0,
+        "clearance_frac": 0.0781,
+        "confidence": 0.6
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.9872,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "stool_v1.glb": {
+    "sha256": "791614657024a20f",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.979,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "stool_v2.glb": {
+    "sha256": "bb11d696ff716380",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9927,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.9868,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "stool_v3.glb": {
+    "sha256": "52be563628208c91",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9622,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.9879,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "table_v1.glb": {
+    "sha256": "fd83b186f6daff46",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9833,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.7196,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  },
+  "table_v2.glb": {
+    "sha256": "ccf839c5deb756c2",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.5312,
+    "support_planes": [
+      {
+        "y_frac": 0.4688,
+        "area_frac": 0.9143,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "unknown",
+    "confidence": 0.0,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8801,
+    "samples": 200000,
+    "measured_at": "2026-08-12",
+    "method": "surface_sampling+spread_profile"
+  }
+}

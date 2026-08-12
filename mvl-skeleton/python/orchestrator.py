@@ -50,6 +50,13 @@ def main():
     scene["assets_dir"] = str((scene_path.parent / scene.get("assets_dir", "assets")).resolve())
     assets_dir = scene_path.parent / scene.get("assets_dir", "assets")
 
+    # 接地/天面オフセットの実測(未計測のGLBだけ。表が無いと従来通りAABB基準になる)
+    try:
+        import contact_offset
+        contact_offset.measure_dir(scene["assets_dir"])
+    except Exception as e:
+        print(f"[MVL] 接地オフセットの実測に失敗(AABB基準で続行): {e}")
+
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir = Path(args.runs_dir) / f"{scene.get('scene_id', 'scene')}_{ts}"
     run_dir.mkdir(parents=True, exist_ok=True)

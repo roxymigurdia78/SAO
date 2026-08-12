@@ -27,22 +27,33 @@ def _is_locked(obj):
 
 # ---------- 各オペレータ ----------
 
+# position[1] は「AABBの最下端をどこに置くか」であって接地面ではない
+# (Unity側 PlaceObject も bounds.min.y を position[1] に合わせている)。
+# 接地オフセットを持つアセットでは position[1] = 目標の接地面 − オフセット にする。
+def _place_contact_at(scene, obj, v, plane_y, what):
+    off = v.get("contact_offset_m", 0.0)
+    old = obj["position"][1]
+    obj["position"][1] = plane_y - off
+    if abs(obj["position"][1] - old) < 1e-4:
+        return None
+    tail = f", 接地オフセット{off:+.3f}m" if abs(off) > 1e-6 else ""
+    return f"{obj['id']}: y {old:.3f}→{obj['position'][1]:.3f}({what}{tail})"
+
+
 def snap_to_floor(scene, v):
     obj = _obj(scene, v["object_id"])
     if _is_locked(obj) or obj is None:
         return None
-    old = obj["position"][1]
-    obj["position"][1] = scene["room"].get("floor_y", 0.0)
-    return f"{obj['id']}: y {old:.3f}→{obj['position'][1]:.3f}(接地)"
+    floor_y = v.get("snap_to", scene["room"].get("floor_y", 0.0))
+    return _place_contact_at(scene, obj, v, floor_y, "接地")
 
 
 def snap_to_parent(scene, v):
     obj = _obj(scene, v["object_id"])
     if _is_locked(obj) or obj is None:
         return None
-    old = obj["position"][1]
-    obj["position"][1] = v.get("snap_to", old - v.get("gap", 0))
-    return f"{obj['id']}: y {old:.3f}→{obj['position'][1]:.3f}({obj.get('rests_on')}上面へ)"
+    plane = v.get("snap_to", obj["position"][1] - v.get("gap", 0))
+    return _place_contact_at(scene, obj, v, plane, f"{obj.get('rests_on')}の天面へ")
 
 
 def push_apart(scene, v, aabbs):
