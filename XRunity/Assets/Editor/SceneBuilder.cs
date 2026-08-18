@@ -52,8 +52,19 @@ namespace MVL
         {
             string path = EditorUtility.OpenFilePanel("scene JSON", "", "json");
             if (string.IsNullOrEmpty(path)) return;
+            EditorPrefs.SetString("MVL_LastScenePath", path);   // ← 追加。選んだパスを覚える
             string outDir = Path.Combine(Path.GetDirectoryName(path), "capture");
             SceneBuilder.BuildAndCapture(path, outDir);
+        }
+
+        // 前回選んだシーンJSONを再構築(初回だけダイアログが出る)
+        [MenuItem("MVL/Rebuild Last Scene %#r")]   // Ctrl+Shift+R
+        public static void RebuildLast()
+        {
+            string path = EditorPrefs.GetString("MVL_LastScenePath", "");
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            { RunFromMenu(); return; }
+            SceneBuilder.BuildAndCapture(path, Path.Combine(Path.GetDirectoryName(path), "capture"));
         }
     }
 
@@ -105,6 +116,14 @@ namespace MVL
 
                 // 6) 8視点撮影(実測AABBを渡してカメラの家具メリ込みを回避)
                 report.captures = CaptureViews(scene, outDir, report.objects);
+
+                // 6.5) カメラとベイク結果を含めた状態で再保存
+                //      97行目の保存は配置直後なので、カメラもライトマップも入っていない。
+                //      ここで保存し直すと、Unityで MVL_Temp.unity を開くだけで
+                //      Gameビューに部屋が映り、そのまま歩き回れる。
+                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
+                    "Assets/MVL_Temp.unity");
 
                 // 7) レポート出力
                 WriteReport(report, outDir);
