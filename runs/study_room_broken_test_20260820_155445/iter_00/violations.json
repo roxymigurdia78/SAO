@@ -1,0 +1,71 @@
+[
+  {
+    "type": "missing",
+    "object_class": "monitor",
+    "detail": "必須 monitor が 0/1",
+    "suggested_repair": "add_object"
+  },
+  {
+    "type": "penetration",
+    "object_ids": [
+      "bookshelf_01",
+      "plant_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.35, 0.1, 0.9]",
+    "overlap": [
+      0.35000000000000053,
+      0.1,
+      0.9000000000000004
+    ],
+    "aabbs": {
+      "bookshelf_01": [
+        [
+          3.525,
+          0.0,
+          2.55
+        ],
+        [
+          3.8750000000000004,
+          1.8,
+          3.45
+        ]
+      ],
+      "plant_01": [
+        [
+          3.1,
+          0.0,
+          2.5
+        ],
+        [
+          4.1,
+          0.1,
+          3.5
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "plant_01",
+    "detail": "AABB [3.1, 0.0, 2.5]〜[4.1, 0.1, 3.5] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      3.1,
+      0.0,
+      2.5
+    ],
+    "aabb_max": [
+      4.1,
+      0.1,
+      3.5
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "plant_01",
+    "detail": "高さ 0.10m がクラス許容 [0.3, 1.8] を逸脱(公称)",
+    "measured_height": 0.1,
+    "suggested_repair": "rescale"
+  }
+]

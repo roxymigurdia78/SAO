@@ -1,0 +1,7 @@
+{
+  "iteration": 1,
+  "rolled_back": false,
+  "applied_repairs": [
+    "chair_01: f_chair_v3.glb→f_chair_v1.glb(バリアント差し替え)"
+  ]
+}

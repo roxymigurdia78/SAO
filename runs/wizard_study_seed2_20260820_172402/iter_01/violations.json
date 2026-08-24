@@ -1,0 +1,45 @@
+[
+  {
+    "type": "floating",
+    "object_id": "lamp_01",
+    "detail": "desk_01 の天面から +0.274m (接地オフセット未確定) (オフセット未確定)",
+    "gap": 0.27417242527008057,
+    "snap_to": 0.7758275270462036,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "floating",
+    "object_id": "orb_01",
+    "detail": "desk_01 の天面から +0.274m",
+    "gap": 0.27422356605529785,
+    "snap_to": 0.7758275270462036,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "floating",
+    "object_id": "books_01",
+    "detail": "desk_01 の天面から +0.275m (接地オフセット+0.003m)",
+    "gap": 0.2752515218734741,
+    "snap_to": 0.7758275270462036,
+    "contact_offset_m": 0.002808584976196289,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "desk_01",
+    "detail": "AABB [-0.15, -0.0, 2.41]〜[1.25, 0.78, 3.25] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      -0.14552909135818481,
+      -0.00015935301780700684,
+      2.411921501159668
+    ],
+    "aabb_max": [
+      1.2453279495239258,
+      0.7758275270462036,
+      3.2479963302612305
+    ],
+    "suggested_repair": "clamp_into_room"
+  }
+]

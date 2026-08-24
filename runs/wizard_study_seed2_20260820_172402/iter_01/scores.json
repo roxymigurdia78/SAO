@@ -1,0 +1,33 @@
+{
+  "B1": 5,
+  "B2": 3,
+  "B3": 3,
+  "B4": 3,
+  "B5": 2,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "lamp_01(燭台のデスクランプ)が床・机から浮遊している"
+    },
+    {
+      "kind": "floating",
+      "description": "books_01(巻物束)が支持なしで空中に浮遊している"
+    },
+    {
+      "kind": "floating",
+      "description": "orb_01(本来は水晶玉)が壁際に浮遊している"
+    },
+    {
+      "kind": "orientation",
+      "description": "chair_01がdesk_01に背を向けており作業姿勢になっていない"
+    }
+  ],
+  "worst_object": {
+    "id": "orb_01",
+    "reason": "水晶玉のはずが砂時計状に見える異なるメッシュで、かつ空中浮遊しており主題と整合せず没入感を大きく損なう",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "スケールや主要家具の造形は概ね妥当だが、複数オブジェクトの浮遊と椅子の向き不整合で一貫性が崩れている。照明は強い面発光のように見え光源根拠が薄く、実在感を下げている。",
+  "total": 16.0,
+  "mean": 3.2
+}

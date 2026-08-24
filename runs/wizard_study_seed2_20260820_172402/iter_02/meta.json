@@ -1,0 +1,7 @@
+{
+  "iteration": 2,
+  "rolled_back": false,
+  "applied_repairs": [
+    "orb_01: f_orb_v2.glb→f_orb_v1.glb(バリアント差し替え)"
+  ]
+}

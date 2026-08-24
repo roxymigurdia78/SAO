@@ -1,0 +1,33 @@
+{
+  "B1": 3,
+  "B2": 3,
+  "B3": 3,
+  "B4": 3,
+  "B5": 2,
+  "b3_defects": [
+    {
+      "kind": "penetration",
+      "description": "desk_01の天板が壁に深くめり込んでいる"
+    },
+    {
+      "kind": "floating",
+      "description": "chair_01が床から浮き、傾いた状態で宙にある"
+    },
+    {
+      "kind": "floating",
+      "description": "books_01が壁際で中空に浮いている"
+    },
+    {
+      "kind": "floating",
+      "description": "lamp_01(デスクランプ)が壁際の中空に浮いている"
+    }
+  ],
+  "worst_object": {
+    "id": "orb_01",
+    "reason": "本来はcrystal_ballだが天球儀風オブジェクトに置き換わっており大型すぎて主題と不一致、発光もなく想定の机上照明を担えていない",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "スケールと配置に複数の破綻があり、特に机の壁貫通と小物の浮遊が没入感を大きく損ねています。光源設計も弱く、主題小物の不一致で物理・物語両面の説得力が不足しています。",
+  "total": 14.0,
+  "mean": 2.8
+}

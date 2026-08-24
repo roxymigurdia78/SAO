@@ -1,0 +1,34 @@
+[
+  {
+    "type": "floating",
+    "object_id": "orb_01",
+    "detail": "desk_01 の天面から +0.500m (接地オフセット未確定) (オフセット未確定)",
+    "gap": 0.5,
+    "snap_to": 0.75,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "shelf_01",
+    "detail": "AABB [0.55, 0.0, 3.28]〜[1.45, 1.9, 3.62] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      0.55,
+      0.0,
+      3.2750000000000004
+    ],
+    "aabb_max": [
+      1.45,
+      1.9,
+      3.625
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "chair_01",
+    "detail": "高さ 0.45m がクラス許容 [0.75, 1.15] を逸脱(公称)",
+    "measured_height": 0.45,
+    "suggested_repair": "rescale"
+  }
+]

@@ -7,14 +7,26 @@ import base64
 import json
 import os
 import re
+
+_envp = Path(__file__).parent / ".env"
+if _envp.exists():
+    for _l in _envp.read_text(encoding="utf-8-sig").splitlines():
+        _l = _l.strip()
+        if _l and not _l.startswith("#") and "=" in _l:
+            _k, _, _v = _l.partition("=")
+            os.environ.setdefault(_k.strip(), _v.strip().strip('"'))
+
 from pathlib import Path
 
 from openai import OpenAI
 
-MODEL = os.environ.get("OPENAI_MODEL", "gpt-5")
+MODEL = os.environ.get("LLM_MODEL") 
 PROMPT_DIR = Path(__file__).parent / "prompts"
 
-_client = None
+_client = OpenAI(
+            api_key=os.environ.get("LLM_KEY") or os.environ.get("OPENAI_API_KEY"),
+            base_url=os.environ.get("LLM_BASE_URL") or None,
+        )
 
 
 def client():

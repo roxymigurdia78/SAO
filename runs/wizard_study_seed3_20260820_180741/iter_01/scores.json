@@ -1,0 +1,21 @@
+{
+  "B1": 3,
+  "B2": 3,
+  "B3": 4,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "orientation",
+      "description": "chair_01がdesk_01から離れ、机に向かずに配置されており作業姿勢として不自然"
+    }
+  ],
+  "worst_object": {
+    "id": "chair_01",
+    "reason": "desk_01に対して著しく大きく、作業用スツールとして高さ・占有が不自然でスケール感を壊している",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "家具のスケール、とくにchair_01がdesk_01に対して大きすぎて没入感を損ねています。照明は全体が明るいわりに主光源の根拠が弱く、壁や素材も均一でCG感が残ります。",
+  "total": 16.0,
+  "mean": 3.2
+}

@@ -1,0 +1,585 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.5/staging' branch; Version is '6000.5.6f1 (0e0577a1a2ac) revision 918903'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Channel LicenseClient-Astra doesn't exist
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ja' Physical Memory: 32489 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-08-20T08:54:46Z
+[Licensing::Module] Successfully launched the LicensingClient (PId: 35104)
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.5.6f1\Editor\Unity.exe
+-batchmode
+-projectPath
+C:\Users\Astra\Desktop\sao\XRunity
+-executeMethod
+MVL.BatchEntry.Run
+-sceneJson
+C:\Users\Astra\Desktop\sao\runs\wizard_study_seed3_20260820_174441\iter_03\scene.json
+-outDir
+C:\Users\Astra\Desktop\sao\runs\wizard_study_seed3_20260820_174441\iter_03\capture
+-logFile
+runs\wizard_study_seed3_20260820_174441\iter_03\capture\unity.log
+-quit
+Successfully changed project path to: C:\Users\Astra\Desktop\sao\XRunity
+C:/Users/Astra/Desktop/sao/XRunity
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=0"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Logging is directed to a specific file, skipping project log.Player connection [25172]  Target information:
+
+Player connection [25172]  * "[IP] 192.168.11.21 [Port] 55504 [Flags] 2 [Guid] 2066563907 [EditorId] 2066563907 [Version] 1048832 [Id] WindowsEditor(7,Astra) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [25172]  * "[IP] 172.23.0.1 [Port] 55504 [Flags] 2 [Guid] 2066563907 [EditorId] 2066563907 [Version] 1048832 [Id] WindowsEditor(7,Astra) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [25172] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [25172] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Package Manager] Connected to IPC stream "Upm-14012" after 0.2 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Astra" at "2026-08-20T08:54:46.6100431Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 35104, path: "C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              dd6605e546454e47a58935c8282d0a37
+  Correlation Id:          3fc55acbad39de0afc1a5fcb6b29d678
+  External correlation Id: 79725534560466295
+  Machine Id:              oAYJDH4P/caT3pCWtAsI7jts7Wk=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Astra" (connect: 0.37s, validation: 0.09s, handshake: 0.02s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Astra-notifications" at "2026-08-20T08:54:46.7206496Z"
+[Licensing::Module] Connected to LicensingClient (PId: 35104, launch time: 0.00, total connection time: 0.48s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 15669536166605-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 0.51s
+[Licensing::Module] Licensing is initialized (took 0.17s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Artifact Garbage Collection - Removed 1 unused hashed content files
+Initialize engine version: 6000.5.6f1 (0e0577a1a2ac)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Astra/Desktop/sao/XRunity/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 4060 Ti (ID=0x2803)
+    Vendor:          NVIDIA
+    VRAM:            7949 MB
+    App VRAM Budget: 7181 MB
+    Driver:          32.0.15.9621
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56012
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.001337 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.296 seconds
+Domain Reload Profiling: 701ms
+	BeginReloadAssembly (110ms)
+		CreateAndSetChildDomain (17ms)
+	RebuildCommonClasses (4ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (50ms)
+	LoadAllAssembliesAndSetupDomain (226ms)
+		LoadAssemblies (91ms)
+		AnalyzeDomain (169ms)
+			TypeCache.Refresh (167ms)
+				TypeCache.ScanAssembly (155ms)
+	FinalizeReload (299ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (70ms)
+			ProcessInitializeOnLoadAttributes (68ms)
+			ProcessInitializeOnLoadMethodAttributes (98ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 59 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.ai.navigation@2.0.14 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.ai.navigation@134dd6a3b97b)
+    com.unity.cloud.gltfast@6.19.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.cloud.gltfast@92828f845157)
+    com.unity.collab-proxy@2.13.3 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.collab-proxy@4f3be89e8675)
+    com.unity.ide.rider@3.0.38 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.ide.rider@1f60b3138684)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.20.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.inputsystem@7a4e1a2a8194)
+    com.unity.timeline@1.8.12 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.11 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.visualscripting@8bed5ad90189)
+    com.unity.burst@1.8.29 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.searcher@4.9.4 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.searcher@d45a78918735)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.test-framework.performance@8b56083ec0f0)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.multiplayer.center@b860850997d0)
+    com.unity.render-pipelines.universal@17.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.render-pipelines.universal@73b4c4ff130e)
+    com.unity.test-framework@1.7.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.test-framework@1405238725ab)
+    com.unity.ugui@2.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.ugui@67707a67a4ab)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.ext.nunit@44f7d31723bd)
+    com.unity.render-pipelines.core@17.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.render-pipelines.core@645717f21c5f)
+    com.unity.shadergraph@17.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.shadergraph@8d7376ec43ee)
+    com.unity.render-pipelines.universal-config@17.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.render-pipelines.universal-config@fdda01c80fe3)
+    com.unity.collections@6.5.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.collections@a43cabe808ca)
+    com.unity.mathematics@1.4.0 (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.unity.mathematics@981956d94fb6)
+  Git packages:
+    com.whinarn.unitymeshsimplifier@https://github.com/Whinarn/UnityMeshSimplifier.git (location: C:\Users\Astra\Desktop\sao\XRunity\Library\PackageCache\com.whinarn.unitymeshsimplifier@53fdb3122645)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+Starting: C:\Program Files\Unity\Hub\Editor\6000.5.6f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/Astra/Desktop/sao/XRunity
+DisplayProgressbar: Compiling Scripts
+ExitCode: 0 Duration: 0s193ms
+[ 794/1017  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.17 seconds), 1 items updated, 1017 evaluated
+AssetDatabase: script compilation time: 0.504475s
+Begin MonoManager ReloadAssembly
+Total cache size 110000676
+Total cache size after purge 110000676, took 00:00:00.0884870
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  2.246 seconds
+Domain Reload Profiling: 2918ms
+	BeginReloadAssembly (174ms)
+		DisableScriptedObjects (24ms)
+		CreateAndSetChildDomain (40ms)
+	RebuildCommonClasses (6ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (41ms)
+	LoadAllAssembliesAndSetupDomain (438ms)
+		LoadAssemblies (248ms)
+		AnalyzeDomain (180ms)
+			TypeCache.Refresh (126ms)
+				TypeCache.ScanAssembly (117ms)
+			BuildScriptInfoCaches (47ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (2247ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (63ms)
+			ProcessInitializeOnLoadAttributes (1777ms)
+			ProcessInitializeOnLoadMethodAttributes (143ms)
+			AfterProcessingInitializeOnLoad (5ms)
+		AwakeInstancesAfterBackupRestoration (16ms)
+Starting new worker id: 0 with log in C:/Users/Astra/Desktop/sao/XRunity/Logs/AssetImportWorkerHW0.log
+
+Asset Pipeline Refresh (id=ea256807b1114214e90437da737f5d2c): Total: 3.945 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2631 ms
+		Asset DB Callback time: managed=36 ms, native=13 ms
+		Scripting: domain reloads=1, domain reload time=713 ms, compile time=505 ms, other=43 ms
+		Project Asset Count: scripts=1417, non-scripts=2415
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 15.130ms
+	ApplyChangesToAssetFolders: 0.520ms
+	Scan: 92.988ms
+	Collect global state as custom dependencies: 13.809ms
+	CategorizeScriptCompilationAssets: 35.109ms
+	ProcessAssetsWithTransientArtifactChanges: 64.058ms
+	CategorizeAssets: 35.822ms
+	CompileScripts: 505.465ms
+	ImportOutOfDateAssets: 2294.872ms (2259.797ms without children)
+		UnloadImportedAssets: 0.559ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.428ms
+		ImportSchedulerStart: 34.056ms
+	PostProcessAllAssets: 36.251ms
+		MonoPostProcessAllAssets: 36.199ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 12.089ms
+			SyncVS.PostprocessSyncProject 8.976ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 4.017ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 1.538ms
+			EditModeScopePostprocessor.OnPostprocessAllAssets 0.678ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.584ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.287ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.220ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.206ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.164ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.141ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.121ms
+	UnloadStreamsBegin: 2.286ms
+	PersistCurrentRevisions: 0.102ms
+	GenerateScriptTypeHashes: 1.015ms
+	GenerateScriptTypeSerializationHashes: 1.847ms
+	Untracked: 844.108ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
+Scanning for USB devices : 3.822ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-XRunity
+Unloading 25 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6978 unused Assets / (8.1 MB). Loaded Objects now: 7893.
+Memory consumption went from 414.4 MB to 406.3 MB.
+Total: 10.589300 ms (FindLiveObjects: 0.418900 ms CreateObjectMapping: 1.456800 ms MarkObjects: 4.886000 ms  DeleteObjects: 3.822700 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1 unused Assets / (5.5 KB). Loaded Objects now: 7895.
+Memory consumption went from 394.4 MB to 394.4 MB.
+Total: 5.188700 ms (FindLiveObjects: 0.229800 ms CreateObjectMapping: 0.553000 ms MarkObjects: 4.386800 ms  DeleteObjects: 0.018500 ms)
+
+Importing 'GUID: 60e3d9eb937c9914a924bb18cf14235a - Path: Assets/MVLImported/f_rug_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: 60e3d9eb937c9914a924bb18cf14235a' -> (Import Result ID: '9e8e2e3b7471aee7d9df3ea0ccf4fdaf') in 0.172 seconds [static dependencies only]. Details - ImportResultOutputID=92d82e502fc568a1ed609e0c6d8b4947 DependenciesID=a4573a3cab02f1ce17d3acb77056a2da StaticDependenciesID=6f760b3e3803c4a627e96890451f8fc9 
+
+Asset Pipeline Refresh (id=48a369b67bb80f24db53b38cd746b31b): Total: 0.350 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=1 (actual=1, local cache=0, cache server=0)
+		Asset DB Process Time: managed=1 ms, native=244 ms
+		Asset DB Callback time: managed=98 ms, native=6 ms
+		Scripting: domain reloads=0, domain reload time=0 ms, compile time=0 ms, other=0 ms
+		Project Asset Count: scripts=1417, non-scripts=2415
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 3
+	ApplyChangesToAssetFolders: 0.134ms
+	Scan: 9.839ms
+	Collect global state as custom dependencies: 0.389ms
+	ProcessAssetsWithTransientArtifactChanges: 0.133ms
+	CategorizeAssets: 24.829ms
+	ImportOutOfDateAssets: 202.698ms (5.647ms without children)
+		ImportManagerImport: 173.264ms (0.767ms without children)
+		UnloadImportedAssets: 0.107ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.304ms
+		ImportSchedulerStart: 23.338ms
+	PostProcessAllAssets: 101.523ms
+		XRBuildSystem.XRAssetImported 2.606ms
+		MonoPostProcessAllAssets: 98.406ms
+			AssetPostprocessor.OnPostprocessAllAssets 60.002ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 18.135ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 6.988ms
+			AssetChangedListener.OnPostprocessAllAssets 1.755ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.396ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 1.286ms
+			SyncVS.PostprocessSyncProject 1.279ms
+			MaterialPostprocessor.OnPostprocessAllAssets 0.788ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.676ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.659ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.497ms
+			SampleDependencyImporterPostProcessor.OnPostprocessAllAssets 0.442ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 0.381ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.336ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 0.309ms
+			AssetEvents.OnPostprocessAllAssets 0.275ms
+			PostProcessor.OnPostprocessAllAssets 0.234ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.196ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.174ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.167ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.152ms
+			AssetReloadNotifier.OnPostprocessAllAssets 0.128ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.110ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.103ms
+			AudioContainerPostProcessor.OnPostprocessAllAssets 0.094ms
+	PostAssetChangesProfiler: 3.029ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.171ms
+	PersistCurrentRevisions: 0.119ms
+	Untracked: 3.579ms
+
+Launched and connected uv unwrapper C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Data/Tools/UnwrapCL.exe after 0.01 seconds
+Worker ready: AssetImportWorkerHW0 0
+Importing 'GUID: dd3e75317f7f2714bab41a451aa7d93a - Path: Assets/MVLImported/f_desk_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: dd3e75317f7f2714bab41a451aa7d93a' -> (Import Result ID: 'f0241cb139310385d4c13f12e4311830') in 0.058 seconds [static dependencies only]. Details - ImportResultOutputID=1d35a8cb7f5e973a7baeae8e7227ed04 DependenciesID=1c7dad63a0814ac9fe3009c91aacd1b6 StaticDependenciesID=991ab7adaebebaf9bf01eec1f7a785ec 
+Asset Pipeline Refresh (id=3fefac6f20007714eb31cff0dbc83777): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 8e818aefea5bdf940a9856a23d97bf1a - Path: Assets/MVLImported/f_chair_v1.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: 8e818aefea5bdf940a9856a23d97bf1a' -> (Import Result ID: '3025996c90872789168b74b01fd405dc') in 0.066 seconds [static dependencies only]. Details - ImportResultOutputID=e9e243d3baa308bbe37d1a09176cc9f5 DependenciesID=d12845df0679f3c2e323d51e1651c5ec StaticDependenciesID=af6ec985d4aa44fd77a384df7c4816ea 
+Asset Pipeline Refresh (id=7f0ab1079a0232b49b03c3213ed79bb7): Total: 0.104 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 5ccbfbcdf008ce643ad6d60b4fa5d9ba - Path: Assets/MVLImported/f_bookshelf_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: 5ccbfbcdf008ce643ad6d60b4fa5d9ba' -> (Import Result ID: 'ccc71f36d99992c4a8573064f4688ca8') in 0.064 seconds [static dependencies only]. Details - ImportResultOutputID=71f2a6250d417568d33bc14176bc12c4 DependenciesID=370b4bc0e9e84ac1acf187ec9361e94a StaticDependenciesID=582f2cbc2be213d52ff75898c59d1794 
+Asset Pipeline Refresh (id=7bf6ecf8fc820d14d810a23881eb1ad0): Total: 0.103 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: a89815685015ea04a8e3a27221343eea - Path: Assets/MVLImported/f_lamp_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: a89815685015ea04a8e3a27221343eea' -> (Import Result ID: 'e0f827ecdec650c4d69e6b807607e94b') in 0.060 seconds [static dependencies only]. Details - ImportResultOutputID=3ea10e562ce29417ea9fb0a293b63ea0 DependenciesID=a047c4bdb55795af2b9882312ee856ac StaticDependenciesID=dcd151b5ba41b25038bbb00e180baec2 
+Asset Pipeline Refresh (id=ba75d670e53a6c84ca0c62b63d901254): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c381779da06463a46ba13a9b8cbe6392 - Path: Assets/MVLImported/f_orb_v1.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: c381779da06463a46ba13a9b8cbe6392' -> (Import Result ID: '8002e83213716a8ca7020cc1965c5fcd') in 0.065 seconds [static dependencies only]. Details - ImportResultOutputID=394977ebda7735f7930410381262eccd DependenciesID=309bc2482695cd7744db98fb78ed7fc5 StaticDependenciesID=760f3a3a5cabd9dc75f7844460d319c6 
+Asset Pipeline Refresh (id=d5c9c3e64239f674ca6a12fe85979264): Total: 0.102 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+SetPerIndexUVs failed because the output has too many vertices
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.MeshUtility:SetPerTriangleUV2NoCheck (UnityEngine.Mesh,UnityEngine.Vector2[])
+UnityEditor.MeshUtility:SetPerTriangleUV2 (UnityEngine.Mesh,UnityEngine.Vector2[])
+UnityEditor.Unwrapping:GenerateSecondaryUVSet (UnityEngine.Mesh)
+MVL.SceneBuilder:DecimateAndUnwrap (UnityEngine.GameObject,int&,int&) (at Assets/Editor/SceneBuilder.cs:283)
+MVL.SceneBuilder:PlaceObject (MVL.SceneObject,string,string) (at Assets/Editor/SceneBuilder.cs:231)
+MVL.SceneBuilder:BuildAndCapture (string,string) (at Assets/Editor/SceneBuilder.cs:105)
+MVL.BatchEntry:Run () (at Assets/Editor/SceneBuilder.cs:38)
+
+[Assets/Editor/SceneBuilder.cs line 231]
+
+Importing 'GUID: 9ed82b1576459244fae4afcf6fb11d35 - Path: Assets/MVLImported/f_books_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: 9ed82b1576459244fae4afcf6fb11d35' -> (Import Result ID: '436d66b177d82ec91d59a55fce0e86a1') in 0.070 seconds [static dependencies only]. Details - ImportResultOutputID=74290055ad712dd8a2ddf0884fa4c690 DependenciesID=e889b076dd6b7f6d39ced2a23d667e92 StaticDependenciesID=1f8cb848f387244ef66acd54465eef69 
+Asset Pipeline Refresh (id=3f22c7fba43b60743943084240c5b87f): Total: 0.114 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+SetPerIndexUVs failed because the output has too many vertices
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.MeshUtility:SetPerTriangleUV2NoCheck (UnityEngine.Mesh,UnityEngine.Vector2[])
+UnityEditor.MeshUtility:SetPerTriangleUV2 (UnityEngine.Mesh,UnityEngine.Vector2[])
+UnityEditor.Unwrapping:GenerateSecondaryUVSet (UnityEngine.Mesh)
+MVL.SceneBuilder:DecimateAndUnwrap (UnityEngine.GameObject,int&,int&) (at Assets/Editor/SceneBuilder.cs:283)
+MVL.SceneBuilder:PlaceObject (MVL.SceneObject,string,string) (at Assets/Editor/SceneBuilder.cs:231)
+MVL.SceneBuilder:BuildAndCapture (string,string) (at Assets/Editor/SceneBuilder.cs:105)
+MVL.BatchEntry:Run () (at Assets/Editor/SceneBuilder.cs:38)
+
+[Assets/Editor/SceneBuilder.cs line 231]
+
+Importing 'GUID: bac872adc9e02364eadaa32fbbc8ab21 - Path: Assets/MVLImported/f_plant_v3.glb' with importer (ScriptedImporter : glTFast.Editor:GLTFast.Editor:GltfImporter)
+Imported 'GUID: bac872adc9e02364eadaa32fbbc8ab21' -> (Import Result ID: '1db493d7dda3804402f2622b752a5234') in 0.070 seconds [static dependencies only]. Details - ImportResultOutputID=974d2ff8e2eb35cc893b59ce7739a8b9 DependenciesID=5f1f1995b8d87f9bea32e7561188471a StaticDependenciesID=2b7fd391c05836ada6fa37396ad39152 
+Asset Pipeline Refresh (id=4cd3fa871316bdd42b1f50fad3b3c35a): Total: 0.107 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[MVL] UV2スキップ(頂点75596): geometry_0_dec — 追加デシメーション
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogWarning (object)
+MVL.SceneBuilder:DecimateAndUnwrap (UnityEngine.GameObject,int&,int&) (at Assets/Editor/SceneBuilder.cs:287)
+MVL.SceneBuilder:PlaceObject (MVL.SceneObject,string,string) (at Assets/Editor/SceneBuilder.cs:231)
+MVL.SceneBuilder:BuildAndCapture (string,string) (at Assets/Editor/SceneBuilder.cs:105)
+MVL.BatchEntry:Run () (at Assets/Editor/SceneBuilder.cs:38)
+
+(Filename: Assets/Editor/SceneBuilder.cs Line: 287)
+
+Importing 'GUID: 219f14a9288f44c49b286b8ae124c6ed - Path: Assets/MVL_Temp.unity' with importer (DefaultImporter)
+Imported 'GUID: 219f14a9288f44c49b286b8ae124c6ed' -> (Import Result ID: 'e0e859d8e5d82ba5e2d98fb372295f77') in 0.006 seconds [static dependencies only]. Details - ImportResultOutputID=6aabba4521f6ed98d5ebb2bcdf063753 DependenciesID=2e187d49c390e0f51e40e062b0a865f2 StaticDependenciesID=895b4c932042f4dd4cdcfd4ce2d4ead4 
+Asset Pipeline Refresh (id=8d8399d6880168144ae5f3cd3e20177b): Total: 0.062 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+DisplayProgressbar: Baking Adaptive Probe Volumes
+Created GICache directory at C:/Users/Astra/AppData/LocalLow/Unity/Caches/GiCache. Took: 0.009s, timestamps: [154.225 - 154.234]
+[00:02:28] Precompute started.
+[BakePipeline::Driver] Extracted OOTS snapshot with 14 instances, 11 geometries, 9 meshes, 10 materials, 1 lights, 0 cookies in 139.94ms.
+-- Listing OpenCL platforms(s) --
+ * OpenCL platform 0
+	PROFILE = FULL_PROFILE
+	VERSION = OpenCL 3.0 CUDA 13.2.73
+	NAME = NVIDIA CUDA
+	VENDOR = NVIDIA Corporation
+ * OpenCL platform 1
+	PROFILE = FULL_PROFILE
+	VERSION = OpenCL 3.0 
+	NAME = Intel(R) OpenCL Graphics
+	VENDOR = Intel(R) Corporation
+-- Listing OpenCL device(s) --
+ * OpenCL platform 0, device 0 
+	DEVICE_TYPE = 4
+	DEVICE_NAME = NVIDIA GeForce RTX 4060 Ti
+	DEVICE_VENDOR = NVIDIA Corporation
+	DEVICE_VERSION = OpenCL 3.0 CUDA
+	DRIVER_VERSION = 596.21
+	DEVICE_MAX_COMPUTE_UNITS = 34
+	DEVICE_MAX_CLOCK_FREQUENCY = 2535
+	CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE = 65536
+	CL_DEVICE_HOST_UNIFIED_MEMORY = false
+	CL_DEVICE_MAX_MEM_ALLOC_SIZE = 2146304000
+	DEVICE_GLOBAL_MEM_SIZE = 8585216000
+ * OpenCL platform 1, device 0 
+	DEVICE_TYPE = 4
+	DEVICE_NAME = Intel(R) UHD Graphics 770
+	DEVICE_VENDOR = Intel(R) Corporation
+	DEVICE_VERSION = OpenCL 3.0 NEO 
+	DRIVER_VERSION = 32.0.101.7082
+	DEVICE_MAX_COMPUTE_UNITS = 32
+	DEVICE_MAX_CLOCK_FREQUENCY = 1600
+	CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE = 4294959104
+	CL_DEVICE_HOST_UNIFIED_MEMORY = true
+	CL_DEVICE_MAX_MEM_ALLOC_SIZE = 4294959104
+	DEVICE_GLOBAL_MEM_SIZE = 15539830784
+	Adjusted DEVICE_GLOBAL_MEM_SIZE due to Intel specific driver reservation, new value is 19922859979.
+[BakePipeline::Driver] Transformed OOTS snapshot into LightBaker scene input (0000018443DF2A50) in 131.26ms. Size: 21.45MB.
+[00:02:28] Builtin Sky manager started.
+[BakePipeline::PreprocessStage] Background thread started.
+[00:02:28] Finished 1 Layout Systems job (0.01s execute, 0.00s integrate, 0.44s wallclock)
+[00:02:28] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.01s wallclock)
+[00:02:28] Finished 1 Tetrahedralize Probes job (0.00s execute, 0.00s integrate, 0.18s wallclock)
+[00:02:28] Precompute took 0.622883 seconds.
+Enlighten scene contents:   0 geometries.   0 instances.   0 systems.   0 probe groups.   0 cube maps. Scene is up-to-date.
+[PathTracer] Finished packing lightmaps in 0.201221 seconds.
+[00:02:28] Finished 1 Bake Ambient Probe job (0.00s execute, 0.00s integrate, 0.01s wallclock)
+[BakePipeline::BakeStage] Background thread started. Calling LightBaker.
+-- GPU Progressive lightmapper will use OpenCL device 'NVIDIA GeForce RTX 4060 Ti' from 'NVIDIA Corporation'--
+   use -OpenCL-PlatformAndDeviceIndices <platformIdx> <deviceIdx> as command line arguments if you want to select a specific adapter for OpenCL.
+Loading expansionAndGathering.cl with hash 5acfedf33ae60d530ba172d600de3f54 from cache.
+Loading prepareLightRays.cl with hash a5445a1a4464e303e4de88239155ef87 from cache.
+Loading processLightRays.cl with hash 1632738666994f31379e1be030bb6672 from cache.
+Loading intersectBvh.cl with hash 0a03c1555fc782a79a92c60269308519 from cache.
+Loading preparePathRays.cl with hash 5b5a91fd2b410ffc563b0bd94deb5dce from cache.
+Loading prepareEnvironmentRays.cl with hash 4967af8fa5049c83b03cb4fc93bc6dcd from cache.
+Loading processEnvironment.cl with hash 84ec24254ea534117ced23eb63d8d129 from cache.
+Loading processBounce.cl with hash 8a53f2805152b22e74fe2b9340c92d45 from cache.
+Loading culling.cl with hash 6c692014c2f1019ea9efc19ba9328f4f from cache.
+Loading fillBuffer.cl with hash 25f6280fd316e2c384a3010b1345adfc from cache.
+Loading expansionAndGathering.cl with hash 088d1ec12cf95c1e2693687e2c240765 from cache.
+Loading prepareLightRays.cl with hash 70ef82c9c363e58e40b17b24fdf5a366 from cache.
+Loading preparePathRays.cl with hash 14237e3c03a2c03116bc318b70d88955 from cache.
+Loading prepareEnvironmentRays.cl with hash 034f1ab0ffc71ad1ac2ed3e51496de12 from cache.
+Loading processEnvironment.cl with hash fc826d8fb3ef680f707090ca903a1e72 from cache.
+Loading processLightRays.cl with hash 5908050f0d48839d977e058b65402043 from cache.
+Loading processBounce.cl with hash a501562fd8f5ea9fa52922c4f2bd7d4d from cache.
+Loading compositeLightmaps.cl with hash e0fbf7a52a66ed5da0ca8eee0dac3dc5 from cache.
+Loading atrousFilter.cl with hash b4b4b64cb29fbca65202e916307f18b3 from cache.
+Loading atrousFilter.cl with hash a72b1e7703fab58e80e2e103e8483e59 from cache.
+Loading atrousFilter.cl with hash 3f84ea4f555acf7048fc5788aa07bba0 from cache.
+Loading convergence.cl with hash 1868782a17b88ba393385e598f52ec2d from cache.
+Loading customBake.cl with hash 31b22d2f9c1b614b73735d4975735534 from cache.
+Loading postProcessProbes.cl with hash 45dc5c734104a66df41d2611b35134e2 from cache.
+[PathTracer] Loaded OpenCL shaders in 0.021 secs -> Timestamps: [154.931 - 154.952].
+Progress timing - render light probes	0.00	0	104918573
+[BakePipeline::BakeStage] LightBaker bake took 942.74ms and succeeded.
+[BakePipeline::PostProcessStage] Started.
+[BakePipeline::Run] Completed succesfully.
+[00:02:30] LightingDataAsset started.
+Asset Pipeline Refresh (id=1fc5358d046140d4a81d9b17dc50806a): Total: 0.057 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=8b083076001372946ac6e84d29218832): Total: 0.055 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c371ea1f3aa2c0b4581640fc0081a9f2 - Path: Assets/MVL_Temp/Lightmap-0_comp_light.exr' with importer (TextureImporter)
+Imported 'GUID: c371ea1f3aa2c0b4581640fc0081a9f2' -> (Import Result ID: '18e89ffd564bbb9fce661995300df456') in 0.008 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=fb14614b65f6a5b162f58450b5c4015e DependenciesID=412b5e2c94de4c4beeaf3e3715a8f330 StaticDependenciesID=485f7c9d2a2fcc555bf4a6cd72295afc 
+Importing 'GUID: 962d6d283c219c844bade361c9b8aacc - Path: Assets/MVL_Temp/Lightmap-0_comp_dir.png' with importer (TextureImporter)
+Imported 'GUID: 962d6d283c219c844bade361c9b8aacc' -> (Import Result ID: '67f5acd30a95ddc4d6a100f518ff64be') in 0.002 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=039284b1fb09aa27cc80af1f9a75b06e DependenciesID=5476906e30ad59885e0c40f6a35243fe StaticDependenciesID=42ab7d0a486e75757d83ceb5370f858a 
+Asset Pipeline Refresh (id=3d77569279ea05e48b456391b339eb92): Total: 0.070 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: c371ea1f3aa2c0b4581640fc0081a9f2 - Path: Assets/MVL_Temp/Lightmap-0_comp_light.exr' with importer (TextureImporter)
+Imported 'GUID: c371ea1f3aa2c0b4581640fc0081a9f2' -> (Import Result ID: '6ee77f9a35146e0b6ac38980e1c3b16d') in 0.017 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=9bc4b722660b9a54337625b74f06a838 DependenciesID=3c02f28c3caa336194ae8e03a7156f54 StaticDependenciesID=a27feb42a7eb4c70e84da2c175bb4266 
+Importing 'GUID: 962d6d283c219c844bade361c9b8aacc - Path: Assets/MVL_Temp/Lightmap-0_comp_dir.png' with importer (TextureImporter)
+Imported 'GUID: 962d6d283c219c844bade361c9b8aacc' -> (Import Result ID: 'f5642653cabf1e4952ee8efea8afba9a') in 0.009 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=af0864286ae26a1ebfbd669c267e5c36 DependenciesID=41979e2469729eafb94f56e1bc7afe85 StaticDependenciesID=87b0de8051923d82b2fbc2ac5f7999f1 
+Asset Pipeline Refresh (id=3280dca2ecc61b949a5338b42b66a2e4): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=0a0d12995072acc4ab93c9ef8826b895): Total: 0.001 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Asset Pipeline Refresh (id=0538eb688ec21654d973c33409ab8ff4): Total: 0.046 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: cc435b47ab554f040b95b2a5b8ee101b - Path: Assets/MVL_Temp/ReflectionProbe-0.exr' with importer (TextureImporter)
+Imported 'GUID: cc435b47ab554f040b95b2a5b8ee101b' -> (Import Result ID: '5cf6161f0cdbf9601e84d1c0b2c1236d') in 0.004 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=9a4255c65d106138fad088d92114e7e3 DependenciesID=867c1ae9bc7b86319c10e1705d301009 StaticDependenciesID=2e51e3508d6cb282f336c6150d7a5684 
+Asset Pipeline Refresh (id=baebe026cf78ccf40b861fa54f50f6a0): Total: 0.060 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: cc435b47ab554f040b95b2a5b8ee101b - Path: Assets/MVL_Temp/ReflectionProbe-0.exr' with importer (TextureImporter)
+Starting cubemap convolution for '' (size 128)
+...took 0.030 seconds
+Imported 'GUID: cc435b47ab554f040b95b2a5b8ee101b' -> (Import Result ID: '3802edfdbef2dcb672a88411dc30eaed') in 0.092 seconds [static and dynamic dependencies]. Details - ImportResultOutputID=026b9482f63c2bec4ba785038e198abe DependenciesID=5e067fb005b61951b92b08db1d1abaff StaticDependenciesID=8b7e2ef81af7e1bb27563d0a79dc5ea9 
+Asset Pipeline Refresh (id=7aa5e25020e79f04cb9ec5319ef1ea61): Total: 0.158 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+> Collecting Enlighten data
+Importing 'GUID: ac260cc40684ede42908192fbd3fa9a0 - Path: Assets/MVL_Temp/LightingData.asset' with importer (NativeFormatImporter)
+Imported 'GUID: ac260cc40684ede42908192fbd3fa9a0' -> (Import Result ID: 'c9d74b56a0218890583b719cb1804b22') in 0.001 seconds [static dependencies only]. Details - ImportResultOutputID=e3f4781ea82e8d47651c87edbd9581a3 DependenciesID=d7a098e6dc151a25fbe43502636821de StaticDependenciesID=94a84ddf23c00ed17c715348fef3fa0a 
+Asset Pipeline Refresh (id=b640ca575bbb052489f0ccfc506e20ab): Total: 0.053 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Importing 'GUID: 219f14a9288f44c49b286b8ae124c6ed - Path: Assets/MVL_Temp.unity' with importer (DefaultImporter)
+Imported 'GUID: 219f14a9288f44c49b286b8ae124c6ed' -> (Import Result ID: '6c6592aa539ce78da001b247a9402a68') in 0.003 seconds [static dependencies only]. Details - ImportResultOutputID=6aabba4521f6ed98d5ebb2bcdf063753 DependenciesID=86abe5cd932fdfd2811b45affe6cfc22 StaticDependenciesID=2df5c2e71030bca086b3a4945852bc05 
+Asset Pipeline Refresh (id=47cc8f9d6677eca44b470b6b7850cda5): Total: 0.057 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[MVL] 完了: 8枚撮影, ベイク3秒
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+MVL.SceneBuilder:BuildAndCapture (string,string) (at Assets/Editor/SceneBuilder.cs:130)
+MVL.BatchEntry:Run () (at Assets/Editor/SceneBuilder.cs:38)
+
+(Filename: Assets/Editor/SceneBuilder.cs Line: 130)
+
+MonoPathRemapper: Attempts to remap: 25539; Successful remaps: 2
+[Licensing::Client] Successfully resolved entitlement details
+Serialized file version minimum: 22, current 23
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-Astra-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-Astra channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1787216244954,"processId":14012,"allocatedMemory":17660872,"memoryLabels":[{"Default":226533},{"Permanent":15516},{"NewDelete":66723},{"Thread":4205296},{"Manager":838193},{"VertexData":8},{"Geometry":816},{"Texture":24},{"Shader":850351},{"Material":24},{"GfxDevice":58328},{"Animation":952},{"Audio":1544},{"FreeType":8},{"FontEngine":736},{"Physics":2146},{"Physics2D":16},{"Serialization":952},{"Input":42840},{"JobScheduler":256},{"TextLib":280},{"Mono":48},{"MonoCode":64},{"ScriptingNativeRuntime":1582716},{"BaseObject":1621960},{"Resource":1208},{"Renderer":3080},{"Transform":4685},{"File":12908},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":14737},{"StaticString":3808},{"Utility":2674870},{"Curl":2579},{"PoolAlloc":2504},{"AI":80},{"TypeTree":17165},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7648},{"Director":8296},{"CloudService":7208},{"WebRequest":15365},{"VR":47114},{"SceneManager":608},{"Video":64},{"LazyScriptCache":32},{"Camera":17},{"Secure":2377},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":552},{"Hierarchy":1176},{"UIElements":72},{"CoreStats":13688},{"Identifiers":6768},{"Gui":128},{"EditorUtility":153214},{"VersionControl":8},{"Undo":931},{"AssetDatabase":4721334},{"AssetImporter":672},{"EditorGi":328},{"ProgressiveLightmapper":1736},{"UnityConnect":38905},{"Upm":1912},{"UpmDiagnostics":8},{"AssetCompliance":64},{"DrivenProperties":72},{"LocalIPC":211},{"ProfilerEditor":9746},{"CoreBusinessMetrics":3480},{"Windowing":456},{"Licensing":1232},{"AssetReference":32},{"IPCStream":32}]}

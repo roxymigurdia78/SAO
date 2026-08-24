@@ -1,0 +1,25 @@
+{
+  "B1": 3,
+  "B2": 3,
+  "B3": 4,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "desk_lampが机から離れて空中に浮いている"
+    },
+    {
+      "kind": "floating",
+      "description": "orb_01（天球儀状のオブジェクト）が天井・壁・台座いずれにも接しておらず空中に浮遊"
+    }
+  ],
+  "worst_object": {
+    "id": "orb_01",
+    "reason": "支持構造がなく空中に浮いており、物理的破綻が最も目立つ",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "全体として素材の種類と形状は伝わるが、浮遊オブジェクトと根拠の弱い照明で作り物感が残る。机の高さと座席の組み合わせにもややスケール不一致が見られる。",
+  "total": 16.0,
+  "mean": 3.2
+}
