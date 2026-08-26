@@ -17,6 +17,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
+# 旧いルート直下の検品表(実行時はscene/assets/0824版を使用)
+/assets_inventory.json
+
 
 # ==================================================
 # 機密情報

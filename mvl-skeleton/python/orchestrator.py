@@ -24,6 +24,7 @@ import repair
 MAX_ITERS = 10
 CONVERGE_EPS = 0.1
 CONVERGE_PATIENCE = 2
+MAX_CYCLE_RETRIES = 3
 
 
 @dataclass
@@ -48,6 +49,96 @@ class BestState:
             "iteration": self.iteration,
             "violation_count": self.violation_count,
         }
+
+
+def find_repeated_repairs(applied, seen):
+    repeated = []
+    for message in applied:
+        if message in seen:
+            repeated.append(message)
+    return repeated
+
+
+def scene_state_key(scene):
+    """見た目と機械検査に影響するシーン状態を比較用に正規化する。"""
+    objects = []
+    for obj in sorted(scene.get("objects", []), key=lambda value: value.get("id", "")):
+        dimensions = obj.get("target_dimensions") or {}
+        objects.append({
+            "id": obj.get("id"),
+            "asset": obj.get("asset"),
+            "position": [round(float(v), 4) for v in obj.get("position", [])],
+            "rotation_y_deg": round(float(obj.get("rotation_y_deg", 0)), 4),
+            "target_dimensions": {
+                key: round(float(dimensions[key]), 4)
+                for key in ("width", "height", "depth") if key in dimensions
+            },
+        })
+    return json.dumps(objects, ensure_ascii=False, sort_keys=True,
+                      separators=(",", ":"))
+
+
+def retry_after_cycle(prev_scene, cycle_scene, previous_records, violations,
+                      worst_object, assets_dir, visual_defects,
+                      seen_scene_states, asset_dimensions=None,
+                      max_retries=MAX_CYCLE_RETRIES):
+    """循環を作った修正を禁止し、直前の採用シーンから代替案を作る。"""
+    initial_repeated_from = seen_scene_states.get(scene_state_key(cycle_scene))
+    memory_scene = copy.deepcopy(cycle_scene)
+    records_to_ban = list(previous_records or [])
+    banned_repairs = []
+
+    for attempt in range(1, max_retries + 1):
+        banned_repairs.extend(
+            repair.add_failed_repairs(memory_scene, records_to_ban))
+        base_scene = repair.merge_repair_memory(
+            copy.deepcopy(prev_scene), memory_scene)
+        candidate, applied, records = repair.apply_repairs(
+            base_scene, violations, worst_object, assets_dir,
+            visual_defects=visual_defects,
+            asset_dimensions=asset_dimensions,
+            return_records=True)
+
+        if not applied:
+            return {
+                "scene": base_scene,
+                "applied": [],
+                "records": [],
+                "banned_repairs": banned_repairs,
+                "fallback_reason": "scene_state_cycle",
+                "repeated_from_iteration": initial_repeated_from,
+                "retry_count": attempt,
+                "stop_reason": "exhausted_after_cycle",
+            }
+
+        candidate_key = scene_state_key(candidate)
+        if candidate_key not in seen_scene_states:
+            return {
+                "scene": candidate,
+                "applied": applied,
+                "records": records,
+                "banned_repairs": banned_repairs,
+                "fallback_reason": "scene_state_cycle",
+                "repeated_from_iteration": initial_repeated_from,
+                "retry_count": attempt,
+                "stop_reason": None,
+            }
+
+        # 代替案自体が既知状態なら、その修正も禁止して再試行する。
+        memory_scene = candidate
+        records_to_ban = records
+
+    return {
+        "scene": repair.merge_repair_memory(
+            copy.deepcopy(prev_scene), memory_scene),
+        "applied": [],
+        "records": [],
+        "banned_repairs": banned_repairs,
+        "fallback_reason": "scene_state_cycle",
+        "repeated_from_iteration": initial_repeated_from,
+        "retry_count": max_retries,
+        "stop_reason": "cycle_retry_limit",
+    }
 
 
 def save_json(path, data):
@@ -91,8 +182,14 @@ def main():
     prev_captures = None    # 直前の採用シーンの画像(ペア比較用)
     prev_mean = None
     prev_violation_count = None
+    prev_violations = []
+    prev_worst = None
+    prev_visual_defects = []
     stall = 0
     prev_applied = []
+    prev_applied_records = []
+    seen_repairs = set()
+    seen_scene_states = {}
     best = BestState()
 
     for i in range(args.max_iters):
@@ -101,6 +198,40 @@ def main():
         it_dir.mkdir(parents=True, exist_ok=True)
         save_json(it_dir / "scene.json", scene)
         meta = {"iteration": i, "rolled_back": False, "applied_repairs": []}
+
+        # A→B→Aのような逆向きの修正は、修正文の完全一致では検出できない。
+        # 過去と同じ可視状態に戻ったら、原因のID+opを禁止して撮影前に代替案を作る。
+        state_key = scene_state_key(scene)
+        repeated_from = seen_scene_states.get(state_key)
+        if repeated_from is not None:
+            save_json(it_dir / "cycle_scene.json", scene)
+            result = retry_after_cycle(
+                prev_scene, scene, prev_applied_records, prev_violations,
+                prev_worst, assets_dir, prev_visual_defects,
+                seen_scene_states)
+            meta["fallback_reason"] = result["fallback_reason"]
+            meta["repeated_from_iteration"] = result["repeated_from_iteration"]
+            meta["banned_repairs"] = result["banned_repairs"]
+            meta["cycle_retry_count"] = result["retry_count"]
+            meta["fallback_repairs"] = result["applied"]
+            if result["stop_reason"]:
+                meta["stop_reason"] = result["stop_reason"]
+                scene = result["scene"]
+                save_json(it_dir / "scene.json", scene)
+                save_json(it_dir / "meta.json", meta)
+                print(f"[iter {i}] 循環後の代替修正なし → {result['stop_reason']}")
+                break
+
+            scene = result["scene"]
+            prev_applied = result["applied"]
+            prev_applied_records = result["records"]
+            state_key = scene_state_key(scene)
+            save_json(it_dir / "scene.json", scene)
+            print(f"[iter {i}] iter_{repeated_from:02d}と同じ状態を再検出"
+                  f" → 禁止後に修正を再生成")
+            for message in prev_applied:
+                print(f"    * {message}")
+        seen_scene_states[state_key] = i
 
         # --- 1) 構築+撮影(Unity) ---
         report = None
@@ -122,10 +253,12 @@ def main():
         # --- 2b) VLM採点 ---
         scores = None
         worst = None
+        visual_defects = []
         if captures and not args.skip_vlm:
             import gpt_scoring
             scores = gpt_scoring.score_scene([str(p) for p in captures], scene)
             worst = scores.get("worst_object")
+            visual_defects = scores.get("b3_defects", [])
             save_json(it_dir / "scores.json", scores)
             print(f"[iter {i}] VLM: 平均 {scores['mean']:.2f} " +
                   " ".join(f"{k}={scores.get(k)}" for k in ("B1", "B2", "B3", "B4", "B5")))
@@ -142,19 +275,13 @@ def main():
             if worsened:
                 print(f"[iter {i}] 悪化を検出 → 巻き戻し")
                 meta["rolled_back"] = True
-                # この反復で適用した修正は悪化を招いたので、以後試さない
-                failed = scene.setdefault("_failed_repairs", [])
-                for a in (prev_applied or []):
-                    if a not in failed:
-                        failed.append(a)
+                # この反復で適用した修正は悪化を招いたのでID+op単位で禁止する。
+                meta["banned_repairs"] = repair.add_failed_repairs(
+                    scene, prev_applied_records)
                 # 巻き戻す(今の状態は捨てるが、記録だけ引き継ぐため退避)
                 discarded = scene
-                scene = copy.deepcopy(prev_scene)
-                scene["_failed_repairs"] = list(discarded.get("_failed_repairs", []))
-                for o_new in scene["objects"]:
-                    o_old = next((o for o in discarded["objects"] if o["id"] == o_new["id"]), None)
-                    if o_old and "_tried_variants" in o_old:
-                        o_new["_tried_variants"] = list(o_old["_tried_variants"])
+                scene = repair.merge_repair_memory(
+                    copy.deepcopy(prev_scene), discarded)
                 save_json(it_dir / "meta.json", meta)
                 continue
 
@@ -162,6 +289,9 @@ def main():
         prev_scene = copy.deepcopy(scene)
         prev_captures = captures or prev_captures
         prev_violation_count = len(violations)
+        prev_violations = copy.deepcopy(violations)
+        prev_worst = copy.deepcopy(worst)
+        prev_visual_defects = copy.deepcopy(visual_defects)
 
         # 機械違反数が過去最少なら、評価済みの現在シーンをラチェット保持する。
         # 同数では更新せず、先に到達した安定状態を残す。
@@ -190,9 +320,19 @@ def main():
         prev_mean = mean if mean is not None else prev_mean
 
         # --- 5) 修正 ---
-        new_scene, applied = repair.apply_repairs(scene, violations, worst, assets_dir)
+        new_scene, applied, applied_records = repair.apply_repairs(
+            scene, violations, worst, assets_dir,
+            visual_defects=visual_defects, return_records=True)
+        repeated = find_repeated_repairs(applied, seen_repairs)
         meta["applied_repairs"] = applied
+        meta["repeated_repairs"] = repeated
+        if repeated:
+            meta["proposed_repairs"] = applied
+            # 修正文の重複だけでは停止せず、次反復のシーン循環判定に委ねる。
+
+        seen_repairs.update(applied)
         prev_applied = applied
+        prev_applied_records = applied_records
         save_json(it_dir / "meta.json", meta)
         if not applied:
             print(f"[iter {i}] 適用可能な修正なし → 停止")
