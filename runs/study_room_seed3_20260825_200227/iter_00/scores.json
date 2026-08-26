@@ -1,0 +1,21 @@
+{
+  "B1": 3,
+  "B2": 5,
+  "B3": 4,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "A large blue rectangular object (possibly a chest or ottoman) is floating near the wall."
+    }
+  ],
+  "worst_object": {
+    "id": "bookshelf_01",
+    "reason": "Texture resolution appears very low with pixelated book spines that don't align well, and it looks like a placeholder asset compared to other models.",
+    "suggested_repair": "retexture"
+  },
+  "comment": "照明や影の挙動は物理的に自然ですが、一部の家具が床から浮いているなどの配置不備が見られます。特に書棚と青い箱型のオブジェクトの品質低下が目立っており、これらのテクスチャを改善することでより説得力のある空間になるでしょう。",
+  "total": 18.0,
+  "mean": 3.6
+}

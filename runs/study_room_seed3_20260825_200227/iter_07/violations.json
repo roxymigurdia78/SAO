@@ -1,0 +1,15 @@
+[
+  {
+    "type": "scale",
+    "object_id": "laptop_01",
+    "detail": "高さ 0.24m がクラス許容 [0.03, 0.15] を逸脱(実測)",
+    "measured_height": 0.2445981502532959,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "walkability",
+    "detail": "自由床面の到達率 84%(孤立領域あり)",
+    "reach_ratio": 0.8405405405405405,
+    "suggested_repair": "push_apart"
+  }
+]

@@ -1,0 +1,60 @@
+[
+  {
+    "type": "penetration",
+    "object_ids": [
+      "backpack_01",
+      "plant_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.099, 0.55, 0.564]",
+    "overlap": [
+      0.09896385669708252,
+      0.5502573847770691,
+      0.5637059211730957
+    ],
+    "aabbs": {
+      "backpack_01": [
+        [
+          0.9688647985458374,
+          1.0728836059570312e-05,
+          2.667919635772705
+        ],
+        [
+          1.5316396951675415,
+          0.5502681136131287,
+          3.231625556945801
+        ]
+      ],
+      "plant_01": [
+        [
+          0.03133636713027954,
+          -0.00010013580322265625,
+          2.510653257369995
+        ],
+        [
+          1.06782865524292,
+          1.0501304864883423,
+          3.3897669315338135
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "bookshelf_01",
+    "detail": "必須オブジェクト bookshelf_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "floor_lamp_01",
+    "detail": "必須オブジェクト floor_lamp_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "trash_bin_01",
+    "detail": "必須オブジェクト trash_bin_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  }
+]

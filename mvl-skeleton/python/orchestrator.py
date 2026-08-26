@@ -14,6 +14,7 @@ import argparse
 import copy
 import json
 import shutil
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
@@ -23,6 +24,30 @@ import repair
 MAX_ITERS = 10
 CONVERGE_EPS = 0.1
 CONVERGE_PATIENCE = 2
+
+
+@dataclass
+class BestState:
+    """機械違反数が最少の、評価・採用済みシーンを保持する。"""
+    scene: object = None
+    iteration: object = None
+    violation_count: object = None
+
+    def consider(self, scene, iteration, violation_count):
+        """厳密に改善した場合だけdeep copyで更新する。"""
+        if self.violation_count is not None and violation_count >= self.violation_count:
+            return False
+        self.scene = copy.deepcopy(scene)
+        self.iteration = iteration
+        self.violation_count = violation_count
+        return True
+
+    def summary(self):
+        return {
+            "selection_rule": "minimum_machine_violation_count",
+            "iteration": self.iteration,
+            "violation_count": self.violation_count,
+        }
 
 
 def save_json(path, data):
@@ -68,6 +93,7 @@ def main():
     prev_violation_count = None
     stall = 0
     prev_applied = []
+    best = BestState()
 
     for i in range(args.max_iters):
         it_dir = run_dir / f"iter_{i:02d}"
@@ -137,6 +163,15 @@ def main():
         prev_captures = captures or prev_captures
         prev_violation_count = len(violations)
 
+        # 機械違反数が過去最少なら、評価済みの現在シーンをラチェット保持する。
+        # 同数では更新せず、先に到達した安定状態を残す。
+        meta["is_best"] = best.consider(scene, i, len(violations))
+        meta["best_violation_count"] = best.violation_count
+        if meta["is_best"]:
+            save_json(run_dir / "best_scene.json", best.scene)
+            save_json(run_dir / "best_summary.json", best.summary())
+            print(f"[iter {i}] ベスト更新: 機械違反 {best.violation_count} 件")
+
         # --- 4) 停止判定 ---
         mean = scores["mean"] if scores else None
         if len(violations) == 0:
@@ -178,7 +213,15 @@ def main():
     except Exception as e:
         print(f"[MVL] グラフ生成失敗(後で plotting.py 単体で再実行可): {e}")
 
-    save_json(run_dir / "final_scene.json", scene)
+    # 最後に適用しただけの未評価シーンではなく、評価・採用済みの最少違反状態を返す。
+    final_scene = best.scene if best.scene is not None else scene
+    save_json(run_dir / "final_scene.json", final_scene)
+    if best.scene is not None:
+        save_json(run_dir / "best_summary.json", best.summary())
+        print(f"[MVL] ベスト採用: iter_{best.iteration:02d} / "
+              f"機械違反 {best.violation_count} 件")
+    else:
+        print("[MVL] 警告: 評価済みシーンなし。入力シーンを最終出力に使用")
     print(f"[MVL] 完了。最終シーン: {run_dir / 'final_scene.json'}")
 
 

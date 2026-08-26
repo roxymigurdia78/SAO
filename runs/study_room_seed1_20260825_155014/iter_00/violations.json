@@ -1,0 +1,161 @@
+[
+  {
+    "type": "penetration",
+    "object_ids": [
+      "floor_lamp_01",
+      "plant_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.548, 1.601, 0.536]",
+    "overlap": [
+      0.5477628707885742,
+      1.6006298065185547,
+      0.5359878540039062
+    ],
+    "aabbs": {
+      "floor_lamp_01": [
+        [
+          4.026069164276123,
+          -0.0006616711616516113,
+          0.37711966037750244
+        ],
+        [
+          4.573832035064697,
+          1.6004104614257812,
+          0.9236092567443848
+        ]
+      ],
+      "plant_01": [
+        [
+          2.41387939453125,
+          -0.0002193450927734375,
+          0.3876214027404785
+        ],
+        [
+          4.684290885925293,
+          2.300285816192627,
+          2.313298225402832
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "penetration",
+    "object_ids": [
+      "cabinet_01",
+      "backpack_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.497, 0.55, 0.033]",
+    "overlap": [
+      0.49665355682373047,
+      0.5502573847770691,
+      0.03274548053741455
+    ],
+    "aabbs": {
+      "cabinet_01": [
+        [
+          0.33518385887145996,
+          -0.00020384788513183594,
+          0.09931689500808716
+        ],
+        [
+          0.86551833152771,
+          0.900004506111145,
+          0.800665020942688
+        ]
+      ],
+      "backpack_01": [
+        [
+          0.3688647747039795,
+          1.0728836059570312e-05,
+          0.7679195404052734
+        ],
+        [
+          0.9316396713256836,
+          0.5502681136131287,
+          1.3316254615783691
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "floating",
+    "object_id": "mug_01",
+    "detail": "desk_01 の天面から +0.370m (接地オフセット未確定) (オフセット未確定)",
+    "gap": 0.36992722749710083,
+    "snap_to": 0.729999840259552,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "floor_lamp_01",
+    "detail": "AABB [4.03, -0.0, 0.38]〜[4.57, 1.6, 0.92] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      4.026069164276123,
+      -0.0006616711616516113,
+      0.37711966037750244
+    ],
+    "aabb_max": [
+      4.573832035064697,
+      1.6004104614257812,
+      0.9236092567443848
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "plant_01",
+    "detail": "AABB [2.41, -0.0, 0.39]〜[4.68, 2.3, 2.31] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      2.41387939453125,
+      -0.0002193450927734375,
+      0.3876214027404785
+    ],
+    "aabb_max": [
+      4.684290885925293,
+      2.300285816192627,
+      2.313298225402832
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "plant_01",
+    "detail": "高さ 2.30m がクラス許容 [0.3, 1.8] を逸脱(実測)",
+    "measured_height": 2.3005051612854004,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "scale",
+    "object_id": "laptop_01",
+    "detail": "高さ 0.24m がクラス許容 [0.03, 0.15] を逸脱(実測)",
+    "measured_height": 0.2445981502532959,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "walkability",
+    "detail": "自由床面の到達率 62%(孤立領域あり)",
+    "reach_ratio": 0.6178861788617886,
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "bookshelf_01",
+    "detail": "必須オブジェクト bookshelf_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "floor_lamp_01",
+    "detail": "必須オブジェクト floor_lamp_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "trash_bin_01",
+    "detail": "必須オブジェクト trash_bin_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  }
+]

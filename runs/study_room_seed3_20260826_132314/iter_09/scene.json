@@ -1,0 +1,727 @@
+{
+  "schema_version": "1.0",
+  "scene_id": "study_room_seed3",
+  "spec": {
+    "space_type": "study_room",
+    "theme": "自然光の入る現代的な勉強部屋。木目のデスクと整理された机上（机を部屋の中央に島のように置いた配置）",
+    "required_objects": [
+      {
+        "class": "desk",
+        "min_count": 1
+      },
+      {
+        "class": "chair",
+        "min_count": 1
+      },
+      {
+        "class": "bookshelf",
+        "min_count": 1
+      },
+      {
+        "class": "floor_lamp",
+        "min_count": 1
+      },
+      {
+        "class": "cabinet",
+        "min_count": 1
+      },
+      {
+        "class": "trash_bin",
+        "min_count": 1
+      },
+      {
+        "class": "backpack",
+        "min_count": 1
+      },
+      {
+        "class": "plant",
+        "min_count": 1
+      },
+      {
+        "class": "rug",
+        "min_count": 1
+      },
+      {
+        "class": "monitor",
+        "min_count": 1
+      },
+      {
+        "class": "laptop",
+        "min_count": 1
+      },
+      {
+        "class": "lamp",
+        "min_count": 1
+      },
+      {
+        "class": "mug",
+        "min_count": 1
+      },
+      {
+        "class": "pen_holder",
+        "min_count": 1
+      },
+      {
+        "class": "books",
+        "min_count": 1
+      },
+      {
+        "class": "printer",
+        "min_count": 1
+      }
+    ],
+    "mood_keywords": [
+      "quiet",
+      "wooden",
+      "bright",
+      "tidy"
+    ]
+  },
+  "room": {
+    "bounds": {
+      "width": 4.0,
+      "depth": 3.5,
+      "height": 2.5
+    },
+    "origin_note": "部屋の床の左奥隅が(0,0,0)。x=幅方向, z=奥行方向, y=高さ。単位はメートル",
+    "floor_y": 0.0,
+    "entrance": {
+      "position": [
+        2.0,
+        0.2
+      ],
+      "facing_deg": 0
+    },
+    "wall_material": "warm off-white plaster",
+    "floor_material": "oak wood planks",
+    "lighting": {
+      "sun": {
+        "rotation_euler_deg": [
+          35,
+          -60,
+          0
+        ],
+        "intensity": 1.3,
+        "color_hex": "FFE8C8",
+        "mode": "Mixed"
+      },
+      "ambient_intensity": 0.9
+    }
+  },
+  "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+  "objects": [
+    {
+      "id": "desk_01",
+      "class": "desk",
+      "asset": "desk_v1.glb",
+      "asset_variants": [
+        "desk_v1.glb",
+        "desk_v2.glb",
+        "desk_v3.glb"
+      ],
+      "position": [
+        2.1,
+        0,
+        1.9
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 1.4,
+        "height": 0.73,
+        "depth": 0.7
+      },
+      "class_height_range": [
+        0.65,
+        0.85
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern wooden study desk, contemporary design",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "_tried_variants": [
+        "desk_v1.glb",
+        "desk_v2.glb"
+      ]
+    },
+    {
+      "id": "chair_01",
+      "class": "chair",
+      "asset": "chair_v1.glb",
+      "asset_variants": [
+        "chair_v1.glb",
+        "chair_v2.glb",
+        "chair_v3.glb"
+      ],
+      "position": [
+        2.1,
+        0,
+        1.1
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.55,
+        "height": 0.9,
+        "depth": 0.55
+      },
+      "class_height_range": [
+        0.75,
+        1.1
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern office chair",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "bookshelf_01",
+      "class": "bookshelf",
+      "asset": "bookshelf_v1.glb",
+      "asset_variants": [
+        "bookshelf_v1.glb",
+        "bookshelf_v2.glb",
+        "bookshelf_v3.glb"
+      ],
+      "position": [
+        2.75,
+        0,
+        2.95
+      ],
+      "rotation_y_deg": 90,
+      "target_dimensions": {
+        "width": 0.9,
+        "height": 1.8,
+        "depth": 0.35
+      },
+      "class_height_range": [
+        1.5,
+        2.2
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern tall wooden bookshelf filled with books",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "floor_lamp_01",
+      "class": "floor_lamp",
+      "asset": "floor_lamp_v1.glb",
+      "asset_variants": [
+        "floor_lamp_v1.glb",
+        "floor_lamp_v2.glb",
+        "floor_lamp_v3.glb"
+      ],
+      "position": [
+        3.45,
+        0,
+        2.95
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.35,
+        "height": 1.6,
+        "depth": 0.35
+      },
+      "class_height_range": [
+        1.2,
+        2.0
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern floor lamp with a fabric shade",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "cabinet_01",
+      "class": "cabinet",
+      "asset": "cabinet_v1.glb",
+      "asset_variants": [
+        "cabinet_v1.glb",
+        "cabinet_v2.glb",
+        "cabinet_v3.glb"
+      ],
+      "position": [
+        3.55,
+        0,
+        1.2
+      ],
+      "rotation_y_deg": 270,
+      "target_dimensions": {
+        "width": 0.8,
+        "height": 0.9,
+        "depth": 0.4
+      },
+      "class_height_range": [
+        0.6,
+        1.2
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern small three-drawer storage cabinet, light wood",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "trash_bin_01",
+      "class": "trash_bin",
+      "asset": "trash_bin_v1.glb",
+      "asset_variants": [
+        "trash_bin_v1.glb",
+        "trash_bin_v2.glb",
+        "trash_bin_v3.glb"
+      ],
+      "position": [
+        0.55,
+        0,
+        2.25
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.28,
+        "height": 0.35,
+        "depth": 0.28
+      },
+      "class_height_range": [
+        0.2,
+        0.5
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern small waste basket",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "backpack_01",
+      "class": "backpack",
+      "asset": "backpack_v2.glb",
+      "asset_variants": [
+        "backpack_v1.glb",
+        "backpack_v2.glb",
+        "backpack_v3.glb"
+      ],
+      "position": [
+        1.3989638566970826,
+        0,
+        2.95
+      ],
+      "rotation_y_deg": 25,
+      "target_dimensions": {
+        "width": 0.4,
+        "height": 0.55,
+        "depth": 0.25
+      },
+      "class_height_range": [
+        0.35,
+        0.8
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern school backpack, standing upright",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "_tried_variants": [
+        "backpack_v1.glb",
+        "backpack_v2.glb"
+      ]
+    },
+    {
+      "id": "plant_01",
+      "class": "plant",
+      "asset": "plant_v1.glb",
+      "asset_variants": [
+        "plant_v1.glb",
+        "plant_v2.glb",
+        "plant_v3.glb"
+      ],
+      "position": [
+        0.55,
+        0,
+        2.95
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.4,
+        "height": 1.05,
+        "depth": 0.4
+      },
+      "class_height_range": [
+        0.3,
+        1.8
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "potted plant in a modern ceramic pot",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "rug_01",
+      "class": "rug",
+      "asset": "rug_v1.glb",
+      "asset_variants": [
+        "rug_v1.glb",
+        "rug_v2.glb",
+        "rug_v3.glb"
+      ],
+      "position": [
+        0.8200000000000001,
+        0,
+        2.25
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 1.6,
+        "height": 0.02,
+        "depth": 1.1
+      },
+      "class_height_range": [
+        0.005,
+        0.05
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern woven area rug",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "walkable_over": true
+    },
+    {
+      "id": "monitor_01",
+      "class": "monitor",
+      "asset": "monitor_v1.glb",
+      "asset_variants": [
+        "monitor_v1.glb",
+        "monitor_v2.glb",
+        "monitor_v3.glb"
+      ],
+      "position": [
+        1.95,
+        0.73,
+        2.1
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.55,
+        "height": 0.4,
+        "depth": 0.18
+      },
+      "class_height_range": [
+        0.25,
+        0.6
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern computer monitor on a stand",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "laptop_01",
+      "class": "laptop",
+      "asset": "laptop_v1.glb",
+      "asset_variants": [
+        "laptop_v1.glb",
+        "laptop_v2.glb",
+        "laptop_v3.glb"
+      ],
+      "position": [
+        1.7,
+        0.73,
+        1.75
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.35,
+        "height": 0.24,
+        "depth": 0.25
+      },
+      "class_height_range": [
+        0.05,
+        0.35
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern open laptop computer, contemporary design",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "lamp_01",
+      "class": "lamp",
+      "asset": "lamp_v1.glb",
+      "asset_variants": [
+        "lamp_v1.glb",
+        "lamp_v2.glb",
+        "lamp_v3.glb"
+      ],
+      "position": [
+        2.62,
+        0.73,
+        2.1
+      ],
+      "rotation_y_deg": 150,
+      "target_dimensions": {
+        "width": 0.2,
+        "height": 0.45,
+        "depth": 0.2
+      },
+      "class_height_range": [
+        0.3,
+        0.6
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern desk lamp with a metal shade",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "mug_01",
+      "class": "mug",
+      "asset": "mug_v1.glb",
+      "asset_variants": [
+        "mug_v1.glb",
+        "mug_v2.glb",
+        "mug_v3.glb"
+      ],
+      "position": [
+        2.55,
+        0.73,
+        1.72
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.1,
+        "height": 0.12,
+        "depth": 0.1
+      },
+      "class_height_range": [
+        0.08,
+        0.2
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern ceramic coffee mug",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "pen_holder_01",
+      "class": "pen_holder",
+      "asset": "pen_holder_v1.glb",
+      "asset_variants": [
+        "pen_holder_v1.glb",
+        "pen_holder_v2.glb",
+        "pen_holder_v3.glb"
+      ],
+      "position": [
+        2.366312170028687,
+        0.73,
+        2.08
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.12,
+        "height": 0.18,
+        "depth": 0.12
+      },
+      "class_height_range": [
+        0.1,
+        0.3
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern desk pen holder filled with pens and pencils",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "books_01",
+      "class": "books",
+      "asset": "books_v1.glb",
+      "asset_variants": [
+        "books_v1.glb",
+        "books_v2.glb",
+        "books_v3.glb"
+      ],
+      "position": [
+        2.2,
+        0.729999840259552,
+        1.75
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.3,
+        "height": 0.18,
+        "depth": 0.25
+      },
+      "class_height_range": [
+        0.08,
+        0.35
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "stack of hardcover books",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "desk_01"
+    },
+    {
+      "id": "printer_01",
+      "class": "printer",
+      "asset": "printer_v1.glb",
+      "asset_variants": [
+        "printer_v1.glb",
+        "printer_v2.glb",
+        "printer_v3.glb"
+      ],
+      "position": [
+        3.55,
+        0.9,
+        1.2
+      ],
+      "rotation_y_deg": 270,
+      "target_dimensions": {
+        "width": 0.35,
+        "height": 0.25,
+        "depth": 0.3
+      },
+      "class_height_range": [
+        0.15,
+        0.4
+      ],
+      "must_touch_floor": false,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "modern compact inkjet printer",
+        "generated_at": "2026-08-24"
+      },
+      "quality_score": null,
+      "rests_on": "cabinet_01"
+    }
+  ],
+  "walkable": {
+    "agent_radius": 0.3,
+    "min_corridor_width": 0.6,
+    "grid_cell": 0.1
+  },
+  "views": "auto",
+  "history": [
+    {
+      "iteration": 0,
+      "repairs": [
+        "trash_bin_01: z 2.15→2.38(貫通解消)",
+        "pen_holder_01: x 2.45→2.37(貫通解消)",
+        "books_01: y 0.980→0.730(desk_01の天面へ)",
+        "floor_lamp_01: [3.3, 0, 3.2]→[3.3, 0, 2.98](部屋内へ)",
+        "plant_01: [0.4, 0, 3.15]→[0.53, 0, 3.05](部屋内へ)",
+        "floor_lamp_01: 高さ 3.00→1.60(再スケール・高さのみ)",
+        "backpack_01: [1.2,0.6]→[1.2,3.0](動線確保のため移動)",
+        "bookshelf_01: [0.3,1.8]→[1.9,3.0](動線確保のため移動)",
+        "floor_lamp_01: [3.3,3.0]→[3.5,3.0](動線確保のため移動)",
+        "trash_bin_01: [2.6,2.4]→[2.8,3.0](動線確保のため移動)",
+        "plant_01: [0.5,3.1]→[0.6,3.0](動線確保のため移動)",
+        "rug_01: [1.6,2.9]→[0.8,2.2](動線確保のため移動)"
+      ],
+      "violations": 12,
+      "vlm_mean": 3.8
+    },
+    {
+      "iteration": 1,
+      "repairs": [
+        "backpack_01: x 1.25→1.40(貫通解消)",
+        "bookshelf_01: [1.9,3.0]→[2.1,3.0](動線確保のため移動)",
+        "floor_lamp_01: [3.5,3.0]→[3.5,3.0](動線確保のため移動)",
+        "trash_bin_01: [2.8,3.0]→[0.6,2.2](動線確保のため移動)"
+      ],
+      "violations": 4,
+      "vlm_mean": 3.6
+    },
+    {
+      "iteration": 2,
+      "repairs": [
+        "bookshelf_01: [2.1,3.0]→[2.8,3.0](動線確保のため移動)",
+        "floor_lamp_01: [3.5,3.0]→[3.5,3.0](動線確保のため移動)"
+      ],
+      "violations": 2,
+      "vlm_mean": 3.6
+    },
+    {
+      "iteration": 3,
+      "repairs": [
+        "bookshelf_01: [2.8,3.0]→[2.8,3.0](動線確保のため移動)",
+        "floor_lamp_01: [3.5,3.0]→[3.5,3.0](動線確保のため移動)"
+      ],
+      "violations": 2,
+      "vlm_mean": 3.8
+    },
+    {
+      "iteration": 8,
+      "repairs": [
+        "backpack_01: backpack_v1.glb→backpack_v2.glb(バリアント差し替え)"
+      ],
+      "violations": 2,
+      "vlm_mean": 3.8
+    }
+  ],
+  "_failed_repairs": [
+    "bookshelf_01: [2.8,3.0]→[2.8,3.0](動線確保のため移動)",
+    "floor_lamp_01: [3.5,3.0]→[3.5,3.0](動線確保のため移動)",
+    "desk_01: desk_v1.glb→desk_v2.glb(バリアント差し替え) ※VLM要求=retexture(未実装のため代替)"
+  ]
+}

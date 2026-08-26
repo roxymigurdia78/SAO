@@ -1,0 +1,25 @@
+{
+  "B1": 3,
+  "B2": 4,
+  "B3": 2,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "orientation",
+      "description": "椅子が机から離れ、背後に浮遊しており正しい姿勢ではない。"
+    },
+    {
+      "kind": "penetration",
+      "description": "中央のデスク上のオブジェクト（本やPCなど）が互いに貫通しているか、距離感が不自然である。"
+    }
+  ],
+  "worst_object": {
+    "id": "bookshelf_01",
+    "reason": "側面図と正面図で形状および配置に矛盾があり、家具として実体を成していない。また机との近接も異常である。",
+    "suggested_repair": "retexture|swap_variant"
+  },
+  "comment": "本棚のモデル化や機能的な配置が破綻しており空間構成に影響している。照明は自然だが、家具と椅子の物理的な不整合がある。",
+  "total": 15.0,
+  "mean": 3.0
+}

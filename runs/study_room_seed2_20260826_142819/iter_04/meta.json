@@ -1,0 +1,8 @@
+{
+  "iteration": 4,
+  "rolled_back": false,
+  "applied_repairs": [
+    "plant_01: x 0.40→0.22(貫通解消)"
+  ],
+  "pairwise_winner": "tie"
+}

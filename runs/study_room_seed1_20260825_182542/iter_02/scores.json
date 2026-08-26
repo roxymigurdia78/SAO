@@ -1,0 +1,21 @@
+{
+  "B1": 5,
+  "B2": 3,
+  "B3": 4,
+  "B4": 3,
+  "B5": 4,
+  "b3_defects": [
+    {
+      "kind": "orientation",
+      "description": "椅子の向きが不自然で机と対面していない"
+    }
+  ],
+  "worst_object": {
+    "id": "printer_01(printer)",
+    "reason": "浮遊しているように見える。",
+    "suggested_repair": "relight"
+  },
+  "comment": "家具の配置が整然としており、全体的な空間としてのスケールや構成は自然です。ただし、照明処理に不透明感があり影の計算が甘いことが品質を下げる要因となっています。",
+  "total": 19.0,
+  "mean": 3.8
+}

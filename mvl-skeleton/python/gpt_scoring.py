@@ -7,7 +7,7 @@ import base64
 import json
 import os
 import re
-
+from pathlib import Path   
 _envp = Path(__file__).parent / ".env"
 if _envp.exists():
     for _l in _envp.read_text(encoding="utf-8-sig").splitlines():
@@ -26,8 +26,8 @@ PROMPT_DIR = Path(__file__).parent / "prompts"
 _client = OpenAI(
             api_key=os.environ.get("LLM_KEY") or os.environ.get("OPENAI_API_KEY"),
             base_url=os.environ.get("LLM_BASE_URL") or None,
+            default_headers={"User-Agent": "curl/8.5.0"},
         )
-
 
 def client():
     global _client
@@ -58,6 +58,8 @@ def _ask(prompt_text, image_paths, max_retries=3):
             resp = client().chat.completions.create(
                 model=MODEL,
                 messages=[{"role": "user", "content": parts}],
+                reasoning_effort="none",
+                max_tokens=1500,
             )
             u = resp.usage
             print(f"[usage] in={u.prompt_tokens} out={u.completion_tokens}")

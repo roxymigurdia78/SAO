@@ -1,0 +1,8 @@
+{
+  "iteration": 1,
+  "rolled_back": false,
+  "applied_repairs": [
+    "printer_01: x 2.25→2.11(貫通解消)",
+    "laptop_01: 高さ 0.09→0.09(再スケール・高さのみ)"
+  ]
+}
