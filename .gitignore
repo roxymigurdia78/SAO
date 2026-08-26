@@ -3,7 +3,7 @@ mvl-skeleton/runs/
 mvl-skeleton/images/*.png
 *.env
 *api_key*
-
+*.png
 # --- GLB(重い。gitに入れない: 70MBのchair_v1で即死する) ---
 *.glb
 
