@@ -132,6 +132,14 @@ def _usage_text(usage):
     )
 
 
+def _print_usage(usage):
+    """従来のログ形式を保ち、usage非対応サーバーでも落とさない。"""
+    prompt_tokens = getattr(usage, "prompt_tokens", None) if usage else None
+    completion_tokens = (
+        getattr(usage, "completion_tokens", None) if usage else None)
+    print(f"[usage] in={prompt_tokens} out={completion_tokens}")
+
+
 def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
     parts = [{"type": "text", "text": prompt_text}] + [_img_part(p) for p in image_paths]
     payload_mb = sum(
@@ -144,13 +152,17 @@ def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
     for attempt in range(max_retries):
         started_at = time.monotonic()
         try:
-            resp = client().chat.completions.create(
+            request = dict(
                 model=MODEL,
                 messages=[{"role": "user", "content": parts}],
                 reasoning_effort="none",
                 max_tokens=MAX_TOKENS,
                 stream=STREAM,
             )
+            # OpenAI互換APIはこれを指定した場合、最終チャンクにusageを返す。
+            if STREAM:
+                request["stream_options"] = {"include_usage": True}
+            resp = client().chat.completions.create(**request)
             if STREAM:
                 text, usage, first_token = _stream_text(resp, started_at)
             else:
@@ -160,6 +172,7 @@ def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
             total = time.monotonic() - started_at
             ttft = f"{first_token:.1f}s" if first_token is not None else "n/a"
             print(f"[vlm] ttft={ttft} total={total:.1f}s {_usage_text(usage)}")
+            _print_usage(usage)
             return _extract_json(text)
         except (ValueError, json.JSONDecodeError) as e:
             # JSON崩れは一時的な生成失敗として再試行する。

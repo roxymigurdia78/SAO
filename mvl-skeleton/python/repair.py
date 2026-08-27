@@ -280,21 +280,76 @@ def has_penetration(scene, object_id):
     return False
 
 
-def _validated_relocation_position(scene, target, x, z):
-    """候補位置を一時適用し、無変化・貫通なしなら補正後の(x, z)を返す。"""
-    old = list(target["position"])
+def _target_is_reachable(scene, object_id):
+    """現在位置の対象へ入口から近づけるかを、機械検査と同じ基準で返す。"""
+    violations = mc.check_walkability(scene, mc.collect_aabbs(scene))
+    for violation in violations:
+        if violation.get("object_id") == object_id:
+            return False
+        # 入口自体が塞がれた場合、個別オブジェクト判定まで進まない。
+        if "入口周辺が完全に塞がっている" in violation.get("detail", ""):
+            return False
+    return True
+
+
+def _support_group(scene, root_id):
+    """rootと、その上に直接・間接に載る全オブジェクトを返す。"""
+    group_ids = {root_id}
+    changed = True
+    while changed:
+        changed = False
+        for obj in scene.get("objects", []):
+            if obj.get("rests_on") in group_ids and obj.get("id") not in group_ids:
+                group_ids.add(obj["id"])
+                changed = True
+    return [obj for obj in scene.get("objects", [])
+            if obj.get("id") in group_ids]
+
+
+def _move_support_group(scene, target, x, z):
+    """支持物を(x,z)へ置き、その上の物も同じ水平差分だけ動かす。"""
+    group = _support_group(scene, target["id"])
+    originals = {obj["id"]: list(obj["position"]) for obj in group}
+    root_old = originals[target["id"]]
+    target["position"][0] = round(x, 2)
+    target["position"][2] = round(z, 2)
+    _clamp_obj(scene, target)
+    dx = target["position"][0] - root_old[0]
+    dz = target["position"][2] - root_old[2]
+    for obj in group:
+        if obj is target:
+            continue
+        old = originals[obj["id"]]
+        obj["position"][0] = round(old[0] + dx, 2)
+        obj["position"][2] = round(old[2] + dz, 2)
+    return group, originals
+
+
+def _restore_positions(group, originals):
+    for obj in group:
+        obj["position"][:] = originals[obj["id"]]
+
+
+def _validated_relocation_position(scene, target, x, z,
+                                   require_reachable=False):
+    """候補を一時適用し、無変化・貫通・必要なら到達性を検証する。"""
+    group = []
+    originals = {}
     try:
-        target["position"][0] = round(x, 2)
-        target["position"][2] = round(z, 2)
-        _clamp_obj(scene, target)
+        group, originals = _move_support_group(scene, target, x, z)
+        old = originals[target["id"]]
         candidate = (target["position"][0], target["position"][2])
         unchanged = (abs(old[0] - candidate[0]) < 1e-4
                      and abs(old[2] - candidate[1]) < 1e-4)
-        if unchanged or has_penetration(scene, target["id"]):
+        if unchanged or any(has_penetration(scene, obj["id"])
+                            for obj in group):
+            return None
+        if require_reachable and not _target_is_reachable(
+                scene, target["id"]):
             return None
         return candidate
     finally:
-        target["position"][:] = old
+        _restore_positions(group, originals)
 
 
 # TODO 9月: 巻き戻し時の_failed_repairs照合がrelocateのmsg形式で効いているか検証
@@ -319,6 +374,9 @@ def relocate_blocker(scene, v, excluded_ids=None):
                                             + (o["position"][2] - ent[1]) ** 2)
     if target is None or _is_locked(target):
         return None
+    # object_id付きの動線違反では、空き位置だけでなく移動後に対象へ
+    # 実際に近づける候補だけを採用する。
+    require_reachable = (v.get("type") == "walkability" and bool(oid))
     # 移動先: 対象を除いた歩行グリッドで、入口から遠い空きセルを選ぶ
     rest = {**scene, "objects": [o for o in scene["objects"] if o["id"] != target["id"]]}
     aabbs = mc.collect_aabbs(rest)
@@ -333,7 +391,9 @@ def relocate_blocker(scene, v, excluded_ids=None):
             x, z = ix * cell + cell / 2, iz * cell + cell / 2
             if not (MARGIN <= x <= b["width"] - MARGIN and MARGIN <= z <= b["depth"] - MARGIN):
                 continue
-            candidate = _validated_relocation_position(scene, target, x, z)
+            candidate = _validated_relocation_position(
+                scene, target, x, z,
+                require_reachable=require_reachable)
             if candidate is None:
                 continue
             x, z = candidate
@@ -352,7 +412,9 @@ def relocate_blocker(scene, v, excluded_ids=None):
                 if not grid[ix][iz]:
                     continue
                 x, z = ix * cell + cell / 2, iz * cell + cell / 2
-                candidate = _validated_relocation_position(scene, target, x, z)
+                candidate = _validated_relocation_position(
+                    scene, target, x, z,
+                    require_reachable=require_reachable)
                 if candidate is None:
                     continue
                 x, z = candidate
@@ -362,8 +424,7 @@ def relocate_blocker(scene, v, excluded_ids=None):
     if best is None:
         return None
     old = list(target["position"])
-    target["position"][0], target["position"][2] = round(best[0], 2), round(best[1], 2)
-    _clamp_obj(scene, target)
+    _move_support_group(scene, target, best[0], best[1])
 
     if (abs(old[0] - target["position"][0]) < 1e-4
         and abs(old[2] - target["position"][2]) < 1e-4):

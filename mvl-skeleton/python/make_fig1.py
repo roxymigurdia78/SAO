@@ -48,7 +48,7 @@ LABELS_JA = {
     "score": "VLM平均スコア (B1〜B5)",
     "title_a": "機械検査で検出された違反の件数",
     "title_b": "VLM採点の平均スコア",
-    "best": "\u30d9\u30b9\u30c8(\u6700\u7d42\u3092\u4e0a\u56de\u308b\u5834\u5408)",
+    "best": "VLM\u6700\u9ad8\u70b9(\u6700\u7d42\u53cd\u5fa9\u3092\u4e0a\u56de\u308b\u5834\u5408)",
     "rollback": "巻き戻し",
     "axes_title": "採点項目別の推移",
 }
@@ -58,7 +58,7 @@ LABELS_EN = {
     "score": "VLM mean score (B1-B5)",
     "title_a": "Violations detected by machine checks",
     "title_b": "VLM mean score",
-    "best": "\u30d9\u30b9\u30c8(\u6700\u7d42\u3092\u4e0a\u56de\u308b\u5834\u5408)",
+    "best": "VLM peak (when above final iteration)",
     "rollback": "rolled back",
     "axes_title": "Per-criterion trajectory",
 }
@@ -90,7 +90,12 @@ def read_run(run_dir):
 
     rec = {"dir": run_dir, "n": [], "viol": [], "mean": [],
            "B": {k: [] for k in ("B1", "B2", "B3", "B4", "B5")},
-           "rolled_back": [], "repairs": []}
+           "rolled_back": [], "repairs": [], "best_summary": None}
+
+    best_summary_path = os.path.join(run_dir, "best_summary.json")
+    if os.path.exists(best_summary_path):
+        with open(best_summary_path, encoding="utf-8") as f:
+            rec["best_summary"] = json.load(f)
 
     for d in iters:
         i = int(d.split("_")[1])
@@ -222,7 +227,8 @@ def draw(runs, out, L, show_best=True):
 
         if show_best:
             bi = max(range(len(ys)), key=lambda i: ys[i])
-            if ys[bi] > ys[-1] + 1e-9:      # 最終がベストを下回るランだけ印を出す
+            # これは成果物のBestStateではなく、VLM系列内の最高点を示す印。
+            if ys[bi] > ys[-1] + 1e-9:
                 ax2.plot([xs[bi]], [ys[bi]], linestyle="none", marker="*",
                          markersize=15, color=st["color"],
                          markeredgecolor=SURFACE, markeredgewidth=1.0, zorder=5)
@@ -317,10 +323,18 @@ def summarize(runs):
             r["viol"][0], r["viol"][-1],
             ("%.2f" % ms[0]) if ms else "-",
             ("%.2f" % ms[-1]) if ms else "-"))
-        if ms:
+        best_summary = r.get("best_summary")
+        if best_summary is not None:
+            aspect = best_summary.get("aspect_ratio_error_sum")
+            aspect_text = "-" if aspect is None else "%.6g" % aspect
+            print("      ベスト保持: iter %s (機械違反 %s, 縦横比誤差合計 %s)"
+                  % (best_summary.get("iteration", "-"),
+                     best_summary.get("violation_count", "-"), aspect_text))
+        elif ms:
             b = max(ms)
             if ms[-1] < b - 1e-9:
-                print("      ! 最終(%.2f)がベスト(%.2f, iter %d)を下回っている"
+                print("      ! VLM平均スコアが最終反復で最高値を下回っている: "
+                      "最終 %.2f, 最高 %.2f (iter %d)"
                       % (ms[-1], b, r["mean"].index(b)))
     print("=" * 74)
 

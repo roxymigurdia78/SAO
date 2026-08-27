@@ -1,4 +1,5 @@
 import base64
+import contextlib
 import io
 import tempfile
 import unittest
@@ -71,9 +72,11 @@ class GptScoringTests(unittest.TestCase):
             stream_chunk('"A"}'),
             stream_chunk(usage=usage),
         ])])
+        output = io.StringIO()
         with mock.patch.object(gpt_scoring, "_client", api), \
              mock.patch.object(gpt_scoring, "STREAM", True), \
-             mock.patch.object(gpt_scoring, "MAX_TOKENS", 512):
+             mock.patch.object(gpt_scoring, "MAX_TOKENS", 512), \
+             contextlib.redirect_stdout(output):
             result = gpt_scoring._ask("judge", [image], max_retries=1)
 
         self.assertEqual({"winner": "A"}, result)
@@ -81,6 +84,20 @@ class GptScoringTests(unittest.TestCase):
         self.assertIs(True, call["stream"])
         self.assertEqual(512, call["max_tokens"])
         self.assertEqual("none", call["reasoning_effort"])
+        self.assertEqual({"include_usage": True}, call["stream_options"])
+        self.assertIn("[usage] in=100 out=20", output.getvalue())
+
+    def test_missing_stream_usage_is_logged_as_none(self):
+        image = self.make_png()
+        api = fake_client([iter([stream_chunk('{"winner":"A"}')])])
+        output = io.StringIO()
+        with mock.patch.object(gpt_scoring, "_client", api), \
+             mock.patch.object(gpt_scoring, "STREAM", True), \
+             contextlib.redirect_stdout(output):
+            result = gpt_scoring._ask("judge", [image], max_retries=1)
+
+        self.assertEqual({"winner": "A"}, result)
+        self.assertIn("[usage] in=None out=None", output.getvalue())
 
     def test_524_retries_with_exponential_backoff(self):
         image = self.make_png()

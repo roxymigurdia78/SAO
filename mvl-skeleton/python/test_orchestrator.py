@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import unittest
+from pathlib import Path
 
 from orchestrator import (
-    BestState, find_repeated_repairs, has_budget_to_evaluate_repair,
+    DEFAULT_RUNS_DIR, BestState, find_repeated_repairs, has_budget_to_evaluate_repair,
     retry_after_cycle, scene_state_key)
+
+
+class RunsDirectoryTests(unittest.TestCase):
+    def test_default_runs_dir_is_fixed_inside_mvl_skeleton(self):
+        self.assertEqual(
+            Path(DEFAULT_RUNS_DIR),
+            Path(__file__).resolve().parents[1] / "runs")
 
 
 class BestStateTests(unittest.TestCase):

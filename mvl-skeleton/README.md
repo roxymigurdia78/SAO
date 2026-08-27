@@ -78,11 +78,13 @@ python orchestrator.py --scene ..\scene\scene_example.json ^
   --project "C:\path\to\UnityProject"
 ```
 
-出力: `runs/<scene_id>_<日時>/`
+出力: `mvl-skeleton/runs/<scene_id>_<日時>/` (`--runs-dir` で変更可能)
 - `iter_XX/scene.json` … 各反復のシーン(=ロールバック可能な履歴)
 - `iter_XX/violations.json` / `scores.json` / `meta.json` / `capture/*.png`
 - `score_trajectory.png` … **卒論 図1**
 - `final_scene.json`
+
+既存の `sao/runs/` は再現用に移動せず残し、今後の既定出力だけを `mvl-skeleton/runs/` に統一する。
 
 APIを節約したい間は `--skip-vlm`(機械検査だけで回す)。
 
@@ -98,6 +100,10 @@ python orchestrator.py --scene ..\scene\scene_study_seed3.json ^
 元のGLBとリアルタイム照明で8視点を撮影する。AABBを使う配置・接地・貫通・
 動線確認向け。照明と最終画質は通常モードと異なるため、成果用の最終ランでは
 `--fast-unity` を外す。
+
+撮影原画は1920×1080で保存する。VLM送信画像はPython側の
+`VLM_MAX_IMAGE_PX` (既定1024) で独立に縮小されるため、原画解像度を変えても
+採点APIへの画像サイズを別に調整できる。
 
 ## 設計メモ(なぜこうなっているか)
 

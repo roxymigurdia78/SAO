@@ -283,6 +283,47 @@ class RelocateBlockerTests(unittest.TestCase):
         self.assertIn("[1.0,1.0]→[3.0,1.0]", result)
         self.assertEqual(scene["objects"][0]["position"], [3.0, 0.0, 1.0])
 
+    @patch("repair._target_is_reachable")
+    @patch("repair.mc.walkability_grid",
+           return_value=([[True], [True], [True]], 2.0, 3, 1))
+    def test_object_walkability_skips_empty_but_unreachable_destination(
+            self, _grid, reachable):
+        scene = scene_at(1.0, 1.0)
+        scene["room"]["bounds"] = {"width": 6.0, "depth": 3.0}
+        reachable.side_effect = lambda current, _oid: (
+            current["objects"][0]["position"][0] < 4.0)
+
+        result = repair.relocate_blocker(scene, {
+            "type": "walkability",
+            "object_id": "floor_lamp_01",
+        })
+
+        self.assertIn("[1.0,1.0]→[3.0,1.0]", result)
+        self.assertEqual(scene["objects"][0]["position"], [3.0, 0.0, 1.0])
+        self.assertGreaterEqual(reachable.call_count, 2)
+
+    @patch("repair._clamp_obj")
+    @patch("repair.mc.walkability_grid", return_value=([[True]], 7.0, 1, 1))
+    @patch("repair.mc.collect_aabbs", return_value={})
+    def test_moving_support_also_moves_objects_resting_on_it(
+            self, _collect, _grid, _clamp):
+        scene = scene_at(1.0, 1.0)
+        scene["objects"].append({
+            "id": "lamp_01",
+            "position": [1.2, 1.0, 1.3],
+            "target_dimensions": {
+                "width": 0.1, "height": 0.2, "depth": 0.1},
+            "rests_on": "floor_lamp_01",
+            "locked": False,
+        })
+
+        result = repair.relocate_blocker(
+            scene, {"object_id": "floor_lamp_01"})
+
+        self.assertIn("[1.0,1.0]→[3.5,3.5]", result)
+        self.assertEqual(scene["objects"][0]["position"], [3.5, 0.0, 3.5])
+        self.assertEqual(scene["objects"][1]["position"], [3.7, 1.0, 3.8])
+
 
 if __name__ == "__main__":
     unittest.main()

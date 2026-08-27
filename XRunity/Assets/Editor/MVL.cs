@@ -96,6 +96,8 @@ namespace MVL
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
         public bool fast_iteration;
+        public int capture_width;
+        public int capture_height;
         public float geometry_seconds;
         public float bake_seconds;
         public float capture_seconds;

@@ -25,6 +25,7 @@ MAX_ITERS = 10
 CONVERGE_EPS = 0.1
 CONVERGE_PATIENCE = 2
 MAX_CYCLE_RETRIES = 3
+DEFAULT_RUNS_DIR = Path(__file__).resolve().parents[1] / "runs"
 
 
 @dataclass
@@ -175,7 +176,9 @@ def main():
     ap.add_argument("--skip-vlm", action="store_true", help="GPT採点を飛ばす(機械検査のみで回す)")
     ap.add_argument("--fast-unity", action="store_true",
                     help="配置確認用: Unityのメッシュ加工・UV2・ベイクを省略")
-    ap.add_argument("--runs-dir", default="runs")
+    ap.add_argument(
+        "--runs-dir", default=str(DEFAULT_RUNS_DIR),
+        help="実行ログの出力先 (既定: mvl-skeleton/runs)")
     args = ap.parse_args()
 
     if not args.dry_run and (not args.unity or not args.project):

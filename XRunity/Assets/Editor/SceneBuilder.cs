@@ -79,7 +79,8 @@ namespace MVL
     public static class SceneBuilder
     {
         const int TARGET_TRIS_PER_OBJECT = 40000; // 8月=PC撮影品質優先。Quest 2向けの15k締めは9月に実施
-        const int CAPTURE_W = 1280, CAPTURE_H = 960;
+        // 保存する原画の解像度。VLM送信時の縮小はPython側で独立に設定する。
+        const int CAPTURE_W = 1920, CAPTURE_H = 1080;
 
         public static int BuildAndCapture(string sceneJsonPath, string outDir,
                                           bool fastIteration = false)
@@ -87,6 +88,8 @@ namespace MVL
             var report = new BuildReport();
             var totalSw = Stopwatch.StartNew();
             report.fast_iteration = fastIteration;
+            report.capture_width = CAPTURE_W;
+            report.capture_height = CAPTURE_H;
             try
             {
                 Directory.CreateDirectory(outDir);
