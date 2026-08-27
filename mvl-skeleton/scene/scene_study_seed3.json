@@ -158,6 +158,8 @@
         1.1
       ],
       "rotation_y_deg": 0,
+      "faces": "desk_01",
+      "near": {"target": "desk_01", "max_distance": 1.0},
       "target_dimensions": {
         "width": 0.55,
         "height": 0.9,

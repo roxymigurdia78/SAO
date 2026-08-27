@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import patch
 
 import repair
+import machine_checks as mc
 
 
 def scene_at(x, z):
@@ -323,6 +324,174 @@ class RelocateBlockerTests(unittest.TestCase):
         self.assertIn("[1.0,1.0]→[3.5,3.5]", result)
         self.assertEqual(scene["objects"][0]["position"], [3.5, 0.0, 3.5])
         self.assertEqual(scene["objects"][1]["position"], [3.7, 1.0, 3.8])
+
+
+class SemanticRepairTests(unittest.TestCase):
+    def scene(self):
+        return {
+            "room": {
+                "bounds": {"width": 6.0, "depth": 6.0, "height": 3.0},
+                "floor_y": 0.0,
+                "entrance": {"position": [0.2, 0.2]},
+            },
+            "spec": {"required_objects": []},
+            "objects": [
+                {
+                    "id": "chair_01", "class": "chair",
+                    "position": [1.0, 0.0, 1.0], "rotation_y_deg": 180.0,
+                    "target_dimensions": {
+                        "width": 0.5, "height": 0.9, "depth": 0.5},
+                    "faces": "desk_01",
+                    "near": {"target": "desk_01", "max_distance": 1.0},
+                    "locked": False,
+                },
+                {
+                    "id": "desk_01", "class": "desk",
+                    "position": [1.0, 0.0, 3.0], "rotation_y_deg": 0.0,
+                    "target_dimensions": {
+                        "width": 1.2, "height": 0.7, "depth": 0.6},
+                    "locked": False,
+                },
+            ],
+        }
+
+    def test_orientation_violation_is_repaired(self):
+        scene = self.scene()
+        violation = next(
+            v for v in mc.check_semantic_constraints(scene, {})
+            if v["type"] == "orientation")
+        new, applied = repair.apply_repairs(
+            scene, [violation], asset_dimensions={})
+
+        self.assertTrue(applied)
+        self.assertEqual(0.0, new["objects"][0]["rotation_y_deg"])
+        self.assertFalse(any(
+            v["type"] == "orientation"
+            for v in mc.check_semantic_constraints(new, {})))
+
+    def test_too_far_violation_is_repaired_without_penetration(self):
+        scene = self.scene()
+        scene["objects"][0]["rotation_y_deg"] = 0.0
+        violation = next(
+            v for v in mc.check_semantic_constraints(scene, {})
+            if v["type"] == "too_far")
+        new, applied = repair.apply_repairs(
+            scene, [violation], asset_dimensions={})
+
+        self.assertTrue(applied)
+        self.assertFalse(mc.check_semantic_constraints(new, {}))
+        self.assertFalse(repair.has_penetration(new, "chair_01"))
+
+    @patch("repair.mc.walkability_grid", return_value=([[True]], 7.0, 1, 1))
+    def test_walkability_move_does_not_break_near_constraint(self, _grid):
+        scene = self.scene()
+        chair = scene["objects"][0]
+        desk = scene["objects"][1]
+        chair["position"] = [1.0, 0.0, 1.0]
+        chair["rotation_y_deg"] = 0.0
+        desk["position"] = [1.0, 0.0, 1.6]
+
+        result = repair.relocate_blocker(scene, {
+            "type": "walkability", "object_id": "chair_01"})
+
+        self.assertIsNone(result)
+        self.assertEqual([1.0, 0.0, 1.0], chair["position"])
+
+
+class MultiObjectRepairTests(unittest.TestCase):
+    def test_wall_blocked_pair_is_resolved_by_two_object_move(self):
+        scene = {
+            "room": {
+                "bounds": {"width": 5.0, "depth": 4.0, "height": 3.0},
+                "floor_y": 0.0,
+                "entrance": {"position": [4.7, 0.2]},
+            },
+            "spec": {"required_objects": []},
+            "walkable": {"agent_radius": 0.1, "grid_cell": 0.2},
+            "objects": [
+                {
+                    "id": "plant_01", "class": "plant",
+                    "position": [0.6, 0.0, 2.0], "rotation_y_deg": 0,
+                    "target_dimensions": {
+                        "width": 1.0, "height": 1.0, "depth": 1.0},
+                    "locked": False,
+                },
+                {
+                    "id": "cabinet_01", "class": "cabinet",
+                    "position": [1.2, 0.0, 2.0], "rotation_y_deg": 0,
+                    "target_dimensions": {
+                        "width": 1.0, "height": 1.0, "depth": 1.0},
+                    "locked": False,
+                },
+            ],
+        }
+        before = len(mc.run_all(scene))
+        aabbs = mc.collect_aabbs(scene)
+        violation = mc.check_penetration(scene, aabbs)[0]
+
+        message = repair.push_apart(scene, violation, aabbs)
+        after = len(mc.run_all(scene))
+
+        self.assertIn("2個同時移動", message)
+        self.assertNotEqual(0.6, scene["objects"][0]["position"][0])
+        self.assertNotEqual(1.2, scene["objects"][1]["position"][0])
+        self.assertLess(after, before)
+
+    def test_exhausted_multi_push_returns_none_without_mutation(self):
+        scene = scene_at(1.0, 1.0)
+        scene["room"]["bounds"]["height"] = 3.0
+        scene["objects"][0].update({"class": "lamp", "locked": True})
+        scene["objects"].append({
+            "id": "cabinet_01", "class": "cabinet",
+            "position": [1.0, 0.0, 1.0], "rotation_y_deg": 0,
+            "target_dimensions": {
+                "width": 1.0, "height": 1.0, "depth": 1.0},
+            "locked": True,
+        })
+        before = [list(obj["position"]) for obj in scene["objects"]]
+
+        result = repair._try_multi_push_apart(
+            scene, "floor_lamp_01", "cabinet_01", 0, 0.5, 1)
+
+        self.assertIsNone(result)
+        self.assertEqual(before, [obj["position"] for obj in scene["objects"]])
+
+    def test_relocation_moves_blocking_neighbor_with_target(self):
+        scene = {
+            "room": {
+                "bounds": {"width": 4.0, "depth": 4.0, "height": 3.0},
+                "floor_y": 0.0,
+                "entrance": {"position": [0.2, 0.2]},
+            },
+            "spec": {"required_objects": []},
+            "walkable": {"agent_radius": 0.3, "grid_cell": 0.1},
+            "objects": [
+                {
+                    "id": "plant_01", "class": "plant",
+                    "position": [0.5, 0.0, 0.5], "rotation_y_deg": 0,
+                    "target_dimensions": {
+                        "width": 0.6, "height": 1.0, "depth": 0.6},
+                    "locked": False,
+                },
+                {
+                    "id": "cabinet_01", "class": "cabinet",
+                    "position": [1.2, 0.0, 0.5], "rotation_y_deg": 0,
+                    "target_dimensions": {
+                        "width": 0.6, "height": 1.0, "depth": 0.6},
+                    "locked": False,
+                },
+            ],
+        }
+        before = len(mc.run_all(scene))
+
+        proposal = repair._multi_relocation_candidate(
+            scene, scene["objects"][0], 1.2, 0.5, before)
+
+        candidate, roots, after = proposal
+        self.assertEqual(["plant_01", "cabinet_01"], roots)
+        self.assertEqual([1.2, 0.0, 0.5], candidate["objects"][0]["position"])
+        self.assertEqual([1.9, 0.0, 0.5], candidate["objects"][1]["position"])
+        self.assertLess(after, before)
 
 
 if __name__ == "__main__":

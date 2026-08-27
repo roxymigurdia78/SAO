@@ -66,8 +66,17 @@ namespace MVL
         public Dimensions target_dimensions;
         public bool must_touch_floor = true;
         public string rests_on;
+        public string faces;
+        public float faces_tolerance_deg = 45.0f;
+        public NearConstraint near;
         public bool walkable_over = false;
         public bool locked = false;
+    }
+
+    [Serializable] public class NearConstraint
+    {
+        public string target;
+        public float max_distance;
     }
 
     [Serializable] public class SceneJson

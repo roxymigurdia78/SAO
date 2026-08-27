@@ -112,6 +112,36 @@ def _failed_ids_for_op(scene, op):
             if failed_op in (op, FAILED_OP_WILDCARD)}
 
 
+def _semantic_signature(scene, involved_ids):
+    """関係対象を含む意味違反を、比較可能な超過量へ変換する。"""
+    involved_ids = set(involved_ids)
+    result = {}
+    for violation in mc.check_semantic_constraints(scene):
+        if not ({violation.get("object_id"), violation.get("target_id")}
+                & involved_ids):
+            continue
+        key = (violation.get("type"), violation.get("object_id"),
+               violation.get("target_id"))
+        if violation.get("type") == "orientation":
+            excess = (abs(float(violation.get("angle_error_deg", 0.0)))
+                      - float(violation.get("tolerance_deg", 45.0)))
+        else:
+            excess = (float(violation.get("distance", 0.0))
+                      - float(violation.get("max_distance", 0.0)))
+        result[key] = max(0.0, excess)
+    return result
+
+
+def _semantic_candidate_ok(before_scene, after_scene, involved_ids):
+    """移動前に満たしていたfaces/nearを壊さず、既存違反も悪化させない。"""
+    before = _semantic_signature(before_scene, involved_ids)
+    after = _semantic_signature(after_scene, involved_ids)
+    for key, excess in after.items():
+        if key not in before or excess > before[key] + 1e-9:
+            return False
+    return True
+
+
 # ---------- 各オペレータ ----------
 
 # position[1] は「AABBの最下端をどこに置くか」であって接地面ではない
@@ -177,13 +207,26 @@ def push_apart(scene, v, aabbs, excluded_ids=None):
     center_mover = (amn[axis] + amx[axis]) / 2
     sign = 1 if center_mover >= center_other else -1
     old = mover["position"][axis]
-    mover["position"][axis] = old + sign * depth
-    _clamp_obj(scene, mover)
+    before_scene = copy.deepcopy(scene)
+    x, z = mover["position"][0], mover["position"][2]
+    if axis == 0:
+        x += sign * depth
+    else:
+        z += sign * depth
+    group, originals = _move_support_group(scene, mover, x, z)
     ax = "x" if axis == 0 else "z"
     if abs(mover["position"][axis] - old) < 0.005:
-        mover["position"][axis] = old
-        return None  # 実質動かない修正は「適用」と数えない
-    return f"{mover['id']}: {ax} {old:.2f}→{mover['position'][axis]:.2f}(貫通解消)"
+        _restore_positions(group, originals)
+    elif (not has_penetration(scene, mover["id"])
+          and _semantic_candidate_ok(
+              before_scene, scene, [obj["id"] for obj in group])):
+        return f"{mover['id']}: {ax} {old:.2f}→{mover['position'][axis]:.2f}(貫通解消)"
+    else:
+        _restore_positions(group, originals)
+
+    # 壁で片側だけを押せない場合は、相手側も含む最大3個の協調移動を試す。
+    return _try_multi_push_apart(
+        scene, mover["id"], other["id"], axis, depth, sign)
 
 def clamp_into_room(scene, v):
     obj = _obj(scene, v["object_id"])
@@ -330,11 +373,153 @@ def _restore_positions(group, originals):
         obj["position"][:] = originals[obj["id"]]
 
 
+def _support_root(scene, object_id):
+    obj = _obj(scene, object_id)
+    seen = set()
+    while (obj is not None and obj.get("rests_on")
+           and obj["rests_on"] not in seen):
+        seen.add(obj["id"])
+        parent = _obj(scene, obj["rests_on"])
+        if parent is None:
+            break
+        obj = parent
+    return obj
+
+
+def _move_root_delta(scene, root, dx, dz):
+    return _move_support_group(
+        scene, root, root["position"][0] + dx, root["position"][2] + dz)
+
+
+def _commit_positions(scene, candidate):
+    moved = []
+    for obj in scene.get("objects", []):
+        proposed = _obj(candidate, obj["id"])
+        if proposed is None or obj.get("position") == proposed.get("position"):
+            continue
+        obj["position"][:] = proposed["position"]
+        moved.append(obj["id"])
+    return moved
+
+
+def _penetration_between(violations, first_id, second_id):
+    wanted = {first_id, second_id}
+    return any(set(v.get("object_ids", [])) == wanted
+               for v in violations if v.get("type") == "penetration")
+
+
+def _try_move_third_collider(candidate, root_ids):
+    """協調移動後に新しく接触した相手を1個だけ押し出す。"""
+    aabbs = mc.collect_aabbs(candidate)
+    penetrations = mc.check_penetration(candidate, aabbs)
+    moved_members = {
+        obj["id"] for root_id in root_ids
+        for obj in _support_group(candidate, root_id)
+    }
+    external = []
+    for violation in penetrations:
+        ids = violation.get("object_ids", [])
+        if not (set(ids) & moved_members):
+            continue
+        for object_id in ids:
+            if object_id in moved_members:
+                continue
+            root = _support_root(candidate, object_id)
+            if root is not None and root["id"] not in root_ids:
+                external.append((root, violation))
+    unique = {root["id"]: (root, violation) for root, violation in external}
+    if not unique:
+        return True
+    if len(root_ids) >= 3 or len(unique) != 1:
+        return False
+    root, violation = next(iter(unique.values()))
+    if _is_locked(root):
+        return False
+
+    ids = violation["object_ids"]
+    root_members = {obj["id"] for obj in _support_group(candidate, root["id"])}
+    anchor_id = next((object_id for object_id in ids
+                      if object_id not in root_members), None)
+    anchor = _obj(candidate, anchor_id)
+    if anchor is None:
+        return False
+    aabbs = mc.collect_aabbs(candidate)
+    rmn, rmx, _ = aabbs[root["id"]]
+    amn, amx, _ = aabbs[anchor["id"]]
+    ox = mc.overlap_1d(rmn[0], rmx[0], amn[0], amx[0])
+    oz = mc.overlap_1d(rmn[2], rmx[2], amn[2], amx[2])
+    axis = 0 if ox <= oz else 2
+    amount = (ox if axis == 0 else oz) + 0.05
+    root_center = (rmn[axis] + rmx[axis]) / 2
+    anchor_center = (amn[axis] + amx[axis]) / 2
+    sign = 1 if root_center >= anchor_center else -1
+    dx, dz = (sign * amount, 0.0) if axis == 0 else (0.0, sign * amount)
+    _move_root_delta(candidate, root, dx, dz)
+    root_ids.append(root["id"])
+    return True
+
+
+def _try_multi_push_apart(scene, mover_id, other_id, axis, depth, sign):
+    """単独押出しが詰んだ時、最大3支持体を動かし全違反が減る案だけ採用。"""
+    baseline_count = len(mc.run_all(scene))
+    best = None
+    # 両方を動かす案を先にし、片側だけの代替は最後に試す。
+    for mover_share, other_share in (
+            (0.25, 0.75), (0.5, 0.5), (0.75, 0.25),
+            (0.0, 1.0), (1.0, 0.0)):
+        candidate = copy.deepcopy(scene)
+        mover = _support_root(candidate, mover_id)
+        other = _support_root(candidate, other_id)
+        if mover is None or other is None or mover["id"] == other["id"]:
+            continue
+        if ((mover_share and _is_locked(mover))
+                or (other_share and _is_locked(other))):
+            continue
+        roots = []
+        if mover_share:
+            dx, dz = ((sign * depth * mover_share, 0.0) if axis == 0
+                      else (0.0, sign * depth * mover_share))
+            _move_root_delta(candidate, mover, dx, dz)
+            roots.append(mover["id"])
+        if other_share:
+            dx, dz = ((-sign * depth * other_share, 0.0) if axis == 0
+                      else (0.0, -sign * depth * other_share))
+            _move_root_delta(candidate, other, dx, dz)
+            roots.append(other["id"])
+        if len(roots) < 2 and mover_share and other_share:
+            continue
+        if not _try_move_third_collider(candidate, roots):
+            continue
+        penetrations = mc.check_penetration(
+            candidate, mc.collect_aabbs(candidate))
+        if _penetration_between(penetrations, mover_id, other_id):
+            continue
+        involved = {
+            obj["id"] for root_id in roots
+            for obj in _support_group(candidate, root_id)
+        }
+        if not _semantic_candidate_ok(scene, candidate, involved):
+            continue
+        after_count = len(mc.run_all(candidate))
+        if after_count >= baseline_count:
+            continue
+        score = (after_count, -len(roots))
+        if best is None or score < best[0]:
+            best = (score, candidate, list(roots))
+    if best is None:
+        return None
+    _, candidate, roots = best
+    _commit_positions(scene, candidate)
+    return (f"{mover_id}: {','.join(roots)}を{len(roots)}個同時移動"
+            f"(貫通解消・違反 {baseline_count}→{best[0][0]})")
+
+
 def _validated_relocation_position(scene, target, x, z,
                                    require_reachable=False):
-    """候補を一時適用し、無変化・貫通・必要なら到達性を検証する。"""
+    """候補を一時適用し、幾何・到達性・意味制約を検証する。"""
     group = []
     originals = {}
+    before_scene = copy.deepcopy(scene)
     try:
         group, originals = _move_support_group(scene, target, x, z)
         old = originals[target["id"]]
@@ -347,9 +532,70 @@ def _validated_relocation_position(scene, target, x, z,
         if require_reachable and not _target_is_reachable(
                 scene, target["id"]):
             return None
+        if not _semantic_candidate_ok(
+                before_scene, scene, [obj["id"] for obj in group]):
+            return None
         return candidate
     finally:
         _restore_positions(group, originals)
+
+
+def _multi_relocation_candidate(scene, target, x, z, baseline_count):
+    """対象の移動先で衝突する相手も同じ差分で運び、改善案だけ返す。"""
+    candidate = copy.deepcopy(scene)
+    proposed_target = _obj(candidate, target["id"])
+    if proposed_target is None:
+        return None
+    old_x, old_z = proposed_target["position"][0], proposed_target["position"][2]
+    _move_support_group(candidate, proposed_target, x, z)
+    dx = proposed_target["position"][0] - old_x
+    dz = proposed_target["position"][2] - old_z
+    if abs(dx) < 1e-4 and abs(dz) < 1e-4:
+        return None
+
+    roots = [proposed_target["id"]]
+    # 移動先でぶつかる相手を最大2支持体まで、同じ差分で一緒に移動する。
+    for _ in range(2):
+        aabbs = mc.collect_aabbs(candidate)
+        penetrations = mc.check_penetration(candidate, aabbs)
+        moved_members = {
+            obj["id"] for root_id in roots
+            for obj in _support_group(candidate, root_id)
+        }
+        partners = []
+        for violation in penetrations:
+            ids = violation.get("object_ids", [])
+            if not (set(ids) & moved_members):
+                continue
+            for object_id in ids:
+                if object_id in moved_members:
+                    continue
+                root = _support_root(candidate, object_id)
+                if root is not None and root["id"] not in roots:
+                    partners.append(root)
+        unique = {root["id"]: root for root in partners}
+        if not unique:
+            break
+        if len(roots) + len(unique) > 3:
+            return None
+        for root in unique.values():
+            if _is_locked(root):
+                return None
+            _move_root_delta(candidate, root, dx, dz)
+            roots.append(root["id"])
+
+    if len(roots) < 2:
+        return None
+    involved = {
+        obj["id"] for root_id in roots
+        for obj in _support_group(candidate, root_id)
+    }
+    if not _semantic_candidate_ok(scene, candidate, involved):
+        return None
+    after_count = len(mc.run_all(candidate))
+    if after_count >= baseline_count:
+        return None
+    return candidate, roots, after_count
 
 
 # TODO 9月: 巻き戻し時の_failed_repairs照合がrelocateのmsg形式で効いているか検証
@@ -422,7 +668,41 @@ def relocate_blocker(scene, v, excluded_ids=None):
                 if d > best_d:
                     best, best_d = (x, z), d
     if best is None:
-        return None
+        # 単独移動先が無い密集配置では、移動先で衝突する相手も最大2個運ぶ。
+        multi_cells = []
+        for ix in range(nx):
+            for iz in range(nz):
+                x, z = ix * cell + cell / 2, iz * cell + cell / 2
+                if not (MARGIN <= x <= b["width"] - MARGIN
+                        and MARGIN <= z <= b["depth"] - MARGIN):
+                    continue
+                if (abs(x - target["position"][0]) < 1e-4
+                        and abs(z - target["position"][2]) < 1e-4):
+                    continue
+                multi_cells.append((x, z))
+        if not multi_cells:
+            return None
+        baseline_count = len(mc.run_all(scene))
+        multi_best = None
+        for x, z in multi_cells:
+            proposal = _multi_relocation_candidate(
+                scene, target, x, z, baseline_count)
+            if proposal is None:
+                continue
+            candidate_scene, roots, after_count = proposal
+            distance = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
+            score = (after_count, -distance)
+            if multi_best is None or score < multi_best[0]:
+                multi_best = (score, candidate_scene, roots)
+        if multi_best is None:
+            return None
+        old = list(target["position"])
+        _, candidate_scene, roots = multi_best
+        _commit_positions(scene, candidate_scene)
+        return (f"{target['id']}: [{old[0]:.1f},{old[2]:.1f}]→"
+                f"[{target['position'][0]:.1f},{target['position'][2]:.1f}]"
+                f"({','.join(roots)}を{len(roots)}個同時移動・違反 "
+                f"{baseline_count}→{multi_best[0][0]})")
     old = list(target["position"])
     _move_support_group(scene, target, best[0], best[1])
 
@@ -431,6 +711,88 @@ def relocate_blocker(scene, v, excluded_ids=None):
         return None
 
     return f"{target['id']}: [{old[0]:.1f},{old[2]:.1f}]→[{target['position'][0]:.1f},{target['position'][2]:.1f}](動線確保のため移動)"
+
+
+def orient_to_target(scene, v):
+    """front_offset_degを差し引き、宣言対象へGLBの実正面を向ける。"""
+    obj = _obj(scene, v.get("object_id"))
+    target = _obj(scene, v.get("target_id"))
+    if obj is None or target is None or _is_locked(obj):
+        return None
+    desired = mc.desired_facing_yaw(obj, target)
+    if desired is None:
+        return None
+    offset = mc.front_offset_deg(scene, obj)
+    rotation = round((desired - offset) % 360.0, 3)
+    old = float(obj.get("rotation_y_deg", 0.0))
+    if abs(mc.angle_delta_deg(old, rotation)) < 1e-4:
+        return None
+    baseline_count = len(mc.run_all(scene))
+    obj["rotation_y_deg"] = rotation
+    after_count = len(mc.run_all(scene))
+    still_wrong = any(
+        violation.get("type") == "orientation"
+        and violation.get("object_id") == obj["id"]
+        and violation.get("target_id") == target["id"]
+        for violation in mc.check_semantic_constraints(scene))
+    if still_wrong or after_count >= baseline_count:
+        obj["rotation_y_deg"] = old
+        return None
+    return (f"{obj['id']}: 回転 {old:.1f}→{rotation:.1f}度"
+            f"({target['id']}の方へ、正面補正{offset:+.1f}度)")
+
+
+def move_near(scene, v):
+    """near対象の周囲を探索し、全違反数が減る安全な位置へ近づける。"""
+    obj = _obj(scene, v.get("object_id"))
+    target = _obj(scene, v.get("target_id"))
+    if obj is None or target is None or _is_locked(obj):
+        return None
+    try:
+        max_distance = float(v.get("max_distance"))
+    except (TypeError, ValueError):
+        return None
+    if max_distance <= 0:
+        return None
+    baseline_count = len(mc.run_all(scene))
+    tx, tz = target["position"][0], target["position"][2]
+    dx = obj["position"][0] - tx
+    dz = obj["position"][2] - tz
+    start_angle = math.atan2(dz, dx) if abs(dx) + abs(dz) > 1e-9 else 0.0
+    radii = (max_distance * 0.9, max_distance * 0.7,
+             max_distance * 0.5)
+    angle_offsets = (0, 45, -45, 90, -90, 135, -135, 180)
+    best = None
+    for radius in radii:
+        for degrees in angle_offsets:
+            angle = start_angle + math.radians(degrees)
+            candidate = copy.deepcopy(scene)
+            proposed = _obj(candidate, obj["id"])
+            group, _ = _move_support_group(
+                candidate, proposed,
+                tx + math.cos(angle) * radius,
+                tz + math.sin(angle) * radius)
+            involved = [item["id"] for item in group]
+            if any(has_penetration(candidate, item["id"]) for item in group):
+                continue
+            if not _semantic_candidate_ok(scene, candidate, involved):
+                continue
+            after_count = len(mc.run_all(candidate))
+            if after_count >= baseline_count:
+                continue
+            movement = math.hypot(
+                proposed["position"][0] - obj["position"][0],
+                proposed["position"][2] - obj["position"][2])
+            score = (after_count, movement)
+            if best is None or score < best[0]:
+                best = (score, candidate)
+    if best is None:
+        return None
+    old = list(obj["position"])
+    _commit_positions(scene, best[1])
+    return (f"{obj['id']}: [{old[0]:.1f},{old[2]:.1f}]→"
+            f"[{obj['position'][0]:.1f},{obj['position'][2]:.1f}]"
+            f"({target['id']}から{max_distance:.2f}m以内へ移動)")
 
 
 def swap_variant(scene, worst):
@@ -681,6 +1043,12 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets",
             msg = rescale(new, v)
         elif op == "add_object":
             msg = add_object(new, v, assets_dir)
+        elif op == "orient_to_target":
+            msg = orient_to_target(new, v)
+            aabbs = mc.collect_aabbs(new)
+        elif op == "move_near":
+            msg = move_near(new, v)
+            aabbs = mc.collect_aabbs(new)
        
         if msg:
             record = repair_record(new, msg, op, fallback_object_id=target_id)
