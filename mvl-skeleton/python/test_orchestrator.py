@@ -3,7 +3,8 @@
 import unittest
 
 from orchestrator import (
-    BestState, find_repeated_repairs, retry_after_cycle, scene_state_key)
+    BestState, find_repeated_repairs, has_budget_to_evaluate_repair,
+    retry_after_cycle, scene_state_key)
 
 
 class BestStateTests(unittest.TestCase):
@@ -17,12 +18,28 @@ class BestStateTests(unittest.TestCase):
 
     def test_updates_only_when_violation_count_decreases(self):
         best = BestState()
-        best.consider({"value": "initial"}, 0, 5)
-        self.assertFalse(best.consider({"value": "worse"}, 1, 7))
-        self.assertTrue(best.consider({"value": "better"}, 2, 2))
+        best.consider({"value": "initial"}, 0, 5, 1.0)
+        self.assertFalse(best.consider({"value": "worse"}, 1, 7, 0.1))
+        self.assertTrue(best.consider({"value": "better"}, 2, 2, 9.0))
         self.assertEqual(best.scene["value"], "better")
         self.assertEqual(best.iteration, 2)
         self.assertEqual(best.violation_count, 2)
+
+    def test_equal_violations_update_only_for_lower_aspect_error(self):
+        best = BestState()
+        best.consider({"value": "first"}, 2, 2, 8.0)
+        self.assertFalse(best.consider({"value": "worse-shape"}, 3, 2, 9.0))
+        self.assertFalse(best.consider({"value": "exact-tie"}, 4, 2, 8.0))
+        self.assertTrue(best.consider({"value": "better-shape"}, 6, 2, 6.0))
+        self.assertEqual(best.scene["value"], "better-shape")
+        self.assertEqual(best.iteration, 6)
+        self.assertEqual(best.aspect_ratio_error_sum, 6.0)
+
+    def test_missing_aspect_data_keeps_first_on_equal_violations(self):
+        best = BestState()
+        best.consider({"value": "first"}, 0, 2)
+        self.assertFalse(best.consider({"value": "second"}, 1, 2))
+        self.assertEqual(best.scene["value"], "first")
 
     def test_stores_deep_copy(self):
         scene = {"objects": [{"position": [1, 2, 3]}]}
@@ -35,10 +52,18 @@ class BestStateTests(unittest.TestCase):
         best = BestState()
         best.consider({"value": "best"}, 3, 0)
         self.assertEqual(best.summary(), {
-            "selection_rule": "minimum_machine_violation_count",
+            "selection_rule": (
+                "lexicographic_minimum_machine_violations_then_aspect_ratio_error"),
             "iteration": 3,
             "violation_count": 0,
+            "aspect_ratio_error_sum": None,
         })
+
+
+class IterationBudgetTests(unittest.TestCase):
+    def test_repairs_are_allowed_only_when_a_next_evaluation_exists(self):
+        self.assertTrue(has_budget_to_evaluate_repair(5, 7))
+        self.assertFalse(has_budget_to_evaluate_repair(6, 7))
 
 
 class RepeatedRepairTests(unittest.TestCase):

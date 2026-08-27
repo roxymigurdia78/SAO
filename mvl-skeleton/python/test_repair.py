@@ -156,6 +156,18 @@ class AspectRatioVariantTests(unittest.TestCase):
             new["objects"][0]["asset"], "floor_lamp_v1.glb")
         self.assertEqual(applied, [])
 
+    def test_total_error_decreases_after_better_variant(self):
+        dimensions = {
+            "floor_lamp_v1.glb": (0.8, 1.0, 0.8),
+            "floor_lamp_v2.glb": (0.2, 1.0, 0.2),
+            "floor_lamp_v3.glb": (0.6, 1.0, 0.6),
+        }
+        before = repair.total_aspect_ratio_error(self.scene, dimensions)
+        new, _ = repair.apply_repairs(
+            self.scene, [], asset_dimensions=dimensions)
+        after = repair.total_aspect_ratio_error(new, dimensions)
+        self.assertLess(after, before)
+
 
 class FailedRepairKeyTests(unittest.TestCase):
     def test_same_object_allows_a_different_operator(self):

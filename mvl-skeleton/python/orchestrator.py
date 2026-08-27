@@ -29,26 +29,45 @@ MAX_CYCLE_RETRIES = 3
 
 @dataclass
 class BestState:
-    """機械違反数が最少の、評価・採用済みシーンを保持する。"""
+    """違反数、縦横比誤差の辞書順で最良の評価済みシーンを保持する。"""
     scene: object = None
     iteration: object = None
     violation_count: object = None
+    aspect_ratio_error_sum: object = None
 
-    def consider(self, scene, iteration, violation_count):
-        """厳密に改善した場合だけdeep copyで更新する。"""
-        if self.violation_count is not None and violation_count >= self.violation_count:
-            return False
+    def consider(self, scene, iteration, violation_count,
+                 aspect_ratio_error_sum=None):
+        """辞書順で厳密に改善した場合だけdeep copyで更新する。"""
+        if self.violation_count is not None:
+            if violation_count > self.violation_count:
+                return False
+            if violation_count == self.violation_count:
+                if aspect_ratio_error_sum is None:
+                    return False
+                if (self.aspect_ratio_error_sum is not None
+                        and aspect_ratio_error_sum >= self.aspect_ratio_error_sum - 1e-12):
+                    return False
         self.scene = copy.deepcopy(scene)
         self.iteration = iteration
         self.violation_count = violation_count
+        self.aspect_ratio_error_sum = aspect_ratio_error_sum
         return True
 
     def summary(self):
         return {
-            "selection_rule": "minimum_machine_violation_count",
+            "selection_rule": (
+                "lexicographic_minimum_machine_violations_then_aspect_ratio_error"),
             "iteration": self.iteration,
             "violation_count": self.violation_count,
+            "aspect_ratio_error_sum": (
+                round(self.aspect_ratio_error_sum, 6)
+                if self.aspect_ratio_error_sum is not None else None),
         }
+
+
+def has_budget_to_evaluate_repair(iteration, max_iters):
+    """今作る修正シーンを次反復で評価できるか。"""
+    return iteration + 1 < max_iters
 
 
 def find_repeated_repairs(applied, seen):
@@ -165,6 +184,7 @@ def main():
     # assets_dirを絶対パス化(シーンJSONはruns/にコピーされるため、元の場所基準で解決)
     scene["assets_dir"] = str((scene_path.parent / scene.get("assets_dir", "assets")).resolve())
     assets_dir = scene_path.parent / scene.get("assets_dir", "assets")
+    asset_dimensions = repair.load_asset_dimensions(assets_dir)
 
     # 接地/天面オフセットの実測(未計測のGLBだけ。表が無いと従来通りAABB基準になる)
     try:
@@ -208,7 +228,7 @@ def main():
             result = retry_after_cycle(
                 prev_scene, scene, prev_applied_records, prev_violations,
                 prev_worst, assets_dir, prev_visual_defects,
-                seen_scene_states)
+                seen_scene_states, asset_dimensions=asset_dimensions)
             meta["fallback_reason"] = result["fallback_reason"]
             meta["repeated_from_iteration"] = result["repeated_from_iteration"]
             meta["banned_repairs"] = result["banned_repairs"]
@@ -293,14 +313,22 @@ def main():
         prev_worst = copy.deepcopy(worst)
         prev_visual_defects = copy.deepcopy(visual_defects)
 
-        # 機械違反数が過去最少なら、評価済みの現在シーンをラチェット保持する。
-        # 同数では更新せず、先に到達した安定状態を残す。
-        meta["is_best"] = best.consider(scene, i, len(violations))
+        # 機械違反数を第一キー、縦横比誤差合計を第二キーにする。
+        # 両方が同じ場合だけ先着を残す。VLMスコアは選定に使わない。
+        aspect_error_sum = repair.total_aspect_ratio_error(
+            scene, asset_dimensions)
+        meta["aspect_ratio_error_sum"] = aspect_error_sum
+        meta["is_best"] = best.consider(
+            scene, i, len(violations), aspect_error_sum)
         meta["best_violation_count"] = best.violation_count
+        meta["best_aspect_ratio_error_sum"] = best.aspect_ratio_error_sum
         if meta["is_best"]:
             save_json(run_dir / "best_scene.json", best.scene)
             save_json(run_dir / "best_summary.json", best.summary())
-            print(f"[iter {i}] ベスト更新: 機械違反 {best.violation_count} 件")
+            aspect_text = (f" / 縦横比誤差 {aspect_error_sum:.3f}"
+                           if aspect_error_sum is not None else "")
+            print(f"[iter {i}] ベスト更新: 機械違反 "
+                  f"{best.violation_count} 件{aspect_text}")
 
         # --- 4) 停止判定 ---
         mean = scores["mean"] if scores else None
@@ -319,10 +347,20 @@ def main():
                 break
         prev_mean = mean if mean is not None else prev_mean
 
+        # 最終反復で修正を作っでも次のUnity評価ができない。
+        # 未評価シーンをログや履歴に残さず、評価済みの現在状態で停止する。
+        if not has_budget_to_evaluate_repair(i, args.max_iters):
+            meta["stop_reason"] = "iteration_limit_before_repair"
+            save_json(it_dir / "meta.json", meta)
+            print(f"[iter {i}] 次の評価予算なし → 修正を作らず停止")
+            break
+
         # --- 5) 修正 ---
         new_scene, applied, applied_records = repair.apply_repairs(
             scene, violations, worst, assets_dir,
-            visual_defects=visual_defects, return_records=True)
+            visual_defects=visual_defects,
+            asset_dimensions=asset_dimensions,
+            return_records=True)
         repeated = find_repeated_repairs(applied, seen_repairs)
         meta["applied_repairs"] = applied
         meta["repeated_repairs"] = repeated
@@ -359,7 +397,8 @@ def main():
     if best.scene is not None:
         save_json(run_dir / "best_summary.json", best.summary())
         print(f"[MVL] ベスト採用: iter_{best.iteration:02d} / "
-              f"機械違反 {best.violation_count} 件")
+              f"機械違反 {best.violation_count} 件 / "
+              f"縦横比誤差 {best.aspect_ratio_error_sum}")
     else:
         print("[MVL] 警告: 評価済みシーンなし。入力シーンを最終出力に使用")
     print(f"[MVL] 完了。最終シーン: {run_dir / 'final_scene.json'}")

@@ -437,6 +437,19 @@ def aspect_ratio_error(target_dimensions, asset_dimensions):
     return max(width_error, depth_error)
 
 
+def total_aspect_ratio_error(scene, asset_dimensions):
+    """寸法が取得できる全オブジェクトの縦横比誤差合計。"""
+    errors = []
+    for obj in sorted(scene.get("objects", []),
+                      key=lambda value: value.get("id", "")):
+        error = aspect_ratio_error(
+            obj.get("target_dimensions") or {},
+            asset_dimensions.get(obj.get("asset")))
+        if error is not None:
+            errors.append(error)
+    return math.fsum(errors) if errors else None
+
+
 def select_aspect_ratio_variant(scene, asset_dimensions, excluded_ids=None):
     """目標形状に明確に近い未試行バリアントを1つ選ぶ。"""
     best_swap = None
