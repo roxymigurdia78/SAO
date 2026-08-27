@@ -109,13 +109,18 @@ def read_run(run_dir):
         sp = os.path.join(p, "scores.json")
         if os.path.exists(sp):
             s = json.load(open(sp, encoding="utf-8"))
-            m = s.get("mean")
-            if m is None:
-                vals = [s.get(k) for k in ("B1", "B2", "B3", "B4", "B5")]
-                m = sum(vals) / 5.0 if all(v is not None for v in vals) else None
-            rec["mean"].append(m)
-            for k in rec["B"]:
-                rec["B"][k].append(s.get(k))
+            if isinstance(s, dict):
+                m = s.get("mean")
+                if m is None:
+                    vals = [s.get(k) for k in ("B1", "B2", "B3", "B4", "B5")]
+                    m = sum(vals) / 5.0 if all(v is not None for v in vals) else None
+                rec["mean"].append(m)
+                for k in rec["B"]:
+                    rec["B"][k].append(s.get(k))
+            else:
+                rec["mean"].append(None)
+                for k in rec["B"]:
+                    rec["B"][k].append(None)
         else:
             rec["mean"].append(None)
             for k in rec["B"]:

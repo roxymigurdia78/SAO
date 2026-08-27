@@ -4,11 +4,12 @@
 #
 # 環境変数:
 #   LLM_KEY / LLM_BASE_URL / LLM_MODEL
-#   VLM_STREAM (既定1), VLM_MAX_TOKENS (既定512),
+#   VLM_STREAM (既定1), VLM_MAX_TOKENS (既定1024),
 #   VLM_MAX_IMAGE_PX (既定1024、0で縮小なし), VLM_RETRY_DELAY (既定2秒)
 import base64
 import io
 import json
+import math
 import os
 import re
 import time
@@ -25,7 +26,7 @@ from openai import OpenAI
 
 MODEL = os.environ.get("LLM_MODEL") 
 PROMPT_DIR = Path(__file__).parent / "prompts"
-MAX_TOKENS = int(os.environ.get("VLM_MAX_TOKENS", "512"))
+MAX_TOKENS = int(os.environ.get("VLM_MAX_TOKENS", "1024"))
 MAX_IMAGE_PX = int(os.environ.get("VLM_MAX_IMAGE_PX", "1024"))
 RETRY_DELAY_SECONDS = float(os.environ.get("VLM_RETRY_DELAY", "2"))
 STREAM = os.environ.get("VLM_STREAM", "1").lower() not in ("0", "false", "no")
@@ -140,7 +141,8 @@ def _print_usage(usage):
     print(f"[usage] in={prompt_tokens} out={completion_tokens}")
 
 
-def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
+def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep,
+         validator=None, return_none_on_failure=False):
     parts = [{"type": "text", "text": prompt_text}] + [_img_part(p) for p in image_paths]
     payload_mb = sum(
         len(part["image_url"]["url"])
@@ -149,6 +151,7 @@ def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
     print(f"[vlm] images={len(image_paths)} payload={payload_mb:.2f}MB "
           f"stream={STREAM} max_tokens={MAX_TOKENS}")
     last_err = None
+    can_return_none = False
     for attempt in range(max_retries):
         started_at = time.monotonic()
         try:
@@ -173,25 +176,54 @@ def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
             ttft = f"{first_token:.1f}s" if first_token is not None else "n/a"
             print(f"[vlm] ttft={ttft} total={total:.1f}s {_usage_text(usage)}")
             _print_usage(usage)
-            return _extract_json(text)
+            result = _extract_json(text)
+            return validator(result) if validator else result
         except (ValueError, json.JSONDecodeError) as e:
-            # JSON崩れは一時的な生成失敗として再試行する。
+            # JSON崩れ・採点範囲外は一時的な生成失敗として再試行する。
             last_err = e
             retryable = True
+            can_return_none = True
         except Exception as e:
             last_err = e
             retryable = _is_retryable(e)
+            can_return_none = retryable
         if not retryable or attempt + 1 >= max_retries:
             break
         delay = RETRY_DELAY_SECONDS * (2 ** attempt)
         print(f"[vlm] retry={attempt + 1}/{max_retries - 1} "
               f"wait={delay:g}s error={last_err}")
         sleep(delay)
+    if return_none_on_failure and can_return_none:
+        print(f"[vlm] 採点不能: {max_retries}回失敗したためスコアをNoneで継続 "
+              f"error={last_err}")
+        return None
     raise RuntimeError(f"VLM呼び出し失敗: {last_err}")
 
 
-def score_scene(image_paths, scene):
-    """採点表B1〜B5でシーンを採点。戻り値: {"B1"..."B5", "total", "worst_object", ...}"""
+def _validate_scores(result):
+    """B1〜B5が数学的な整数1〜5であることを確認し、intへ正規化する。"""
+    if not isinstance(result, dict):
+        raise ValueError("採点応答がJSONオブジェクトではない")
+    normalized = dict(result)
+    invalid = []
+    for key in ("B1", "B2", "B3", "B4", "B5"):
+        value = result.get(key)
+        valid = (isinstance(value, (int, float))
+                 and not isinstance(value, bool)
+                 and math.isfinite(float(value))
+                 and float(value).is_integer()
+                 and 1 <= int(value) <= 5)
+        if not valid:
+            invalid.append(f"{key}={value!r}")
+        else:
+            normalized[key] = int(value)
+    if invalid:
+        raise ValueError("採点範囲外(1〜5の整数のみ): " + ", ".join(invalid))
+    return normalized
+
+
+def score_scene(image_paths, scene, max_retries=3, sleep=time.sleep):
+    """採点表B1〜B5で採点する。全試行が不正ならNone。"""
     tmpl = (PROMPT_DIR / "rubric_prompt.txt").read_text(encoding="utf-8")
     object_list = ", ".join(f"{o['id']}({o['class']})" for o in scene["objects"])
     prompt = tmpl.format(
@@ -200,7 +232,11 @@ def score_scene(image_paths, scene):
         theme=scene["spec"].get("theme", ""),
         object_list=object_list,
     )
-    result = _ask(prompt, image_paths)
+    result = _ask(
+        prompt, image_paths, max_retries=max_retries, sleep=sleep,
+        validator=_validate_scores, return_none_on_failure=True)
+    if result is None:
+        return None
     keys = ["B1", "B2", "B3", "B4", "B5"]
     result["total"] = sum(float(result.get(k, 0)) for k in keys)
     result["mean"] = result["total"] / len(keys)

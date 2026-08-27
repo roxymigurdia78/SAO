@@ -1,6 +1,7 @@
 import base64
 import contextlib
 import io
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -53,6 +54,17 @@ class GptScoringTests(unittest.TestCase):
         Image.new("RGB", size, "red").save(temp.name)
         self.addCleanup(Path(temp.name).unlink, missing_ok=True)
         return temp.name
+
+    def score_scene(self):
+        return {
+            "spec": {"space_type": "study_room", "theme": "test"},
+            "objects": [{"id": "desk_01", "class": "desk"}],
+        }
+
+    def score_response(self, **overrides):
+        result = {"B1": 3, "B2": 3, "B3": 3, "B4": 3, "B5": 3}
+        result.update(overrides)
+        return iter([stream_chunk(json.dumps(result))])
 
     def test_large_image_is_resized_and_encoded_as_jpeg(self):
         from PIL import Image
@@ -126,6 +138,53 @@ class GptScoringTests(unittest.TestCase):
 
         self.assertEqual([], sleeps)
         self.assertEqual(1, len(api.completions.calls))
+
+    def test_out_of_range_score_retries_then_accepts_valid_response(self):
+        image = self.make_png()
+        api = fake_client([
+            self.score_response(B3=10),
+            self.score_response(B3=5),
+        ])
+        sleeps = []
+        with mock.patch.object(gpt_scoring, "_client", api), \
+             mock.patch.object(gpt_scoring, "STREAM", True), \
+             mock.patch.object(gpt_scoring, "RETRY_DELAY_SECONDS", 2):
+            result = gpt_scoring.score_scene(
+                [image], self.score_scene(), max_retries=2,
+                sleep=sleeps.append)
+
+        self.assertEqual(5, result["B3"])
+        self.assertEqual(3.4, result["mean"])
+        self.assertEqual([2], sleeps)
+        self.assertEqual(2, len(api.completions.calls))
+
+    def test_all_invalid_scores_return_none_after_retries(self):
+        image = self.make_png()
+        api = fake_client([
+            self.score_response(B3=10),
+            self.score_response(B1=0),
+            self.score_response(B5="5"),
+        ])
+        sleeps = []
+        with mock.patch.object(gpt_scoring, "_client", api), \
+             mock.patch.object(gpt_scoring, "STREAM", True), \
+             mock.patch.object(gpt_scoring, "RETRY_DELAY_SECONDS", 2):
+            result = gpt_scoring.score_scene(
+                [image], self.score_scene(), max_retries=3,
+                sleep=sleeps.append)
+
+        self.assertIsNone(result)
+        self.assertEqual([2, 4], sleeps)
+        self.assertEqual(3, len(api.completions.calls))
+
+    def test_integral_float_scores_are_normalized_to_int(self):
+        result = gpt_scoring._validate_scores({
+            "B1": 1.0, "B2": 2.0, "B3": 3.0, "B4": 4.0, "B5": 5.0})
+        self.assertEqual([1, 2, 3, 4, 5],
+                         [result[f"B{i}"] for i in range(1, 6)])
+
+    def test_default_output_budget_is_1024(self):
+        self.assertEqual(1024, gpt_scoring.MAX_TOKENS)
 
 
 if __name__ == "__main__":

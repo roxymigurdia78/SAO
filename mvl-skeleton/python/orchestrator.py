@@ -286,16 +286,22 @@ def main():
         if captures and not args.skip_vlm:
             import gpt_scoring
             scores = gpt_scoring.score_scene([str(p) for p in captures], scene)
-            worst = scores.get("worst_object")
-            visual_defects = scores.get("b3_defects", [])
             save_json(it_dir / "scores.json", scores)
-            print(f"[iter {i}] VLM: 平均 {scores['mean']:.2f} " +
-                  " ".join(f"{k}={scores.get(k)}" for k in ("B1", "B2", "B3", "B4", "B5")))
+            if scores is None:
+                meta["vlm_score_status"] = "invalid_after_retries"
+                print(f"[iter {i}] VLM: 採点不能(Noneとして記録し継続)")
+            else:
+                worst = scores.get("worst_object")
+                visual_defects = scores.get("b3_defects", [])
+                print(f"[iter {i}] VLM: 平均 {scores['mean']:.2f} " +
+                      " ".join(f"{k}={scores.get(k)}" for k in ("B1", "B2", "B3", "B4", "B5")))
 
         # --- 3) 採否判定(前反復と比較。悪化なら巻き戻し) ---
         if prev_scene is not None:
             worsened = len(violations) > prev_violation_count
-            if not worsened and len(violations) == prev_violation_count and captures and prev_captures and not args.skip_vlm:
+            if (not worsened and len(violations) == prev_violation_count
+                    and captures and prev_captures and not args.skip_vlm
+                    and scores is not None):
                 import gpt_scoring
                 winner = gpt_scoring.pairwise([str(p) for p in prev_captures],
                                               [str(p) for p in captures], scene)

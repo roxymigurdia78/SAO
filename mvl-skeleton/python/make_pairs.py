@@ -91,7 +91,7 @@ def find_endpoint_candidates(runs_dir, csv_paths):
             if not list(capture_dir.glob("view_*.png")):
                 continue
             meta = _read_json(iter_dir / "meta.json", {})
-            scores = _read_json(iter_dir / "scores.json", {})
+            scores = _read_json(iter_dir / "scores.json", {}) or {}
             if not meta.get("rolled_back", False) and scores.get("total") is not None:
                 accepted.append((iter_dir, capture_dir, scores))
         if len(accepted) < 2:
