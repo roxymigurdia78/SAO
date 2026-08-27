@@ -173,6 +173,8 @@ def main():
     ap.add_argument("--max-iters", type=int, default=MAX_ITERS)
     ap.add_argument("--dry-run", action="store_true", help="Unity/GPT無しで配線検証(公称AABBのみ)")
     ap.add_argument("--skip-vlm", action="store_true", help="GPT採点を飛ばす(機械検査のみで回す)")
+    ap.add_argument("--fast-unity", action="store_true",
+                    help="配置確認用: Unityのメッシュ加工・UV2・ベイクを省略")
     ap.add_argument("--runs-dir", default="runs")
     args = ap.parse_args()
 
@@ -259,9 +261,13 @@ def main():
         if not args.dry_run:
             import unity_bridge
             report = unity_bridge.run_unity_build(args.unity, args.project,
-                                                 it_dir / "scene.json", cap_dir)
+                                                 it_dir / "scene.json", cap_dir,
+                                                 fast_iteration=args.fast_unity)
             captures = sorted(cap_dir.glob("view_*.png"))
-            print(f"[iter {i}] 撮影 {len(captures)}枚 / ベイク {report.get('bake_seconds', 0):.0f}秒")
+            mode = "高速" if report.get("fast_iteration") else "通常"
+            print(f"[iter {i}] 撮影 {len(captures)}枚 / {mode}モード / "
+                  f"Unity {report.get('_elapsed_seconds', 0):.0f}秒 / "
+                  f"ベイク {report.get('bake_seconds', 0):.0f}秒")
 
         # --- 2a) 機械検査 ---
         violations = mc.run_all(scene, report)

@@ -51,7 +51,7 @@ B5 総合臨場感 (5=その場に居る感覚が持続 / 3=作り物感が消�
 {"B1":n,"B2":n,"B3":n,"B4":n,"B5":n,"worst_object":"最も品質を下げている物体","comment":"一文"}"""
 
 
-def img_part(path, max_px=0):
+def img_part(path, max_px=1024):
     raw = open(path, "rb").read()
     mime = "image/png"
     if max_px:
@@ -70,26 +70,41 @@ def img_part(path, max_px=0):
     return {"type": "image_url", "image_url": {"url": "data:%s;base64,%s" % (mime, b64)}}
 
 
-def ask(client, model, text, paths, max_px=0):
+def ask(client, model, text, paths, max_px=1024):
     parts = [{"type": "text", "text": text}] + [img_part(p, max_px) for p in paths]
     t0 = time.time()
-    r = client.chat.completions.create(
+    chunks = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": parts}],
         reasoning_effort="none",
-        stream=False,
+        max_tokens=512,
+        stream=True,
     )
+    text_parts = []
+    first_token = None
+    usage = None
+    for chunk in chunks:
+        if getattr(chunk, "usage", None) is not None:
+            usage = chunk.usage
+        choices = getattr(chunk, "choices", None) or []
+        if not choices:
+            continue
+        content = getattr(getattr(choices[0], "delta", None), "content", None)
+        if content:
+            if first_token is None:
+                first_token = time.time() - t0
+            text_parts.append(content)
     dt = time.time() - t0
-    u = getattr(r, "usage", None)
-    return r.choices[0].message.content, dt, u
+    print("  最初の応答: %s" % ("%.1f秒" % first_token if first_token is not None else "計測不能"))
+    return "".join(text_parts), dt, usage
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="")
     ap.add_argument("--run", default="")
-    ap.add_argument("--max-px", type=int, default=0,
-                    help="画像の長辺をこのpxに縮小して送る(0=そのまま)")
+    ap.add_argument("--max-px", type=int, default=1024,
+                    help="画像の長辺をこのpxに縮小して送る(既定1024、0=そのまま)")
     args = ap.parse_args()
 
     load_env()

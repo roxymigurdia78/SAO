@@ -95,7 +95,11 @@ namespace MVL
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
+        public bool fast_iteration;
+        public float geometry_seconds;
         public float bake_seconds;
+        public float capture_seconds;
+        public float total_seconds;
         public string error; // 失敗時のみ
     }
 }

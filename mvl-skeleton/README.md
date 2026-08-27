@@ -86,6 +86,19 @@ python orchestrator.py --scene ..\scene\scene_example.json ^
 
 APIを節約したい間は `--skip-vlm`(機械検査だけで回す)。
 
+配置・大きさを素早く調整する間は `--fast-unity` を付ける:
+
+```
+python orchestrator.py --scene ..\scene\scene_study_seed3.json ^
+  --unity "C:\Program Files\Unity\Hub\Editor\6000.5.6f1\Editor\Unity.exe" ^
+  --project ..\..\XRunity --fast-unity
+```
+
+高速モードはメッシュ削減、ライトマップUV生成、ライトマップベイクを省略し、
+元のGLBとリアルタイム照明で8視点を撮影する。AABBを使う配置・接地・貫通・
+動線確認向け。照明と最終画質は通常モードと異なるため、成果用の最終ランでは
+`--fast-unity` を外す。
+
 ## 設計メモ(なぜこうなっているか)
 
 - **スケールはtarget_dimensions基準で強制**: TRELLISのGLB出力スケールは信用せず、

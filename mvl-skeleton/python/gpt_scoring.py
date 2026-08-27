@@ -2,11 +2,16 @@
 # 1) 採点表B1〜B5による単体採点(アンカー付きルーブリック)
 # 2) 修正前後のペア比較(GPTEval3D方式 + 順序入れ替えで位置バイアス除去)
 #
-# 環境変数: OPENAI_API_KEY(必須), OPENAI_MODEL(省略時 gpt-4o)
+# 環境変数:
+#   LLM_KEY / LLM_BASE_URL / LLM_MODEL
+#   VLM_STREAM (既定1), VLM_MAX_TOKENS (既定512),
+#   VLM_MAX_IMAGE_PX (既定1024、0で縮小なし), VLM_RETRY_DELAY (既定2秒)
 import base64
+import io
 import json
 import os
 import re
+import time
 from pathlib import Path   
 _envp = Path(__file__).parent / ".env"
 if _envp.exists():
@@ -16,30 +21,51 @@ if _envp.exists():
             _k, _, _v = _l.partition("=")
             os.environ.setdefault(_k.strip(), _v.strip().strip('"'))
 
-from pathlib import Path
-
 from openai import OpenAI
 
 MODEL = os.environ.get("LLM_MODEL") 
 PROMPT_DIR = Path(__file__).parent / "prompts"
+MAX_TOKENS = int(os.environ.get("VLM_MAX_TOKENS", "512"))
+MAX_IMAGE_PX = int(os.environ.get("VLM_MAX_IMAGE_PX", "1024"))
+RETRY_DELAY_SECONDS = float(os.environ.get("VLM_RETRY_DELAY", "2"))
+STREAM = os.environ.get("VLM_STREAM", "1").lower() not in ("0", "false", "no")
 
-_client = OpenAI(
-            api_key=os.environ.get("LLM_KEY") or os.environ.get("OPENAI_API_KEY"),
-            base_url=os.environ.get("LLM_BASE_URL") or None,
-            default_headers={"User-Agent": "curl/8.5.0"},
-        )
+_client = None
 
 def client():
     global _client
     if _client is None:
-        _client = OpenAI()
+        _client = OpenAI(
+            api_key=os.environ.get("LLM_KEY") or os.environ.get("OPENAI_API_KEY"),
+            base_url=os.environ.get("LLM_BASE_URL") or None,
+            default_headers={"User-Agent": "curl/8.5.0"},
+        )
     return _client
 
 
-def _img_part(path):
-    b64 = base64.b64encode(Path(path).read_bytes()).decode()
+def _img_part(path, max_px=MAX_IMAGE_PX):
+    """画像を必要なら縮小し、OpenAI互換のdata URLにする。"""
+    path = Path(path)
+    raw = path.read_bytes()
+    mime = "image/jpeg" if path.suffix.lower() in (".jpg", ".jpeg") else "image/png"
+    if max_px > 0:
+        try:
+            from PIL import Image
+            with Image.open(io.BytesIO(raw)) as image:
+                if max(image.size) > max_px:
+                    image = image.convert("RGB")
+                    image.thumbnail((max_px, max_px))
+                    buf = io.BytesIO()
+                    image.save(buf, format="JPEG", quality=85, optimize=True)
+                    raw = buf.getvalue()
+                    mime = "image/jpeg"
+        except ImportError as exc:
+            raise RuntimeError(
+                "画像縮小にはPillowが必要です: pip install -r requirements.txt"
+            ) from exc
+    b64 = base64.b64encode(raw).decode()
     return {"type": "image_url",
-            "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "low"}}
+            "image_url": {"url": f"data:{mime};base64,{b64}", "detail": "low"}}
 
 
 def _extract_json(text):
@@ -50,23 +76,104 @@ def _extract_json(text):
     return json.loads(m.group(0))
 
 
-def _ask(prompt_text, image_paths, max_retries=3):
+def _status_code(exc):
+    code = getattr(exc, "status_code", None)
+    if code is None:
+        code = getattr(getattr(exc, "response", None), "status_code", None)
+    if code is not None:
+        try:
+            return int(code)
+        except (TypeError, ValueError):
+            pass
+    match = re.search(r"\b(408|409|429|5\d\d)\b", str(exc))
+    return int(match.group(1)) if match else None
+
+
+def _is_retryable(exc):
+    """混雑・タイムアウト・サーバー障害だけを再試行する。"""
+    code = _status_code(exc)
+    return code in (408, 409, 429) or (code is not None and 500 <= code <= 599)
+
+
+def _stream_text(chunks, started_at):
+    """ストリームを最後まで読み、本文・usage・最初の文字までの秒数を返す。"""
+    text_parts = []
+    usage = None
+    first_token_seconds = None
+    for chunk in chunks:
+        chunk_usage = getattr(chunk, "usage", None)
+        if chunk_usage is not None:
+            usage = chunk_usage
+        choices = getattr(chunk, "choices", None) or []
+        if not choices:
+            continue
+        content = getattr(getattr(choices[0], "delta", None), "content", None)
+        if not content:
+            continue
+        if first_token_seconds is None:
+            first_token_seconds = time.monotonic() - started_at
+        if isinstance(content, str):
+            text_parts.append(content)
+        else:
+            # 一部のOpenAI互換実装がcontent partの配列を返す場合に備える。
+            for part in content:
+                value = getattr(part, "text", None)
+                if value:
+                    text_parts.append(value)
+    return "".join(text_parts), usage, first_token_seconds
+
+
+def _usage_text(usage):
+    if usage is None:
+        return "usage=unavailable"
+    return "in=%s out=%s" % (
+        getattr(usage, "prompt_tokens", "?"),
+        getattr(usage, "completion_tokens", "?"),
+    )
+
+
+def _ask(prompt_text, image_paths, max_retries=3, sleep=time.sleep):
     parts = [{"type": "text", "text": prompt_text}] + [_img_part(p) for p in image_paths]
+    payload_mb = sum(
+        len(part["image_url"]["url"])
+        for part in parts if part.get("type") == "image_url"
+    ) / 1_000_000
+    print(f"[vlm] images={len(image_paths)} payload={payload_mb:.2f}MB "
+          f"stream={STREAM} max_tokens={MAX_TOKENS}")
     last_err = None
-    for _ in range(max_retries):
+    for attempt in range(max_retries):
+        started_at = time.monotonic()
         try:
             resp = client().chat.completions.create(
                 model=MODEL,
                 messages=[{"role": "user", "content": parts}],
                 reasoning_effort="none",
-                max_tokens=1500,
+                max_tokens=MAX_TOKENS,
+                stream=STREAM,
             )
-            u = resp.usage
-            print(f"[usage] in={u.prompt_tokens} out={u.completion_tokens}")
-            
-            return _extract_json(resp.choices[0].message.content)
-        except Exception as e:  # JSON崩れ・一時エラーはリトライ
+            if STREAM:
+                text, usage, first_token = _stream_text(resp, started_at)
+            else:
+                text = resp.choices[0].message.content
+                usage = getattr(resp, "usage", None)
+                first_token = None
+            total = time.monotonic() - started_at
+            ttft = f"{first_token:.1f}s" if first_token is not None else "n/a"
+            print(f"[vlm] ttft={ttft} total={total:.1f}s {_usage_text(usage)}")
+            return _extract_json(text)
+        except (ValueError, json.JSONDecodeError) as e:
+            # JSON崩れは一時的な生成失敗として再試行する。
             last_err = e
+            retryable = True
+        except Exception as e:
+            last_err = e
+            retryable = _is_retryable(e)
+        if not retryable or attempt + 1 >= max_retries:
+            break
+        delay = RETRY_DELAY_SECONDS * (2 ** attempt)
+        print(f"[vlm] retry={attempt + 1}/{max_retries - 1} "
+              f"wait={delay:g}s error={last_err}")
+        sleep(delay)
     raise RuntimeError(f"VLM呼び出し失敗: {last_err}")
 
 

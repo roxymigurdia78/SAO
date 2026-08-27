@@ -8,7 +8,25 @@ from pathlib import Path
 DEFAULT_TIMEOUT = 30 * 60  # ベイク込みで30分上限
 
 
-def run_unity_build(unity_exe, project_path, scene_json, out_dir, log_file=None, timeout=DEFAULT_TIMEOUT):
+def build_command(unity_exe, project_path, scene_json, out_dir, log_file,
+                  fast_iteration=False):
+    cmd = [
+        str(unity_exe),
+        "-batchmode",
+        "-projectPath", str(project_path),
+        "-executeMethod", "MVL.BatchEntry.Run",
+        "-sceneJson", str(Path(scene_json).resolve()),
+        "-outDir", str(Path(out_dir).resolve()),
+        "-logFile", str(log_file),
+        "-quit",
+    ]
+    if fast_iteration:
+        cmd.append("-fastIteration")
+    return cmd
+
+
+def run_unity_build(unity_exe, project_path, scene_json, out_dir, log_file=None,
+                    timeout=DEFAULT_TIMEOUT, fast_iteration=False):
     """Unityをバッチ起動してシーン構築+撮影。成功時は report.json の dict を返す。
 
     注意: 同じプロジェクトを開いているUnityエディタがあると起動に失敗する(ロック)。
@@ -21,16 +39,8 @@ def run_unity_build(unity_exe, project_path, scene_json, out_dir, log_file=None,
         report_path.unlink()  # 前回の残骸を消す(古いレポート誤読防止)
     log_file = log_file or str(out_dir / "unity.log")
 
-    cmd = [
-        str(unity_exe),
-        "-batchmode",
-        "-projectPath", str(project_path),
-        "-executeMethod", "MVL.BatchEntry.Run",
-        "-sceneJson", str(Path(scene_json).resolve()),
-        "-outDir", str(out_dir.resolve()),
-        "-logFile", str(log_file),
-        "-quit",
-    ]
+    cmd = build_command(unity_exe, project_path, scene_json, out_dir,
+                        log_file, fast_iteration=fast_iteration)
     t0 = time.time()
     proc = subprocess.run(cmd, timeout=timeout)
     elapsed = time.time() - t0
@@ -53,6 +63,9 @@ if __name__ == "__main__":
     ap.add_argument("--project", required=True)
     ap.add_argument("--scene", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--fast-unity", action="store_true",
+                    help="配置確認用: メッシュ加工・UV2・ライトマップベイクを省略")
     a = ap.parse_args()
-    r = run_unity_build(a.unity, a.project, a.scene, a.out)
+    r = run_unity_build(a.unity, a.project, a.scene, a.out,
+                        fast_iteration=a.fast_unity)
     print(json.dumps(r, ensure_ascii=False, indent=2))

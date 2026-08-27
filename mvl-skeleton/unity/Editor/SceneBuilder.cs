@@ -35,7 +35,8 @@ namespace MVL
                 EditorApplication.Exit(2);
                 return;
             }
-            int code = SceneBuilder.BuildAndCapture(sceneJson, outDir);
+            bool fastIteration = HasArg("-fastIteration");
+            int code = SceneBuilder.BuildAndCapture(sceneJson, outDir, fastIteration);
             EditorApplication.Exit(code);
         }
 
@@ -45,6 +46,13 @@ namespace MVL
             for (int i = 0; i < args.Length - 1; i++)
                 if (args[i] == name) return args[i + 1];
             return null;
+        }
+
+        static bool HasArg(string name)
+        {
+            foreach (var arg in Environment.GetCommandLineArgs())
+                if (arg == name) return true;
+            return false;
         }
 
         [MenuItem("MVL/Build From scene_example.json")]
@@ -62,9 +70,12 @@ namespace MVL
         const int TARGET_TRIS_PER_OBJECT = 40000; // 8月=PC撮影品質優先。Quest 2向けの15k締めは9月に実施
         const int CAPTURE_W = 1280, CAPTURE_H = 960;
 
-        public static int BuildAndCapture(string sceneJsonPath, string outDir)
+        public static int BuildAndCapture(string sceneJsonPath, string outDir,
+                                          bool fastIteration = false)
         {
             var report = new BuildReport();
+            var totalSw = Stopwatch.StartNew();
+            report.fast_iteration = fastIteration;
             try
             {
                 Directory.CreateDirectory(outDir);
@@ -82,30 +93,43 @@ namespace MVL
                 BuildRoomShell(scene.room);
 
                 // 3) 照明(太陽=Mixed必須。C4の教訓: Realtimeのままだとベイクされない)
-                SetupLighting(scene.room.lighting);
+                SetupLighting(scene.room.lighting, fastIteration);
 
                 // 4) GLBをAssets配下へコピー → glTFastインポート → 配置
                 string importFolder = "Assets/MVLImported";
                 if (!AssetDatabase.IsValidFolder(importFolder))
                     AssetDatabase.CreateFolder("Assets", "MVLImported");
 
+                var geometrySw = Stopwatch.StartNew();
                 foreach (var obj in scene.objects)
                 {
-                    var or = PlaceObject(obj, assetsDirAbs, importFolder);
+                    var or = PlaceObject(obj, assetsDirAbs, importFolder,
+                                         fastIteration);
                     if (or != null) report.objects.Add(or);
                 }
+                report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
 
                 // 5) ライトマップベイク(同期)
-                var sw = Stopwatch.StartNew();
-                BakeLightmaps();
-                report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
+                if (!fastIteration)
+                {
+                    var sw = Stopwatch.StartNew();
+                    BakeLightmaps();
+                    report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
+                }
 
                 // 6) 8視点撮影(実測AABBを渡してカメラの家具メリ込みを回避)
+                var captureSw = Stopwatch.StartNew();
                 report.captures = CaptureViews(scene, outDir, report.objects);
+                report.capture_seconds = (float)captureSw.Elapsed.TotalSeconds;
 
                 // 7) レポート出力
+                report.total_seconds = (float)totalSw.Elapsed.TotalSeconds;
                 WriteReport(report, outDir);
-                Debug.Log($"[MVL] 完了: {report.captures.Count}枚撮影, ベイク{report.bake_seconds:F0}秒");
+                string mode = fastIteration ? "高速" : "通常";
+                Debug.Log($"[MVL] 完了({mode}): {report.captures.Count}枚撮影, " +
+                          $"配置{report.geometry_seconds:F1}秒, " +
+                          $"ベイク{report.bake_seconds:F1}秒, " +
+                          $"撮影{report.capture_seconds:F1}秒");
                 return 0;
             }
             catch (Exception e)
@@ -152,12 +176,14 @@ namespace MVL
         }
 
         // ---------- 照明 ----------
-        static void SetupLighting(Lighting lighting)
+        static void SetupLighting(Lighting lighting, bool fastIteration)
         {
             var go = new GameObject("Sun");
             var light = go.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.lightmapBakeType = LightmapBakeType.Mixed; // ここがRealtimeだとベイクに寄与しない
+            light.lightmapBakeType = fastIteration
+                ? LightmapBakeType.Realtime
+                : LightmapBakeType.Mixed;
             var s = lighting?.sun;
             if (s != null)
             {
@@ -172,7 +198,8 @@ namespace MVL
         }
 
         // ---------- 配置 ----------
-        static ObjectReport PlaceObject(SceneObject obj, string assetsDirAbs, string importFolder)
+        static ObjectReport PlaceObject(SceneObject obj, string assetsDirAbs,
+                                        string importFolder, bool fastIteration)
         {
             string src = Path.Combine(assetsDirAbs, obj.asset);
             if (!File.Exists(src)) { Debug.LogWarning($"[MVL] GLBなし: {src}(スキップ)"); return null; }
@@ -204,12 +231,21 @@ namespace MVL
             var offset = new Vector3(p[0] - bounds.center.x, p[1] - bounds.min.y, p[2] - bounds.center.z);
             inst.transform.position += offset;
 
-            // デシメーション + ライトマップUV
+            // 高速モードは配置確認用。元メッシュのまま撮影し、UV2生成を省く。
             int before, after;
-            DecimateAndUnwrap(inst, out before, out after);
-            GameObjectUtility.SetStaticEditorFlags(inst, StaticEditorFlags.ContributeGI);
-            foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
-                GameObjectUtility.SetStaticEditorFlags(t.gameObject, StaticEditorFlags.ContributeGI);
+            if (fastIteration)
+            {
+                before = CountTriangles(inst);
+                after = before;
+            }
+            else
+            {
+                DecimateAndUnwrap(inst, out before, out after);
+                GameObjectUtility.SetStaticEditorFlags(inst, StaticEditorFlags.ContributeGI);
+                foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
+                    GameObjectUtility.SetStaticEditorFlags(
+                        t.gameObject, StaticEditorFlags.ContributeGI);
+            }
 
             bounds = MeasureBounds(inst);
             return new ObjectReport
@@ -229,6 +265,15 @@ namespace MVL
             var b = rends[0].bounds;
             foreach (var r in rends) b.Encapsulate(r.bounds);
             return b;
+        }
+
+        static int CountTriangles(GameObject go)
+        {
+            int total = 0;
+            foreach (var filter in go.GetComponentsInChildren<MeshFilter>(true))
+                if (filter.sharedMesh != null)
+                    total += filter.sharedMesh.triangles.Length / 3;
+            return total;
         }
 
         static void DecimateAndUnwrap(GameObject go, out int trisBefore, out int trisAfter)
