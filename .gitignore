@@ -1,24 +1,117 @@
-# --- MVL側(計画で決めた除外: キー・runs・images) ---
-mvl-skeleton/runs/
-mvl-skeleton/images/*.png
-*.env
-*api_key*
+# ==================================================
+# MVL / 実験生成物
+# ==================================================
 
-# --- GLB(重い。gitに入れない: 70MBのchair_v1で即死する) ---
+# リポジトリ直下の実験結果
+/runs/
+
+# mvl-skeleton内の実験結果
+/mvl-skeleton/runs/
+
+# MVLの生成画像
+/mvl-skeleton/images/
+
+# Python生成物
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# 旧いルート直下の検品表(実行時はscene/assets/0824版を使用)
+/assets_inventory.json
+
+
+# ==================================================
+# 機密情報
+# ==================================================
+
+.env
+.env.*
+!.env.example
+*api_key*
+*API_KEY*
+
+
+# ==================================================
+# 画像・重い3Dアセット
+# ==================================================
+
+# PNGをすべて除外
+*.png
+
+# GLBをすべて除外
 *.glb
 
-# --- Unity標準(これが無いとLibraryの数万ファイルが入って死ぬ) ---
-xrunity/[Ll]ibrary/
-xrunity/[Tt]emp/
-xrunity/[Oo]bj/
-xrunity/[Bb]uild/
-xrunity/[Bb]uilds/
-xrunity/[Ll]ogs/
-xrunity/[Uu]serSettings/
-xrunity/Assets/MVLImported/
-xrunity/Assets/MVL_Temp.unity
-xrunity/Assets/MVL_Temp.unity.meta
 
-# --- OSごみ ---
+# ==================================================
+# Unity生成フォルダ
+# ==================================================
+
+XRunity/[Ll]ibrary/
+XRunity/[Tt]emp/
+XRunity/[Oo]bj/
+XRunity/[Bb]uild/
+XRunity/[Bb]uilds/
+XRunity/[Ll]ogs/
+XRunity/[Uu]ser[Ss]ettings/
+XRunity/MemoryCaptures/
+XRunity/Recordings/
+
+
+# ==================================================
+# MVLがUnity側へ生成・コピーするファイル
+# ==================================================
+
+XRunity/Assets/MVLImported/
+XRunity/Assets/MVL_Temp/
+XRunity/Assets/MVL_Temp.meta
+XRunity/Assets/MVL_Temp.unity
+XRunity/Assets/MVL_Temp.unity.meta
+
+
+# ==================================================
+# Visual Studio / VS Code / Rider
+# ==================================================
+
+.vs/
+.vscode/
+.idea/
+
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+
+# ==================================================
+# Unityクラッシュ・デバッグ生成物
+# ==================================================
+
+sysinfo.txt
+crashlytics-build.properties
+mono_crash.*
+debug.log
+
+
+# ==================================================
+# OS生成ファイル
+# ==================================================
+
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini

@@ -1,0 +1,29 @@
+{
+  "B1": 3,
+  "B2": 2,
+  "B3": 3,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "lamp_01（卓上ランプ）が壁際で宙に浮いており、支持面がないカットがある"
+    },
+    {
+      "kind": "floating",
+      "description": "orb_01（crystal_ball/アーミラリー）が壁際で浮遊し、台座や吊り金具がない"
+    },
+    {
+      "kind": "orientation",
+      "description": "chair_01 が机に背を向ける／俯瞰で転倒しているように見え、着座配置になっていない"
+    }
+  ],
+  "worst_object": {
+    "id": "orb_01",
+    "reason": "壁際での明確な浮遊により物理破綻が最も目立ち、没入感を強く損なっている",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "基本的なスケールと造作は理解できるが、照明の根拠不足と浮遊オブジェクトが物理整合性を大きく下げている。マテリアルは素材感は伝わる一方で反射と木目の均一さがCG感を強めている。",
+  "total": 14.0,
+  "mean": 2.8
+}

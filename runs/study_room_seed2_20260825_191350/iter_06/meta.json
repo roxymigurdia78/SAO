@@ -1,0 +1,8 @@
+{
+  "iteration": 6,
+  "rolled_back": false,
+  "applied_repairs": [
+    "cabinet_01: [0.6,0.5]→[2.8,2.4](動線確保のため移動)"
+  ],
+  "pairwise_winner": "tie"
+}

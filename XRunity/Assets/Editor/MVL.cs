@@ -66,8 +66,17 @@ namespace MVL
         public Dimensions target_dimensions;
         public bool must_touch_floor = true;
         public string rests_on;
+        public string faces;
+        public float faces_tolerance_deg = 45.0f;
+        public NearConstraint near;
         public bool walkable_over = false;
         public bool locked = false;
+    }
+
+    [Serializable] public class NearConstraint
+    {
+        public string target;
+        public float max_distance;
     }
 
     [Serializable] public class SceneJson
@@ -90,12 +99,28 @@ namespace MVL
         public int triangle_count_after;
     }
 
+    [Serializable] public class DetailCaptureReport
+    {
+        public string object_id;
+        public string object_class;
+        public List<string> related_ids = new List<string>();
+        public List<string> files = new List<string>();
+    }
+
     [Serializable] public class BuildReport
     {
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
+        public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
+        public bool fast_iteration;
+        public int capture_width;
+        public int capture_height;
+        public float geometry_seconds;
         public float bake_seconds;
+        public float capture_seconds;
+        public float detail_capture_seconds;
+        public float total_seconds;
         public string error; // 失敗時のみ
     }
 }

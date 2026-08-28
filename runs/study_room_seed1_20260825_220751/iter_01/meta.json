@@ -1,0 +1,7 @@
+{
+  "iteration": 1,
+  "rolled_back": false,
+  "applied_repairs": [
+    "floor_lamp_01: floor_lamp_v1.glb→floor_lamp_v2.glb(バリアント差し替え) ※VLM要求=relight(未実装のため代替)"
+  ]
+}

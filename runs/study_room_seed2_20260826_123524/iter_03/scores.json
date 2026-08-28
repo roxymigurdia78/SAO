@@ -1,0 +1,16 @@
+{
+  "B1": 4,
+  "B2": 3,
+  "B3": 5,
+  "B4": 3,
+  "B5": 3,
+  "B3_defects": [],
+  "Worst_object": {
+    "id": "plant_01",
+    "reason": "The plant is disproportionately massive in size compared to the bookshelf and room scale (appearing 6-8ft tall), creating an unnatural focal point that dominates space intended for human activity.",
+    "suggested_repair": "scale_down|swap_variant"
+  },
+  "Comment": "家具の配置は論理的で機能的ですが、観葉植物のサイズ感が他のオブジェクトと著しく乖離しており没入感を損なっています。照明設定には不自然さがあり、空間全体に浮遊感を与えています。",
+  "total": 18.0,
+  "mean": 3.6
+}

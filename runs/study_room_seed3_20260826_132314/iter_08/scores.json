@@ -1,0 +1,25 @@
+{
+  "B1": 5,
+  "B2": 4,
+  "B3": 4,
+  "B4": 2,
+  "B5": 4,
+  "b3_defects": [
+    {
+      "kind": "penetration",
+      "description": "image_01: backpackが机の脚や床にめり込んでいる。"
+    },
+    {
+      "kind": "orientation",
+      "description": "image_03: モニターとラップトップの配置が非現実的な向きになっている（奥行き方向への斜め）。"
+    }
+  ],
+  "worst_object": {
+    "id": "backpack_01",
+    "reason": "机の下に沈み込んでいる、あるいは壁面に固定されているかのような不自然な状態。",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "全体的な照明とスケールは良好ですが、一部のオブジェクト（特にリュック）の位置関係および配置が破綻しています。また材質のテクスチャマップにCG特有の均一感が目立ちます。",
+  "total": 19.0,
+  "mean": 3.8
+}

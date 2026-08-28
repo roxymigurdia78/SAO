@@ -1,0 +1,8 @@
+{
+  "iteration": 2,
+  "rolled_back": false,
+  "applied_repairs": [
+    "lamp_01: f_lamp_v1.glb→f_lamp_v2.glb(バリアント差し替え)"
+  ],
+  "pairwise_winner": "B"
+}

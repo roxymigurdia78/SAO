@@ -1,0 +1,8 @@
+[
+  {
+    "type": "missing",
+    "object_class": "monitor",
+    "detail": "必須 monitor が 0/1",
+    "suggested_repair": "add_object"
+  }
+]

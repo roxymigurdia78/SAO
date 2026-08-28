@@ -1,0 +1,16 @@
+{
+  "B1": 4,
+  "B2": 3,
+  "B3": 5,
+  "B4": 3,
+  "B5": 4,
+  "b3_defects": [],
+  "worst_object": {
+    "id": "rug_01",
+    "reason": "Rug texture appears as a low-resolution repeating pattern in close-up views (Img2/3), breaking the realism of individual fabric fibers.",
+    "suggested_repair": "retexture"
+  },
+  "comment": "The study room features correct object placement and scale, creating a coherent functional layout. However, minor issues with lighting contrast and texture repetition reduce the overall photorealism.",
+  "total": 19.0,
+  "mean": 3.8
+}

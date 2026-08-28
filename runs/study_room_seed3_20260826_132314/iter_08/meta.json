@@ -1,0 +1,8 @@
+{
+  "iteration": 8,
+  "rolled_back": false,
+  "applied_repairs": [
+    "backpack_01: backpack_v1.glb→backpack_v2.glb(バリアント差し替え)"
+  ],
+  "pairwise_winner": "tie"
+}

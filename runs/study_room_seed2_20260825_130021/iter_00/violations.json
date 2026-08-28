@@ -1,0 +1,40 @@
+[
+  {
+    "type": "floating",
+    "object_id": "trash_bin_01",
+    "detail": "床から 0.350m 浮遊",
+    "gap": 0.35,
+    "snap_to": 0.0,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_floor"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "backpack_01",
+    "detail": "AABB [3.97, 0, 0.85]〜[4.43, 0.55, 1.25] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      3.9659111598750827,
+      0,
+      0.8521878742722789
+    ],
+    "aabb_max": [
+      4.434088840124917,
+      0.55,
+      1.2478121257277213
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "plant_01",
+    "detail": "高さ 2.30m がクラス許容 [0.3, 1.8] を逸脱(公称)",
+    "measured_height": 2.3,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "walkability",
+    "object_id": "backpack_01",
+    "detail": "必須オブジェクト backpack_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  }
+]

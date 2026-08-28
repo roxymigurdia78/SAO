@@ -35,7 +35,10 @@ namespace MVL
                 EditorApplication.Exit(2);
                 return;
             }
-            int code = SceneBuilder.BuildAndCapture(sceneJson, outDir);
+            bool fastIteration = HasArg("-fastIteration");
+            bool detailCaptures = HasArg("-detailCaptures");
+            int code = SceneBuilder.BuildAndCapture(
+                sceneJson, outDir, fastIteration, detailCaptures);
             EditorApplication.Exit(code);
         }
 
@@ -47,24 +50,49 @@ namespace MVL
             return null;
         }
 
+        static bool HasArg(string name)
+        {
+            foreach (var arg in Environment.GetCommandLineArgs())
+                if (arg == name) return true;
+            return false;
+        }
+
         [MenuItem("MVL/Build From scene_example.json")]
         public static void RunFromMenu()
         {
             string path = EditorUtility.OpenFilePanel("scene JSON", "", "json");
             if (string.IsNullOrEmpty(path)) return;
+            EditorPrefs.SetString("MVL_LastScenePath", path);   // ← 追加。選んだパスを覚える
             string outDir = Path.Combine(Path.GetDirectoryName(path), "capture");
             SceneBuilder.BuildAndCapture(path, outDir);
+        }
+
+        // 前回選んだシーンJSONを再構築(初回だけダイアログが出る)
+        [MenuItem("MVL/Rebuild Last Scene %#r")]   // Ctrl+Shift+R
+        public static void RebuildLast()
+        {
+            string path = EditorPrefs.GetString("MVL_LastScenePath", "");
+            if (string.IsNullOrEmpty(path) || !File.Exists(path))
+            { RunFromMenu(); return; }
+            SceneBuilder.BuildAndCapture(path, Path.Combine(Path.GetDirectoryName(path), "capture"));
         }
     }
 
     public static class SceneBuilder
     {
         const int TARGET_TRIS_PER_OBJECT = 40000; // 8月=PC撮影品質優先。Quest 2向けの15k締めは9月に実施
-        const int CAPTURE_W = 1280, CAPTURE_H = 960;
+        // 保存する原画の解像度。VLM送信時の縮小はPython側で独立に設定する。
+        const int CAPTURE_W = 1920, CAPTURE_H = 1080;
 
-        public static int BuildAndCapture(string sceneJsonPath, string outDir)
+        public static int BuildAndCapture(string sceneJsonPath, string outDir,
+                                          bool fastIteration = false,
+                                          bool detailCaptures = false)
         {
             var report = new BuildReport();
+            var totalSw = Stopwatch.StartNew();
+            report.fast_iteration = fastIteration;
+            report.capture_width = CAPTURE_W;
+            report.capture_height = CAPTURE_H;
             try
             {
                 Directory.CreateDirectory(outDir);
@@ -82,33 +110,63 @@ namespace MVL
                 BuildRoomShell(scene.room);
 
                 // 3) 照明(太陽=Mixed必須。C4の教訓: Realtimeのままだとベイクされない)
-                SetupLighting(scene.room.lighting);
+                SetupLighting(scene.room.lighting, fastIteration);
 
                 // 4) GLBをAssets配下へコピー → glTFastインポート → 配置
                 string importFolder = "Assets/MVLImported";
                 if (!AssetDatabase.IsValidFolder(importFolder))
                     AssetDatabase.CreateFolder("Assets", "MVLImported");
 
+                var geometrySw = Stopwatch.StartNew();
                 foreach (var obj in scene.objects)
                 {
-                    var or = PlaceObject(obj, assetsDirAbs, importFolder);
+                    var or = PlaceObject(obj, assetsDirAbs, importFolder,
+                                         fastIteration);
                     if (or != null) report.objects.Add(or);
                 }
+                report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
                  UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                  UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
                     "Assets/MVL_Temp.unity");
 
                 // 5) ライトマップベイク(同期)
-                var sw = Stopwatch.StartNew();
-                BakeLightmaps();
-                report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
+                if (!fastIteration)
+                {
+                    var sw = Stopwatch.StartNew();
+                    BakeLightmaps();
+                    report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
+                }
 
                 // 6) 8視点撮影(実測AABBを渡してカメラの家具メリ込みを回避)
+                var captureSw = Stopwatch.StartNew();
                 report.captures = CaptureViews(scene, outDir, report.objects);
+                if (detailCaptures)
+                {
+                    var detailCaptureSw = Stopwatch.StartNew();
+                    report.detail_captures = CaptureDetailViews(
+                        scene, outDir, report.objects);
+                    report.detail_capture_seconds =
+                        (float)detailCaptureSw.Elapsed.TotalSeconds;
+                }
+                report.capture_seconds = (float)captureSw.Elapsed.TotalSeconds;
+
+                // 6.5) カメラとベイク結果を含めた状態で再保存
+                //      97行目の保存は配置直後なので、カメラもライトマップも入っていない。
+                //      ここで保存し直すと、Unityで MVL_Temp.unity を開くだけで
+                //      Gameビューに部屋が映り、そのまま歩き回れる。
+                UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
+                    "Assets/MVL_Temp.unity");
 
                 // 7) レポート出力
+                report.total_seconds = (float)totalSw.Elapsed.TotalSeconds;
                 WriteReport(report, outDir);
-                Debug.Log($"[MVL] 完了: {report.captures.Count}枚撮影, ベイク{report.bake_seconds:F0}秒");
+                string mode = fastIteration ? "高速" : "通常";
+                Debug.Log($"[MVL] 完了({mode}): {report.captures.Count}枚撮影, " +
+                          $"配置{report.geometry_seconds:F1}秒, " +
+                          $"ベイク{report.bake_seconds:F1}秒, " +
+                          $"撮影{report.capture_seconds:F1}秒, " +
+                          $"詳細撮影{report.detail_capture_seconds:F1}秒");
                 return 0;
             }
             catch (Exception e)
@@ -155,12 +213,14 @@ namespace MVL
         }
 
         // ---------- 照明 ----------
-        static void SetupLighting(Lighting lighting)
+        static void SetupLighting(Lighting lighting, bool fastIteration)
         {
             var go = new GameObject("Sun");
             var light = go.AddComponent<Light>();
             light.type = LightType.Directional;
-            light.lightmapBakeType = LightmapBakeType.Mixed; // ここがRealtimeだとベイクに寄与しない
+            light.lightmapBakeType = fastIteration
+                ? LightmapBakeType.Realtime
+                : LightmapBakeType.Mixed;
             var s = lighting?.sun;
             if (s != null)
             {
@@ -175,7 +235,8 @@ namespace MVL
         }
 
         // ---------- 配置 ----------
-        static ObjectReport PlaceObject(SceneObject obj, string assetsDirAbs, string importFolder)
+        static ObjectReport PlaceObject(SceneObject obj, string assetsDirAbs,
+                                        string importFolder, bool fastIteration)
         {
             string src = Path.Combine(assetsDirAbs, obj.asset);
             if (!File.Exists(src)) { Debug.LogWarning($"[MVL] GLBなし: {src}(スキップ)"); return null; }
@@ -207,12 +268,21 @@ namespace MVL
             var offset = new Vector3(p[0] - bounds.center.x, p[1] - bounds.min.y, p[2] - bounds.center.z);
             inst.transform.position += offset;
 
-            // デシメーション + ライトマップUV
+            // 高速モードは配置確認用。元メッシュのまま撮影し、UV2生成を省く。
             int before, after;
-            DecimateAndUnwrap(inst, out before, out after);
-            GameObjectUtility.SetStaticEditorFlags(inst, StaticEditorFlags.ContributeGI);
-            foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
-                GameObjectUtility.SetStaticEditorFlags(t.gameObject, StaticEditorFlags.ContributeGI);
+            if (fastIteration)
+            {
+                before = CountTriangles(inst);
+                after = before;
+            }
+            else
+            {
+                DecimateAndUnwrap(inst, out before, out after);
+                GameObjectUtility.SetStaticEditorFlags(inst, StaticEditorFlags.ContributeGI);
+                foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
+                    GameObjectUtility.SetStaticEditorFlags(
+                        t.gameObject, StaticEditorFlags.ContributeGI);
+            }
 
             bounds = MeasureBounds(inst);
             return new ObjectReport
@@ -232,6 +302,15 @@ namespace MVL
             var b = rends[0].bounds;
             foreach (var r in rends) b.Encapsulate(r.bounds);
             return b;
+        }
+
+        static int CountTriangles(GameObject go)
+        {
+            int total = 0;
+            foreach (var filter in go.GetComponentsInChildren<MeshFilter>(true))
+                if (filter.sharedMesh != null)
+                    total += filter.sharedMesh.triangles.Length / 3;
+            return total;
         }
 
         static void DecimateAndUnwrap(GameObject go, out int trisBefore, out int trisAfter)
@@ -402,6 +481,117 @@ namespace MVL
             var result = new List<Vector3>();
             for (int i = 0; i < Mathf.Min(n, list.Count); i++) result.Add(list[i].c);
             return result;
+        }
+
+        static List<DetailCaptureReport> CaptureDetailViews(
+            SceneJson scene, string outDir, List<ObjectReport> placed)
+        {
+            var results = new List<DetailCaptureReport>();
+            if (scene.objects == null || placed == null) return results;
+
+            var reports = new Dictionary<string, ObjectReport>();
+            foreach (var report in placed)
+                if (report != null && !string.IsNullOrEmpty(report.id))
+                    reports[report.id] = report;
+
+            float w = scene.room.bounds.width;
+            float d = scene.room.bounds.depth;
+            float h = scene.room.bounds.height;
+            var roomCenter = new Vector3(w / 2, 1.2f, d / 2);
+            var detailRoot = Path.Combine(outDir, "detail");
+            Directory.CreateDirectory(detailRoot);
+
+            var camGo = new GameObject("DetailCaptureCam");
+            var cam = camGo.AddComponent<Camera>();
+            cam.fieldOfView = 55f;
+            cam.nearClipPlane = 0.03f;
+            var rt = new RenderTexture(CAPTURE_W, CAPTURE_H, 24);
+            var tex = new Texture2D(
+                CAPTURE_W, CAPTURE_H, TextureFormat.RGB24, false);
+            cam.targetTexture = rt;
+
+            foreach (var obj in scene.objects)
+            {
+                if (obj == null || string.IsNullOrEmpty(obj.id)
+                    || !reports.TryGetValue(obj.id, out var report)
+                    || report.aabb_min == null || report.aabb_max == null)
+                    continue;
+
+                var mn = new Vector3(
+                    report.aabb_min[0], report.aabb_min[1], report.aabb_min[2]);
+                var mx = new Vector3(
+                    report.aabb_max[0], report.aabb_max[1], report.aabb_max[2]);
+                var center = (mn + mx) * 0.5f;
+                var size = mx - mn;
+                float radius = Mathf.Max(size.x, Mathf.Max(size.y, size.z));
+                float distance = Mathf.Clamp(radius * 2.2f, 1.15f, 2.8f);
+
+                // 壁際の物体でも最初の画像は必ず部屋側から見る。残り2枚は
+                // 左右55度に振り、正面・背面・接地面の手掛かりを増やす。
+                var inward = roomCenter - center;
+                inward.y = 0;
+                if (inward.sqrMagnitude < 1e-4f) inward = Vector3.back;
+                inward.Normalize();
+                var directions = new[] {
+                    inward,
+                    Quaternion.Euler(0, 55, 0) * inward,
+                    Quaternion.Euler(0, -55, 0) * inward,
+                };
+
+                string safeId = SafeFileName(obj.id);
+                string objectDir = Path.Combine(detailRoot, safeId);
+                Directory.CreateDirectory(objectDir);
+                var detail = new DetailCaptureReport {
+                    object_id = obj.id,
+                    object_class = obj.@class,
+                };
+                AddRelatedId(detail.related_ids, obj.rests_on);
+                AddRelatedId(detail.related_ids, obj.faces);
+                if (obj.near != null) AddRelatedId(
+                    detail.related_ids, obj.near.target);
+
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    var pos = center + directions[i] * distance;
+                    pos.y = Mathf.Clamp(
+                        center.y + Mathf.Max(0.18f, size.y * 0.22f),
+                        0.25f, h - 0.15f);
+                    pos.x = Mathf.Clamp(pos.x, 0.12f, w - 0.12f);
+                    pos.z = Mathf.Clamp(pos.z, 0.12f, d - 0.12f);
+                    cam.transform.position = AvoidObstacles(
+                        pos, placed, roomCenter);
+                    cam.transform.LookAt(center);
+                    cam.Render();
+                    RenderTexture.active = rt;
+                    tex.ReadPixels(
+                        new Rect(0, 0, CAPTURE_W, CAPTURE_H), 0, 0);
+                    tex.Apply();
+                    string file = Path.Combine(objectDir, $"view_{i:D2}.png");
+                    File.WriteAllBytes(file, tex.EncodeToPNG());
+                    detail.files.Add(Path.Combine(
+                        "detail", safeId, $"view_{i:D2}.png"));
+                }
+                results.Add(detail);
+            }
+
+            RenderTexture.active = null;
+            cam.targetTexture = null;
+            UnityEngine.Object.DestroyImmediate(rt);
+            UnityEngine.Object.DestroyImmediate(camGo);
+            return results;
+        }
+
+        static string SafeFileName(string value)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+                value = value.Replace(c, '_');
+            return value;
+        }
+
+        static void AddRelatedId(List<string> values, string value)
+        {
+            if (!string.IsNullOrEmpty(value) && !values.Contains(value))
+                values.Add(value);
         }
 
         static void WriteReport(BuildReport report, string outDir)

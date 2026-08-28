@@ -1,0 +1,8 @@
+{
+  "iteration": 6,
+  "rolled_back": false,
+  "applied_repairs": [
+    "desk_01: desk_v1.glb→desk_v2.glb(バリアント差し替え) ※VLM要求=retexture(未実装のため代替)"
+  ],
+  "pairwise_winner": "B"
+}

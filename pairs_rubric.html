@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B1・B3採点基準のブラインド比較（端点7組）</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#f4f5f7;color:#202124}
+main{max-width:1500px;margin:auto;padding:24px}.note{background:#fff7d6;padding:12px 16px;border-radius:8px}
+.pair{background:white;margin:24px 0;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0002}
+.pair h2{margin:0 0 8px}.sides{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sides h3{text-align:center;margin:4px}.views{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.views img{display:block;width:100%;height:auto;background:#ddd}.choices{text-align:center;padding-top:16px}
+.choices label{display:inline-block;margin:4px;padding:10px 16px;border:1px solid #aaa;border-radius:8px;cursor:pointer}
+.choices label:has(input:checked){background:#dcecff;border-color:#3578c8}
+.rubric-question{margin-top:18px;padding-top:8px;border-top:1px solid #ddd}.rubric-question h3{text-align:center}
+#finish{font-size:1.1rem;padding:12px 22px}#result{width:100%;min-height:190px;margin-top:12px;font-family:monospace}
+@media(max-width:800px){.sides{grid-template-columns:1fr}.views{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>B1・B3採点基準のブラインド比較（端点7組）</h1>
+<p class="note">各組について、空間としてより良い方を直感で選んでください。左右のどちらが修正前かは伏せてあります。</p>
+
+<section class="pair" data-pair="pair_01">
+  <h2>pair_01</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/study_room_seed1_20260825_220751/iter_00/capture/view_00.png" alt="pair_01 左"><img src="runs/study_room_seed1_20260825_220751/iter_00/capture/view_04.png" alt="pair_01 左"><img src="runs/study_room_seed1_20260825_220751/iter_00/capture/view_07.png" alt="pair_01 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/study_room_seed1_20260825_220751/iter_02/capture/view_00.png" alt="pair_01 右"><img src="runs/study_room_seed1_20260825_220751/iter_02/capture/view_04.png" alt="pair_01 右"><img src="runs/study_room_seed1_20260825_220751/iter_02/capture/view_07.png" alt="pair_01 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_01_B1" role="radiogroup" aria-label="pair_01 B1の回答">
+      <label><input type="radio" name="pair_01_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_01_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_01_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_01_B3" role="radiogroup" aria-label="pair_01 B3の回答">
+      <label><input type="radio" name="pair_01_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_01_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_01_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_02">
+  <h2>pair_02</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/wizard_study_seed1_20260820_164441/iter_07/capture/view_00.png" alt="pair_02 左"><img src="runs/wizard_study_seed1_20260820_164441/iter_07/capture/view_04.png" alt="pair_02 左"><img src="runs/wizard_study_seed1_20260820_164441/iter_07/capture/view_07.png" alt="pair_02 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/wizard_study_seed1_20260820_164441/iter_00/capture/view_00.png" alt="pair_02 右"><img src="runs/wizard_study_seed1_20260820_164441/iter_00/capture/view_04.png" alt="pair_02 右"><img src="runs/wizard_study_seed1_20260820_164441/iter_00/capture/view_07.png" alt="pair_02 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_02_B1" role="radiogroup" aria-label="pair_02 B1の回答">
+      <label><input type="radio" name="pair_02_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_02_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_02_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_02_B3" role="radiogroup" aria-label="pair_02 B3の回答">
+      <label><input type="radio" name="pair_02_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_02_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_02_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_03">
+  <h2>pair_03</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/wizard_study_seed3_20260820_180741/iter_02/capture/view_00.png" alt="pair_03 左"><img src="runs/wizard_study_seed3_20260820_180741/iter_02/capture/view_04.png" alt="pair_03 左"><img src="runs/wizard_study_seed3_20260820_180741/iter_02/capture/view_07.png" alt="pair_03 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/wizard_study_seed3_20260820_180741/iter_00/capture/view_00.png" alt="pair_03 右"><img src="runs/wizard_study_seed3_20260820_180741/iter_00/capture/view_04.png" alt="pair_03 右"><img src="runs/wizard_study_seed3_20260820_180741/iter_00/capture/view_07.png" alt="pair_03 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_03_B1" role="radiogroup" aria-label="pair_03 B1の回答">
+      <label><input type="radio" name="pair_03_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_03_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_03_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_03_B3" role="radiogroup" aria-label="pair_03 B3の回答">
+      <label><input type="radio" name="pair_03_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_03_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_03_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_04">
+  <h2>pair_04</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/wizard_study_seed2_20260820_172402/iter_00/capture/view_00.png" alt="pair_04 左"><img src="runs/wizard_study_seed2_20260820_172402/iter_00/capture/view_04.png" alt="pair_04 左"><img src="runs/wizard_study_seed2_20260820_172402/iter_00/capture/view_07.png" alt="pair_04 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/wizard_study_seed2_20260820_172402/iter_04/capture/view_00.png" alt="pair_04 右"><img src="runs/wizard_study_seed2_20260820_172402/iter_04/capture/view_04.png" alt="pair_04 右"><img src="runs/wizard_study_seed2_20260820_172402/iter_04/capture/view_07.png" alt="pair_04 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_04_B1" role="radiogroup" aria-label="pair_04 B1の回答">
+      <label><input type="radio" name="pair_04_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_04_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_04_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_04_B3" role="radiogroup" aria-label="pair_04 B3の回答">
+      <label><input type="radio" name="pair_04_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_04_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_04_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_05">
+  <h2>pair_05</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/study_room_seed2_20260826_142819/iter_05/capture/view_00.png" alt="pair_05 左"><img src="runs/study_room_seed2_20260826_142819/iter_05/capture/view_04.png" alt="pair_05 左"><img src="runs/study_room_seed2_20260826_142819/iter_05/capture/view_07.png" alt="pair_05 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/study_room_seed2_20260826_142819/iter_00/capture/view_00.png" alt="pair_05 右"><img src="runs/study_room_seed2_20260826_142819/iter_00/capture/view_04.png" alt="pair_05 右"><img src="runs/study_room_seed2_20260826_142819/iter_00/capture/view_07.png" alt="pair_05 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_05_B1" role="radiogroup" aria-label="pair_05 B1の回答">
+      <label><input type="radio" name="pair_05_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_05_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_05_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_05_B3" role="radiogroup" aria-label="pair_05 B3の回答">
+      <label><input type="radio" name="pair_05_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_05_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_05_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_06">
+  <h2>pair_06</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/study_room_seed3_20260826_145948/iter_00/capture/view_00.png" alt="pair_06 左"><img src="runs/study_room_seed3_20260826_145948/iter_00/capture/view_04.png" alt="pair_06 左"><img src="runs/study_room_seed3_20260826_145948/iter_00/capture/view_07.png" alt="pair_06 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/study_room_seed3_20260826_145948/iter_06/capture/view_00.png" alt="pair_06 右"><img src="runs/study_room_seed3_20260826_145948/iter_06/capture/view_04.png" alt="pair_06 右"><img src="runs/study_room_seed3_20260826_145948/iter_06/capture/view_07.png" alt="pair_06 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_06_B1" role="radiogroup" aria-label="pair_06 B1の回答">
+      <label><input type="radio" name="pair_06_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_06_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_06_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_06_B3" role="radiogroup" aria-label="pair_06 B3の回答">
+      <label><input type="radio" name="pair_06_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_06_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_06_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+
+<section class="pair" data-pair="pair_07">
+  <h2>pair_07</h2>
+  <div class="sides">
+    <div><h3>左</h3><div class="views"><img src="runs/wizard_study_seed3_20260820_174441/iter_05/capture/view_00.png" alt="pair_07 左"><img src="runs/wizard_study_seed3_20260820_174441/iter_05/capture/view_04.png" alt="pair_07 左"><img src="runs/wizard_study_seed3_20260820_174441/iter_05/capture/view_07.png" alt="pair_07 左"></div></div>
+    <div><h3>右</h3><div class="views"><img src="runs/wizard_study_seed3_20260820_174441/iter_00/capture/view_00.png" alt="pair_07 右"><img src="runs/wizard_study_seed3_20260820_174441/iter_00/capture/view_04.png" alt="pair_07 右"><img src="runs/wizard_study_seed3_20260820_174441/iter_00/capture/view_07.png" alt="pair_07 右"></div></div>
+  </div>
+  
+  <div class="rubric-question">
+    <h3>B1：物の大きさ・スケールがより自然なのは？</h3>
+    <div class="choices question" data-pair="pair_07_B1" role="radiogroup" aria-label="pair_07 B1の回答">
+      <label><input type="radio" name="pair_07_B1" value="left"> 左</label>
+      <label><input type="radio" name="pair_07_B1" value="right"> 右</label>
+      <label><input type="radio" name="pair_07_B1" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+  <div class="rubric-question">
+    <h3>B3：浮遊・貫通・向きの誤りが少ないのは？</h3>
+    <div class="choices question" data-pair="pair_07_B3" role="radiogroup" aria-label="pair_07 B3の回答">
+      <label><input type="radio" name="pair_07_B3" value="left"> 左</label>
+      <label><input type="radio" name="pair_07_B3" value="right"> 右</label>
+      <label><input type="radio" name="pair_07_B3" value="tie"> 同じくらい</label>
+    </div>
+  </div>
+</section>
+<button id="finish" type="button">回答をまとめる</button>
+<p id="status" aria-live="polite"></p><textarea id="result" readonly placeholder="すべて回答すると、ここにCSV行が表示されます"></textarea>
+<script>
+const cards = [...document.querySelectorAll('.question')];
+const storageKey = 'blind-pair-answers:rubric:20260809:study_room_seed1_20260825_220751,wizard_study_seed1_20260820_164441,wizard_study_seed3_20260820_180741,wizard_study_seed2_20260820_172402,study_room_seed2_20260826_142819,study_room_seed3_20260826_145948,wizard_study_seed3_20260820_174441';
+
+function saveAnswers() {
+  const saved = {};
+  cards.forEach(c => {
+    const picked = c.querySelector('input:checked');
+    if (picked) saved[c.dataset.pair] = picked.value;
+  });
+  localStorage.setItem(storageKey, JSON.stringify(saved));
+}
+
+function restoreAnswers() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    cards.forEach(c => {
+      const value = saved[c.dataset.pair];
+      const input = value && c.querySelector(`input[value="${value}"]`);
+      if (input) input.checked = true;
+    });
+  } catch (_) {}
+}
+
+cards.forEach(c => c.addEventListener('change', saveAnswers));
+restoreAnswers();
+
+document.getElementById('finish').addEventListener('click', () => {
+  const missing = cards.filter(c => !c.querySelector('input:checked'));
+  if (missing.length) {
+    document.getElementById('status').textContent = `未回答が ${missing.length} 組あります。`;
+    missing[0].scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  const lines = cards.map(c => `${c.dataset.pair},${c.querySelector('input:checked').value}`);
+  saveAnswers();
+  const box = document.getElementById('result'); box.value = lines.join(String.fromCharCode(10)); box.select();
+  document.getElementById('status').textContent = '下の行をコピーし、answers_rubric.csv として保存してください。';
+});
+</script></main></body></html>

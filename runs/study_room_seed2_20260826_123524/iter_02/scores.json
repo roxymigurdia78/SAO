@@ -1,0 +1,29 @@
+{
+  "B1": 3,
+  "B2": 4,
+  "B3": 3,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "backpack_01 が床から浮いている"
+    },
+    {
+      "kind": "orientation",
+      "description": "trash_bin_01（ゴミ箱）の蓋が斜めになっており座面や配置がおかしい"
+    },
+    {
+      "kind": "scale",
+      "description": "bookshelf_01 の高さが天井近くまであり、他の家具とのバランスで浮遊感がある"
+    }
+  ],
+  "worst_object": {
+    "id": "backpack_01",
+    "reason": "床と接していない完全なフラットネスかつ位置座標がおかしいため",
+    "suggested_repair": "relight"
+  },
+  "comment": "部屋全体のスケールに矛盾があるものの、照明の計算は概ね自然で光の流れが読める。しかしオブジェクト（バックパックやゴミ箱）の配置・向きミスが目立ち、空間全体として破綻感が出ているため没入感が阻害される。",
+  "total": 16.0,
+  "mean": 3.2
+}

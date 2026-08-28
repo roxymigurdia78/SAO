@@ -1,0 +1,9 @@
+{
+  "iteration": 1,
+  "rolled_back": false,
+  "applied_repairs": [
+    "lamp_01: y 1.050→0.775(desk_01の天面へ)",
+    "orb_01: y 1.050→0.775(desk_01の天面へ)",
+    "books_01: y 1.047→0.772(desk_01の天面へ, 接地オフセット+0.003m)"
+  ]
+}

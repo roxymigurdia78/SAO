@@ -1,0 +1,8 @@
+{
+  "iteration": 2,
+  "rolled_back": false,
+  "applied_repairs": [
+    "plant_01: z 3.10→2.78(貫通解消)"
+  ],
+  "pairwise_winner": "B"
+}

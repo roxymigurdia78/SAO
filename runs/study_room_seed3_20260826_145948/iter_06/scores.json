@@ -1,0 +1,16 @@
+{
+  "B1": 4,
+  "B2": 3,
+  "B3": 5,
+  "B4": 3,
+  "B5": 4,
+  "b3_defects": [],
+  "worst_object": {
+    "id": "bookshelf_01",
+    "reason": "Bookshelf is floating slightly off the floor in multiple angles and does not align with the ground plane.",
+    "suggested_repair": "relight"
+  },
+  "comment": "家具の配置は物理法則に従っており、椅子が机に対して適切な位置に置かれている。しかし一部のオブジェクトが浮遊しており床との接地感が不十分であるため品質検査で指摘された箇所がある。",
+  "total": 19.0,
+  "mean": 3.8
+}

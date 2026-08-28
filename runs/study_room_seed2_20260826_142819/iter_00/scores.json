@@ -1,0 +1,29 @@
+{
+  "B1": 3,
+  "B2": 5,
+  "B3": 4,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "floating",
+      "description": "desk_01が床に沈み込んでおり、椅子やラグとの接地点から浮遊している。"
+    },
+    {
+      "kind": "scaling",
+      "description": "mug_01(マグカップ)のサイズが異常に大きく描写されているため物体として成立していない。"
+    }
+  ],
+  "worst_object": {
+    "id": "desk_01",
+    "reason": "浮遊と床への沈み込みにより物理演算が破綻しているように見える",
+    "suggested_repair": "none"
+  },
+  "comment": "照明や素材は写実的ですが、机の配置ミスにより空間に致命的な不自然さが生じています。またマグカップなどのアイテムスケールも崩れており、没入感を損ないました。",
+  "debug_hint": {
+    "desk_01_y_pos_offset_cm": -35,
+    "mug_scale_factor_x": 4.2
+  },
+  "total": 18.0,
+  "mean": 3.6
+}

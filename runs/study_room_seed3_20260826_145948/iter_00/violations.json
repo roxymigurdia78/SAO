@@ -1,0 +1,173 @@
+[
+  {
+    "type": "penetration",
+    "object_ids": [
+      "desk_01",
+      "trash_bin_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.236, 0.35, 0.18]",
+    "overlap": [
+      0.23611807823181152,
+      0.35034021735191345,
+      0.17970514297485352
+    ],
+    "aabbs": {
+      "desk_01": [
+        [
+          1.491471529006958,
+          -0.0001996755599975586,
+          1.5987794399261475
+        ],
+        [
+          2.7079780101776123,
+          0.729999840259552,
+          2.2013328075408936
+        ]
+      ],
+      "trash_bin_01": [
+        [
+          2.471859931945801,
+          4.887580871582031e-06,
+          2.02162766456604
+        ],
+        [
+          2.728053092956543,
+          0.35034510493278503,
+          2.278409242630005
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "penetration",
+    "object_ids": [
+      "lamp_01",
+      "pen_holder_01"
+    ],
+    "detail": "めり込み深さ x/y/z = [0.112, 0.45, 0.273]",
+    "overlap": [
+      0.11241507530212402,
+      0.4497249126434326,
+      0.27298688888549805
+    ],
+    "aabbs": {
+      "lamp_01": [
+        [
+          2.468796968460083,
+          0.7299079895019531,
+          1.917280912399292
+        ],
+        [
+          2.7713258266448975,
+          1.1796329021453857,
+          2.2828786373138428
+        ]
+      ],
+      "pen_holder_01": [
+        [
+          2.318882465362549,
+          0.7298624515533447,
+          1.9434943199157715
+        ],
+        [
+          2.581212043762207,
+          1.1800000667572021,
+          2.2164812088012695
+        ]
+      ]
+    },
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "floating",
+    "object_id": "books_01",
+    "detail": "desk_01 の天面から +0.250m (接地オフセット未確定) (オフセット未確定)",
+    "gap": 0.250022828578949,
+    "snap_to": 0.729999840259552,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "floor_lamp_01",
+    "detail": "AABB [2.79, -0.0, 2.69]〜[3.81, 3.0, 3.71] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      2.786379337310791,
+      -0.0012404918670654297,
+      2.6883492469787598
+    ],
+    "aabb_max": [
+      3.8134350776672363,
+      3.00076961517334,
+      3.713017463684082
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "plant_01",
+    "detail": "AABB [-0.12, -0.0, 2.71]〜[0.92, 1.05, 3.59] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      -0.11866360902786255,
+      -0.00010013580322265625,
+      2.710653305053711
+    ],
+    "aabb_max": [
+      0.9178286194801331,
+      1.0501304864883423,
+      3.5897669792175293
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "floor_lamp_01",
+    "detail": "高さ 3.00m がクラス許容 [1.2, 2.0] を逸脱(実測)",
+    "measured_height": 3.0020101070404053,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "scale",
+    "object_id": "pen_holder_01",
+    "detail": "高さ 0.45m がクラス許容 [0.1, 0.3] を逸脱(実測)",
+    "measured_height": 0.4501376152038574,
+    "suggested_repair": "rescale"
+  },
+  {
+    "type": "walkability",
+    "detail": "自由床面の到達率 32%(孤立領域あり)",
+    "reach_ratio": 0.3165680473372781,
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "bookshelf_01",
+    "detail": "必須オブジェクト bookshelf_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "floor_lamp_01",
+    "detail": "必須オブジェクト floor_lamp_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "trash_bin_01",
+    "detail": "必須オブジェクト trash_bin_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "plant_01",
+    "detail": "必須オブジェクト plant_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  },
+  {
+    "type": "walkability",
+    "object_id": "rug_01",
+    "detail": "必須オブジェクト rug_01 に入口から到達できない",
+    "suggested_repair": "push_apart"
+  }
+]

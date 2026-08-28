@@ -1,0 +1,9 @@
+{
+  "iteration": 2,
+  "rolled_back": false,
+  "applied_repairs": [
+    "plant_01: x 0.40→0.22(貫通解消)",
+    "plant_01: [0.22, 0, 3.05]→[0.35, 0, 3.05](部屋内へ)"
+  ],
+  "pairwise_winner": "tie"
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "type": "floating",
+    "object_id": "trash_bin_01",
+    "detail": "床から 0.350m 浮遊",
+    "gap": 0.35,
+    "snap_to": 0.0,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_floor"
+  },
+  {
+    "type": "out_of_bounds",
+    "object_id": "floor_lamp_01",
+    "detail": "AABB [3.28, 0, 0.48]〜[3.62, 3.0, 0.82] が部屋 4.0x3.5x2.5 を超過",
+    "aabb_min": [
+      3.2750000000000004,
+      0,
+      0.47500000000000003
+    ],
+    "aabb_max": [
+      3.625,
+      3.0,
+      0.825
+    ],
+    "suggested_repair": "clamp_into_room"
+  },
+  {
+    "type": "scale",
+    "object_id": "floor_lamp_01",
+    "detail": "高さ 3.00m がクラス許容 [1.2, 2.0] を逸脱(公称)",
+    "measured_height": 3.0,
+    "suggested_repair": "rescale"
+  }
+]

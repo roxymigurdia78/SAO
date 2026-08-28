@@ -1,0 +1,8 @@
+{
+  "iteration": 4,
+  "rolled_back": false,
+  "applied_repairs": [
+    "rug_01: f_rug_v3.glb→f_rug_v1.glb(バリアント差し替え) ※VLM要求=retexture(未実装のため代替)"
+  ],
+  "pairwise_winner": "tie"
+}

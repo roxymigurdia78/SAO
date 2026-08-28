@@ -1,0 +1,8 @@
+{
+  "iteration": 0,
+  "rolled_back": false,
+  "applied_repairs": [
+    "trash_bin_01: y 0.350→0.000(接地)",
+    "floor_lamp_01: 高さ 3.00→1.60(再スケール・高さのみ)"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "B1": 3,
+  "B2": 3,
+  "B3": 4,
+  "B4": 3,
+  "B5": 3,
+  "b3_defects": [
+    {
+      "kind": "penetration",
+      "description": "chair_01の背もたれ/座面がdesk_01の天板裏や幕板に貫通している"
+    }
+  ],
+  "worst_object": {
+    "id": "chair_01",
+    "reason": "desk_01に大きくめり込み、机とのスケール不一致も強く見えるため没入感を損ねる",
+    "suggested_repair": "swap_variant"
+  },
+  "comment": "基本的な構成や素材の方向性は良いが、机まわりのスケール不整合と衝突が目立つ。照明は全体に明るい一方で方向性と陰影が弱く、立体感が出ていない。",
+  "total": 16.0,
+  "mean": 3.2
+}

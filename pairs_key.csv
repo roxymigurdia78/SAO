@@ -1,0 +1,11 @@
+﻿pair_id,left_is,ai_winner,run,before,after
+pair_01,after,tie,study_room_seed1_20260825_182542,iter_04,iter_07
+pair_02,before,tie,study_room_seed3_20260826_132314,iter_02,iter_03
+pair_03,after,tie,study_room_seed1_20260825_155014,iter_03,iter_05
+pair_04,before,tie,study_room_seed1_20260825_182542,iter_07,iter_09
+pair_05,after,B,study_room_seed3_20260826_145948,iter_02,iter_03
+pair_06,before,B,wizard_study_seed3_20260820_174441,iter_01,iter_02
+pair_07,after,A,study_room_seed3_20260826_145948,iter_04,iter_05
+pair_08,before,tie,study_room_seed1_20260825_220751,iter_01,iter_02
+pair_09,before,A,study_room_seed2_20260826_123524,iter_02,iter_04
+pair_10,after,tie,study_room_seed3_20260825_200227,iter_05,iter_07

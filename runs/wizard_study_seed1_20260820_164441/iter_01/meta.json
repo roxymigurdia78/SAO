@@ -1,0 +1,7 @@
+{
+  "iteration": 1,
+  "rolled_back": false,
+  "applied_repairs": [
+    "plant_01: f_plant_v1.glb→f_plant_v2.glb(バリアント差し替え)"
+  ]
+}

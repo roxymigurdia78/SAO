@@ -1,0 +1,16 @@
+{
+    "scene_id": "study_room_seed1",
+    "objects": [],
+    "captures": [
+        "view_00.png",
+        "view_01.png",
+        "view_02.png",
+        "view_03.png",
+        "view_04.png",
+        "view_05.png",
+        "view_06.png",
+        "view_07.png"
+    ],
+    "bake_seconds": 2.4011590480804445,
+    "error": ""
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "type": "floating",
+    "object_id": "lamp_01",
+    "detail": "desk_01 の天面から +0.275m (接地オフセット未確定) (オフセット未確定)",
+    "gap": 0.275,
+    "snap_to": 0.775,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "floating",
+    "object_id": "orb_01",
+    "detail": "desk_01 の天面から +0.275m",
+    "gap": 0.275,
+    "snap_to": 0.775,
+    "contact_offset_m": 0.0,
+    "suggested_repair": "snap_to_parent"
+  },
+  {
+    "type": "floating",
+    "object_id": "books_01",
+    "detail": "desk_01 の天面から +0.275m (接地オフセット+0.003m)",
+    "gap": 0.275,
+    "snap_to": 0.775,
+    "contact_offset_m": 0.002807999999999999,
+    "suggested_repair": "snap_to_parent"
+  }
+]
