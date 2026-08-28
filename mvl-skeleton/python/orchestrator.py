@@ -14,6 +14,7 @@ import argparse
 import copy
 import json
 import shutil
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -30,33 +31,57 @@ DEFAULT_RUNS_DIR = Path(__file__).resolve().parents[1] / "runs"
 
 @dataclass
 class BestState:
-    """違反数、縦横比誤差の辞書順で最良の評価済みシーンを保持する。"""
+    """機械違反、縦横比誤差、詳細VLM失敗の辞書順で最良状態を保持する。"""
     scene: object = None
     iteration: object = None
     violation_count: object = None
     aspect_ratio_error_sum: object = None
+    visual_failure_count: object = None
 
     def consider(self, scene, iteration, violation_count,
-                 aspect_ratio_error_sum=None):
+                 aspect_ratio_error_sum=None, visual_failure_count=None):
         """辞書順で厳密に改善した場合だけdeep copyで更新する。"""
         if self.violation_count is not None:
             if violation_count > self.violation_count:
                 return False
             if violation_count == self.violation_count:
-                if aspect_ratio_error_sum is None:
-                    return False
+                aspect_tied = True
                 if (self.aspect_ratio_error_sum is not None
-                        and aspect_ratio_error_sum >= self.aspect_ratio_error_sum - 1e-12):
-                    return False
+                        or aspect_ratio_error_sum is not None):
+                    if aspect_ratio_error_sum is None:
+                        return False
+                    if self.aspect_ratio_error_sum is None:
+                        aspect_tied = False
+                    elif (aspect_ratio_error_sum
+                          > self.aspect_ratio_error_sum + 1e-12):
+                        return False
+                    elif (aspect_ratio_error_sum
+                          < self.aspect_ratio_error_sum - 1e-12):
+                        aspect_tied = False
+
+                # 非決定的なVLM値は、決定的な2キーが完全に同じ場合だけ使う。
+                if aspect_tied:
+                    if (self.visual_failure_count is None
+                            and visual_failure_count is None):
+                        return False
+                    if visual_failure_count is None:
+                        return False
+                    if self.visual_failure_count is None:
+                        pass  # 監査済みは未監査との完全同点を解消できる
+                    elif visual_failure_count >= self.visual_failure_count:
+                        return False
         self.scene = copy.deepcopy(scene)
         self.iteration = iteration
         self.violation_count = violation_count
         self.aspect_ratio_error_sum = aspect_ratio_error_sum
+        self.visual_failure_count = visual_failure_count
         return True
 
     def summary(self):
-        return {
+        summary = {
             "selection_rule": (
+                "lexicographic_minimum_machine_violations_then_aspect_ratio_error_then_detail_vlm_failures"
+                if self.visual_failure_count is not None else
                 "lexicographic_minimum_machine_violations_then_aspect_ratio_error"),
             "iteration": self.iteration,
             "violation_count": self.violation_count,
@@ -64,11 +89,25 @@ class BestState:
                 round(self.aspect_ratio_error_sum, 6)
                 if self.aspect_ratio_error_sum is not None else None),
         }
+        if self.visual_failure_count is not None:
+            summary["detail_vlm_failure_count"] = self.visual_failure_count
+        return summary
 
 
 def has_budget_to_evaluate_repair(iteration, max_iters):
     """今作る修正シーンを次反復で評価できるか。"""
     return iteration + 1 < max_iters
+
+
+def should_run_detail_audit(detail_enabled, every_iteration,
+                            violation_count):
+    """通常は違反ゼロ時だけ、評価実験では欠陥を含む反復も詳細監査する。"""
+    return bool(detail_enabled and (every_iteration or violation_count == 0))
+
+
+def detail_repairs_to_forward(candidates, repair_enabled):
+    """詳細VLMは既定で監査専用。明示指定時だけ修復候補を渡す。"""
+    return list(candidates or []) if repair_enabled else []
 
 
 def find_repeated_repairs(applied, seen):
@@ -174,12 +213,27 @@ def main():
     ap.add_argument("--max-iters", type=int, default=MAX_ITERS)
     ap.add_argument("--dry-run", action="store_true", help="Unity/GPT無しで配線検証(公称AABBのみ)")
     ap.add_argument("--skip-vlm", action="store_true", help="GPT採点を飛ばす(機械検査のみで回す)")
+    ap.add_argument(
+        "--detail-vlm", action="store_true",
+        help="機械違反ゼロ時に全オブジェクトを3方向から個別VLM監査")
+    ap.add_argument(
+        "--detail-vlm-every-iteration", action="store_true",
+        help="評価実験用: 機械違反が残る反復も個別VLM監査")
+    ap.add_argument(
+        "--detail-vlm-repair", action="store_true",
+        help="実験用: 詳細VLMの高信頼度指摘を修復へ渡す(既定は監査のみ)")
     ap.add_argument("--fast-unity", action="store_true",
                     help="配置確認用: Unityのメッシュ加工・UV2・ベイクを省略")
     ap.add_argument(
         "--runs-dir", default=str(DEFAULT_RUNS_DIR),
         help="実行ログの出力先 (既定: mvl-skeleton/runs)")
     args = ap.parse_args()
+    detail_vlm_enabled = bool(
+        args.detail_vlm or args.detail_vlm_every_iteration
+        or args.detail_vlm_repair)
+
+    if detail_vlm_enabled and args.skip_vlm:
+        ap.error("詳細VLMと --skip-vlm は同時に指定できない")
 
     if not args.dry_run and (not args.unity or not args.project):
         ap.error("フル実行には --unity と --project が必要(配線検証だけなら --dry-run)")
@@ -265,17 +319,36 @@ def main():
             import unity_bridge
             report = unity_bridge.run_unity_build(args.unity, args.project,
                                                  it_dir / "scene.json", cap_dir,
-                                                 fast_iteration=args.fast_unity)
+                                                 fast_iteration=args.fast_unity,
+                                                 detail_captures=detail_vlm_enabled)
             captures = sorted(cap_dir.glob("view_*.png"))
             mode = "高速" if report.get("fast_iteration") else "通常"
             print(f"[iter {i}] 撮影 {len(captures)}枚 / {mode}モード / "
                   f"Unity {report.get('_elapsed_seconds', 0):.0f}秒 / "
                   f"ベイク {report.get('bake_seconds', 0):.0f}秒")
+            detail_capture_records = report.get("detail_captures", []) or []
+            detail_image_count = sum(
+                len(item.get("files", []) or [])
+                for item in detail_capture_records)
+            if detail_vlm_enabled:
+                meta["detail_capture"] = {
+                    "objects": len(detail_capture_records),
+                    "images": detail_image_count,
+                    "seconds": report.get("detail_capture_seconds"),
+                }
+                print(f"[iter {i}] 詳細撮影: "
+                      f"{len(detail_capture_records)}対象 / "
+                      f"{detail_image_count}枚 / "
+                      f"{report.get('detail_capture_seconds', 0):.1f}秒")
 
         # --- 2a) 機械検査 ---
         violations = mc.run_all(scene, report)
+        reach_ratio = mc.walkability_reach_ratio(
+            scene, mc.collect_aabbs(scene, report))
+        meta["walkability_reach_ratio"] = round(reach_ratio, 6)
         save_json(it_dir / "violations.json", violations)
-        print(f"[iter {i}] 機械検査: 違反 {len(violations)} 件")
+        print(f"[iter {i}] 機械検査: 違反 {len(violations)} 件 / "
+              f"自由床面到達率 {reach_ratio:.1%}")
         for v in violations:
             print(f"    - {v['type']}: {v.get('detail', '')}")
 
@@ -283,6 +356,9 @@ def main():
         scores = None
         worst = None
         visual_defects = []
+        detail_audits = []
+        detail_failure_count = None
+        detail_uncertain_count = 0
         if captures and not args.skip_vlm:
             import gpt_scoring
             scores = gpt_scoring.score_scene([str(p) for p in captures], scene)
@@ -295,6 +371,46 @@ def main():
                 visual_defects = scores.get("b3_defects", [])
                 print(f"[iter {i}] VLM: 平均 {scores['mean']:.2f} " +
                       " ".join(f"{k}={scores.get(k)}" for k in ("B1", "B2", "B3", "B4", "B5")))
+
+            # 全景採点とは別系統。機械違反がゼロになった候補だけを対象に、
+            # 全オブジェクトを1対象ずつ拡大画像で監査する。
+            if should_run_detail_audit(
+                    detail_vlm_enabled,
+                    args.detail_vlm_every_iteration,
+                    len(violations)):
+                detail_vlm_started = time.monotonic()
+                detail_audits = gpt_scoring.audit_scene_details(
+                    report.get("detail_captures", []), cap_dir, scene)
+                detail_vlm_seconds = time.monotonic() - detail_vlm_started
+                save_json(it_dir / "detail_audit.json", detail_audits)
+                detail_failure_count = sum(
+                    audit.get("status") == "fail" for audit in detail_audits)
+                detail_uncertain_count = sum(
+                    audit.get("status") == "uncertain" for audit in detail_audits)
+                detail_repairs = gpt_scoring.detail_defects(detail_audits)
+                forwarded_detail_repairs = detail_repairs_to_forward(
+                    detail_repairs, args.detail_vlm_repair)
+                visual_defects.extend(forwarded_detail_repairs)
+                meta["detail_audit"] = {
+                    "objects": len(detail_audits),
+                    "fail": detail_failure_count,
+                    "uncertain": detail_uncertain_count,
+                    "repairable_high_confidence_findings": len(detail_repairs),
+                    "repair_enabled": args.detail_vlm_repair,
+                    "forwarded_to_repair": len(forwarded_detail_repairs),
+                    "requests": len(detail_audits),
+                    "seconds": round(detail_vlm_seconds, 3),
+                }
+                print(f"[iter {i}] 詳細VLM: 対象 {len(detail_audits)} / "
+                      f"fail {detail_failure_count} / "
+                      f"uncertain {detail_uncertain_count} / "
+                      f"合計 {detail_vlm_seconds:.1f}秒")
+                for audit in detail_audits:
+                    if audit.get("status") != "fail":
+                        continue
+                    for finding in audit.get("findings", []):
+                        print(f"    - {audit['object_id']} / "
+                              f"{finding['kind']}: {finding.get('detail', '')}")
 
         # --- 3) 採否判定(前反復と比較。悪化なら巻き戻し) ---
         if prev_scene is not None:
@@ -328,13 +444,18 @@ def main():
         prev_worst = copy.deepcopy(worst)
         prev_visual_defects = copy.deepcopy(visual_defects)
 
-        # 機械違反数を第一キー、縦横比誤差合計を第二キーにする。
-        # 両方が同じ場合だけ先着を残す。VLMスコアは選定に使わない。
+        # 決定的な機械違反数と縦横比誤差を上位キーにする。
+        # 詳細VLM fail数は両方が完全同点の場合だけ最下位で使う。
+        # 全景のVLM平均スコアは成果物選定に使わない。
         aspect_error_sum = repair.total_aspect_ratio_error(
             scene, asset_dimensions)
         meta["aspect_ratio_error_sum"] = aspect_error_sum
         meta["is_best"] = best.consider(
-            scene, i, len(violations), aspect_error_sum)
+            scene, i, len(violations), aspect_error_sum,
+            visual_failure_count=(
+                detail_failure_count
+                if detail_failure_count is not None
+                and detail_uncertain_count == 0 else None))
         meta["best_violation_count"] = best.violation_count
         meta["best_aspect_ratio_error_sum"] = best.aspect_ratio_error_sum
         if meta["is_best"]:
@@ -348,11 +469,26 @@ def main():
         # --- 4) 停止判定 ---
         mean = scores["mean"] if scores else None
         if len(violations) == 0:
+            if detail_failure_count and args.detail_vlm_repair:
+                print(f"[iter {i}] 機械違反ゼロ・詳細VLM fail "
+                      f"{detail_failure_count}件 → 修復を試行")
+            elif detail_failure_count:
+                print(f"[iter {i}] 機械違反ゼロ・詳細VLM fail "
+                      f"{detail_failure_count}件 → 監査記録のみ")
+            elif detail_uncertain_count:
+                print(f"[iter {i}] 機械違反ゼロ・詳細VLM uncertain "
+                      f"{detail_uncertain_count}件 → 未確認として記録")
+            elif detail_vlm_enabled and detail_failure_count == 0:
+                print(f"[iter {i}] 機械違反ゼロ・詳細VLM全対象pass")
             if mean is None:
                 print(f"[iter {i}] 違反ゼロ(VLM無し)→ 停止")
                 save_json(it_dir / "meta.json", meta)
                 break
-            if prev_mean is not None and mean - prev_mean < CONVERGE_EPS:
+            detail_repair_pending = bool(
+                args.detail_vlm_repair and detail_failure_count)
+            if (not detail_repair_pending
+                    and prev_mean is not None
+                    and mean - prev_mean < CONVERGE_EPS):
                 stall += 1
             else:
                 stall = 0

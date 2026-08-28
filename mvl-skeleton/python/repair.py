@@ -515,8 +515,12 @@ def _try_multi_push_apart(scene, mover_id, other_id, axis, depth, sign):
 
 
 def _validated_relocation_position(scene, target, x, z,
-                                   require_reachable=False):
-    """候補を一時適用し、幾何・到達性・意味制約を検証する。"""
+                                   require_reachable=False,
+                                   minimum_reach_ratio=None):
+    """候補を一時適用し、幾何・到達率・意味制約を検証する。
+
+    戻り値は(x, z, 到達率)。到達率が移動前を下回る候補は不採用。
+    """
     group = []
     originals = {}
     before_scene = copy.deepcopy(scene)
@@ -532,10 +536,14 @@ def _validated_relocation_position(scene, target, x, z,
         if require_reachable and not _target_is_reachable(
                 scene, target["id"]):
             return None
+        reach_ratio = mc.walkability_reach_ratio(scene)
+        if (minimum_reach_ratio is not None
+                and reach_ratio + 1e-9 < minimum_reach_ratio):
+            return None
         if not _semantic_candidate_ok(
                 before_scene, scene, [obj["id"] for obj in group]):
             return None
-        return candidate
+        return candidate[0], candidate[1], reach_ratio
     finally:
         _restore_positions(group, originals)
 
@@ -623,13 +631,15 @@ def relocate_blocker(scene, v, excluded_ids=None):
     # object_id付きの動線違反では、空き位置だけでなく移動後に対象へ
     # 実際に近づける候補だけを採用する。
     require_reachable = (v.get("type") == "walkability" and bool(oid))
-    # 移動先: 対象を除いた歩行グリッドで、入口から遠い空きセルを選ぶ
+    # 移動先: 対象を除いた歩行グリッドから、部屋全体の到達率を下げず、
+    # 到達率最大・同率なら移動距離最小のセルを選ぶ。
+    baseline_reach_ratio = mc.walkability_reach_ratio(scene)
     rest = {**scene, "objects": [o for o in scene["objects"] if o["id"] != target["id"]]}
     aabbs = mc.collect_aabbs(rest)
     grid, cell, nx, nz = mc.walkability_grid(rest, aabbs)
     b = scene["room"]["bounds"]
     MARGIN = 0.5  # 壁際・隅を避ける(孤立防止)
-    best, best_d = None, -1
+    best, best_score = None, None
     for ix in range(nx):
         for iz in range(nz):
             if not grid[ix][iz]:
@@ -639,34 +649,19 @@ def relocate_blocker(scene, v, excluded_ids=None):
                 continue
             candidate = _validated_relocation_position(
                 scene, target, x, z,
-                require_reachable=require_reachable)
+                require_reachable=require_reachable,
+                minimum_reach_ratio=baseline_reach_ratio)
             if candidate is None:
                 continue
-            x, z = candidate
-            # 周囲セルも空いている「開けた場所」を優先(押し込まれ孤立の防止)
+            x, z, reach_ratio = candidate
             openness = sum(1 for dx in (-1, 0, 1) for dz in (-1, 0, 1)
                            if 0 <= ix + dx < nx and 0 <= iz + dz < nz and grid[ix + dx][iz + dz])
-            if openness < 9:
-                continue
-            d = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
-            if d > best_d:
-                best, best_d = (x, z), d
-    if best is None:
-        # 制約を満たすセルが無ければ従来基準(最遠の空きセル)に落とす
-        for ix in range(nx):
-            for iz in range(nz):
-                if not grid[ix][iz]:
-                    continue
-                x, z = ix * cell + cell / 2, iz * cell + cell / 2
-                candidate = _validated_relocation_position(
-                    scene, target, x, z,
-                    require_reachable=require_reachable)
-                if candidate is None:
-                    continue
-                x, z = candidate
-                d = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
-                if d > best_d:
-                    best, best_d = (x, z), d
+            move_distance = math.hypot(
+                x - float(target["position"][0]),
+                z - float(target["position"][2]))
+            score = (-reach_ratio, move_distance, -openness)
+            if best_score is None or score < best_score:
+                best, best_score = (x, z), score
     if best is None:
         # 単独移動先が無い密集配置では、移動先で衝突する相手も最大2個運ぶ。
         multi_cells = []
@@ -690,8 +685,14 @@ def relocate_blocker(scene, v, excluded_ids=None):
             if proposal is None:
                 continue
             candidate_scene, roots, after_count = proposal
-            distance = (x - ent[0]) ** 2 + (z - ent[1]) ** 2
-            score = (after_count, -distance)
+            reach_ratio = mc.walkability_reach_ratio(candidate_scene)
+            if reach_ratio + 1e-9 < baseline_reach_ratio:
+                continue
+            candidate_target = _obj(candidate_scene, target["id"])
+            move_distance = math.hypot(
+                float(candidate_target["position"][0]) - float(target["position"][0]),
+                float(candidate_target["position"][2]) - float(target["position"][2]))
+            score = (-reach_ratio, move_distance, after_count)
             if multi_best is None or score < multi_best[0]:
                 multi_best = (score, candidate_scene, roots)
         if multi_best is None:
@@ -702,7 +703,7 @@ def relocate_blocker(scene, v, excluded_ids=None):
         return (f"{target['id']}: [{old[0]:.1f},{old[2]:.1f}]→"
                 f"[{target['position'][0]:.1f},{target['position'][2]:.1f}]"
                 f"({','.join(roots)}を{len(roots)}個同時移動・違反 "
-                f"{baseline_count}→{multi_best[0][0]})")
+                f"{baseline_count}→{len(mc.run_all(candidate_scene))})")
     old = list(target["position"])
     _move_support_group(scene, target, best[0], best[1])
 
@@ -723,6 +724,8 @@ def orient_to_target(scene, v):
     if desired is None:
         return None
     offset = mc.front_offset_deg(scene, obj)
+    if offset is None:
+        return None
     rotation = round((desired - offset) % 360.0, 3)
     old = float(obj.get("rotation_y_deg", 0.0))
     if abs(mc.angle_delta_deg(old, rotation)) < 1e-4:
@@ -735,7 +738,11 @@ def orient_to_target(scene, v):
         and violation.get("object_id") == obj["id"]
         and violation.get("target_id") == target["id"]
         for violation in mc.check_semantic_constraints(scene))
-    if still_wrong or after_count >= baseline_count:
+    # 宣言済みfaces違反は違反件数を減らす必要がある。詳細VLMが新たに
+    # 見つけた向き違反は機械違反にはまだ含まれないため、増やさなければ採用する。
+    visual_orientation = v.get("type") == "visual_orientation"
+    if still_wrong or (after_count > baseline_count if visual_orientation
+                       else after_count >= baseline_count):
         obj["rotation_y_deg"] = old
         return None
     return (f"{obj['id']}: 回転 {old:.1f}→{rotation:.1f}度"
@@ -1061,6 +1068,28 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets",
             applied.append(msg)
             if record:
                 records.append(record)
+    # 詳細VLMの明確な向き指摘を、実在IDと相手IDへ解決して回転修正へつなぐ。
+    if not applied:
+        for defect in visual_defects or []:
+            if defect.get("kind") != "orientation":
+                continue
+            object_id = resolve_object_id(new, defect)
+            target_id = defect.get("target_id")
+            op = "repair_visual_orientation"
+            if (not object_id or not _obj(new, target_id)
+                    or is_repair_failed(new, object_id, op)):
+                continue
+            msg = orient_to_target(new, {
+                "type": "visual_orientation",
+                "object_id": object_id,
+                "target_id": target_id,
+            })
+            if msg:
+                msg += " ※詳細VLM向き指摘"
+                applied.append(msg)
+                records.append(repair_record(new, msg, op, object_id))
+                break
+
     # VLMの浮遊指摘を、実在IDへ解決して接地修正へつなぐ。
     if not applied:
         for defect in visual_defects or []:

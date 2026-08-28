@@ -46,6 +46,13 @@
 | `quality_score` | VLM単体採点の最新値(オーケストレータが書き込む) |
 
 `assets_inventory.json` の各assetには任意で `front_offset_deg` を追加できる。
+`python mvl-skeleton/python/front_offsets.py --assets-dir mvl-skeleton/scene/assets/0824`
+でメッシュ非対称性から推定し、根拠・信頼度とともにinventoryへ記録する。
+形状だけで前後を決められないassetは `front_offset_deg: null` となり、
+`mvl-skeleton/scene/front_offsets_overrides.json` の `assets` または
+`classes` で手動設定できる。
+明示的なnullのassetに`faces`を指定すると、0度を仮定せず
+`orientation_unverified`として報告する。
 GLBのローカル+Z正面から見た補正角で、省略時は0度。値はアセットごとの実測後に設定する。
 
 ## Unity側の実測レポート(report.json)

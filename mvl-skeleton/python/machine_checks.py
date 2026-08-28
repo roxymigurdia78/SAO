@@ -58,7 +58,11 @@ def angle_delta_deg(a, b):
 
 @lru_cache(maxsize=16)
 def load_asset_front_offsets(assets_dir):
-    """assets_inventory.jsonの任意front_offset_degを読む。未定義は呼出側で0。"""
+    """assets_inventory.jsonのfront_offset_degを読む。
+
+    フィールドが無い旧inventoryは従来互換で0度。明示的なnullは
+    「未確認」を意味し、orientation検査で0度と仮定しない。
+    """
     path = Path(assets_dir) / "assets_inventory.json"
     if not path.is_file():
         return {}
@@ -71,10 +75,15 @@ def load_asset_front_offsets(assets_dir):
     for asset in inventory.get("assets", []):
         name = asset.get("file") or (
             f"{asset['asset_id']}.glb" if asset.get("asset_id") else None)
-        try:
-            offset = float(asset.get("front_offset_deg", 0.0))
-        except (TypeError, ValueError):
-            continue
+        if "front_offset_deg" not in asset:
+            offset = 0.0
+        elif asset.get("front_offset_deg") is None:
+            offset = None
+        else:
+            try:
+                offset = float(asset["front_offset_deg"])
+            except (TypeError, ValueError):
+                offset = None
         if name:
             offsets[name] = offset
     return offsets
@@ -83,8 +92,11 @@ def load_asset_front_offsets(assets_dir):
 def front_offset_deg(scene, obj, front_offsets=None):
     offsets = (load_asset_front_offsets(str(_assets_dir(scene)))
                if front_offsets is None else front_offsets)
+    value = offsets.get(obj.get("asset"), 0.0)
+    if value is None:
+        return None
     try:
-        return float(offsets.get(obj.get("asset"), 0.0))
+        return float(value)
     except (TypeError, ValueError):
         return 0.0
 
@@ -125,21 +137,33 @@ def check_semantic_constraints(scene, front_offsets=None):
             desired = desired_facing_yaw(obj, target)
             if desired is not None:
                 offset = front_offset_deg(scene, obj, front_offsets)
-                actual_front = (float(obj.get("rotation_y_deg", 0.0)) + offset) % 360.0
-                error = angle_delta_deg(actual_front, desired)
-                if abs(error) > tolerance + 1e-9:
+                if offset is None:
                     violations.append({
-                        "type": "orientation",
+                        "type": "orientation_unverified",
                         "object_id": obj["id"],
                         "target_id": target_id,
-                        "detail": (f"{obj['id']} の正面が {target_id} から "
-                                   f"{abs(error):.1f}度ずれている(許容±{tolerance:g}度)"),
-                        "angle_error_deg": error,
-                        "desired_rotation_y_deg": (desired - offset) % 360.0,
-                        "front_offset_deg": offset,
-                        "tolerance_deg": tolerance,
-                        "suggested_repair": "orient_to_target",
+                        "detail": (f"{obj['id']} のfront_offset_degが未確認のため "
+                                   f"{target_id}への向きを判定できない"),
+                        "suggested_repair": None,
                     })
+                else:
+                    actual_front = (
+                        float(obj.get("rotation_y_deg", 0.0)) + offset) % 360.0
+                    error = angle_delta_deg(actual_front, desired)
+                    if abs(error) > tolerance + 1e-9:
+                        violations.append({
+                            "type": "orientation",
+                            "object_id": obj["id"],
+                            "target_id": target_id,
+                            "detail": (f"{obj['id']} の正面が {target_id} から "
+                                       f"{abs(error):.1f}度ずれている"
+                                       f"(許容±{tolerance:g}度)"),
+                            "angle_error_deg": error,
+                            "desired_rotation_y_deg": (desired - offset) % 360.0,
+                            "front_offset_deg": offset,
+                            "tolerance_deg": tolerance,
+                            "suggested_repair": "orient_to_target",
+                        })
 
         near = obj.get("near")
         if not isinstance(near, dict):
@@ -342,6 +366,51 @@ def walkability_grid(scene, aabbs):
             for iz in range(max(0, z0), min(nz, z1 + 1)):
                 grid[ix][iz] = False
     return grid, cell, nx, nz
+
+
+def walkability_reach_ratio(scene, aabbs=None):
+    """入口から到達できる自由セル / 全自由セルを0〜1で返す。
+
+    check_walkabilityの違反有無とは独立に常時取得できるため、修正候補の
+    非悪化判定と反復ログの推移記録に使う。
+    """
+    aabbs = aabbs or collect_aabbs(scene)
+    grid, cell, nx, nz = walkability_grid(scene, aabbs)
+    free = sum(row.count(True) for row in grid)
+    if free == 0:
+        return 0.0
+    ent = scene["room"].get("entrance", {}).get("position", [0.2, 0.2])
+    sx = min(nx - 1, max(0, int(ent[0] / cell)))
+    sz = min(nz - 1, max(0, int(ent[1] / cell)))
+    if not grid[sx][sz]:
+        found = False
+        for radius in range(1, 8):
+            for dx in range(-radius, radius + 1):
+                for dz in range(-radius, radius + 1):
+                    x, z = sx + dx, sz + dz
+                    if 0 <= x < nx and 0 <= z < nz and grid[x][z]:
+                        sx, sz, found = x, z, True
+                        break
+                if found:
+                    break
+            if found:
+                break
+        if not found:
+            return 0.0
+    seen = [[False] * nz for _ in range(nx)]
+    queue = deque([(sx, sz)])
+    seen[sx][sz] = True
+    reach = 0
+    while queue:
+        x, z = queue.popleft()
+        reach += 1
+        for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            xx, zz = x + dx, z + dz
+            if (0 <= xx < nx and 0 <= zz < nz and grid[xx][zz]
+                    and not seen[xx][zz]):
+                seen[xx][zz] = True
+                queue.append((xx, zz))
+    return reach / free
 
 
 def check_walkability(scene, aabbs):

@@ -292,6 +292,7 @@
         2.15
       ],
       "rotation_y_deg": 0,
+      "near": {"target": "desk_01", "max_distance": 1.5},
       "target_dimensions": {
         "width": 0.28,
         "height": 0.35,
@@ -325,6 +326,7 @@
         0.6
       ],
       "rotation_y_deg": 25,
+      "near": {"target": "bookshelf_01", "max_distance": 1.5},
       "target_dimensions": {
         "width": 0.4,
         "height": 0.55,
@@ -425,6 +427,7 @@
         2.1
       ],
       "rotation_y_deg": 0,
+      "faces": "chair_01",
       "target_dimensions": {
         "width": 0.55,
         "height": 0.4,

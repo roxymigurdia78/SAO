@@ -66,6 +66,16 @@ class WalkabilityAggregationTests(unittest.TestCase):
         self.assertEqual("desk_01", unreachable[0]["object_id"])
         self.assertEqual(7, len(unreachable[0]["included_object_ids"]))
 
+    @patch("machine_checks.walkability_grid")
+    def test_reach_ratio_counts_only_entrance_connected_free_cells(self, grid):
+        grid.return_value = ([[True, False], [False, True]], 1.0, 2, 2)
+        scene = {
+            "room": {"bounds": {"width": 2, "depth": 2},
+                     "entrance": {"position": [0.1, 0.1]}},
+            "objects": [],
+        }
+        self.assertEqual(0.5, mc.walkability_reach_ratio(scene, {}))
+
 
 class SemanticConstraintTests(unittest.TestCase):
     def test_orientation_and_distance_are_detected(self):
@@ -79,6 +89,14 @@ class SemanticConstraintTests(unittest.TestCase):
         violations = mc.check_semantic_constraints(
             scene, {"chair_v1.glb": 180.0})
         self.assertEqual([], violations)
+
+    def test_explicitly_unresolved_front_is_not_assumed_to_be_zero(self):
+        scene = semantic_scene()
+        scene["objects"][0]["near"]["max_distance"] = 3.0
+        violations = mc.check_semantic_constraints(
+            scene, {"chair_v1.glb": None})
+        self.assertEqual(["orientation_unverified"],
+                         [v["type"] for v in violations])
 
     def test_no_declared_constraints_preserves_old_behavior(self):
         scene = semantic_scene()

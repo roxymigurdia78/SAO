@@ -4,8 +4,9 @@ import unittest
 from pathlib import Path
 
 from orchestrator import (
-    DEFAULT_RUNS_DIR, BestState, find_repeated_repairs, has_budget_to_evaluate_repair,
-    retry_after_cycle, scene_state_key)
+    DEFAULT_RUNS_DIR, BestState, detail_repairs_to_forward,
+    find_repeated_repairs, has_budget_to_evaluate_repair, retry_after_cycle,
+    scene_state_key, should_run_detail_audit)
 
 
 class RunsDirectoryTests(unittest.TestCase):
@@ -67,11 +68,42 @@ class BestStateTests(unittest.TestCase):
             "aspect_ratio_error_sum": None,
         })
 
+    def test_detail_vlm_failure_count_breaks_machine_violation_tie(self):
+        best = BestState()
+        best.consider({"value": "wrong"}, 0, 0, 2.0,
+                      visual_failure_count=1)
+        self.assertTrue(best.consider(
+            {"value": "fixed"}, 1, 0, 2.0, visual_failure_count=0))
+        self.assertEqual("fixed", best.scene["value"])
+        self.assertEqual(0, best.summary()["detail_vlm_failure_count"])
+
+    def test_aspect_error_stays_above_nondeterministic_detail_count(self):
+        best = BestState()
+        best.consider({"value": "better-shape"}, 0, 0, 1.0,
+                      visual_failure_count=2)
+        self.assertFalse(best.consider(
+            {"value": "vlm-lucky"}, 1, 0, 1.5,
+            visual_failure_count=0))
+        self.assertEqual("better-shape", best.scene["value"])
+
 
 class IterationBudgetTests(unittest.TestCase):
     def test_repairs_are_allowed_only_when_a_next_evaluation_exists(self):
         self.assertTrue(has_budget_to_evaluate_repair(5, 7))
         self.assertFalse(has_budget_to_evaluate_repair(6, 7))
+
+    def test_detail_audit_defaults_to_machine_clean_scene(self):
+        self.assertTrue(should_run_detail_audit(True, False, 0))
+        self.assertFalse(should_run_detail_audit(True, False, 1))
+        self.assertFalse(should_run_detail_audit(False, True, 0))
+
+    def test_detail_audit_evaluation_mode_includes_defect_scene(self):
+        self.assertTrue(should_run_detail_audit(True, True, 3))
+
+    def test_detail_findings_are_audit_only_by_default(self):
+        findings = [{"id": "laptop_01", "kind": "orientation"}]
+        self.assertEqual([], detail_repairs_to_forward(findings, False))
+        self.assertEqual(findings, detail_repairs_to_forward(findings, True))
 
 
 class RepeatedRepairTests(unittest.TestCase):

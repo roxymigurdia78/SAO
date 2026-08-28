@@ -98,6 +98,43 @@ class VisualRepairTests(unittest.TestCase):
         self.assertEqual(printer["asset"], "printer_v2.glb")
         self.assertTrue(applied)
 
+    def test_detail_vlm_orientation_repairs_any_object_without_special_case(self):
+        scene = {
+            "room": {
+                "bounds": {"width": 10.0, "depth": 10.0, "height": 3.0},
+                "floor_y": 0.0,
+                "entrance": {"position": [0.2, 0.2]},
+            },
+            "spec": {"required_objects": []},
+            "objects": [
+                {
+                    "id": "device_01", "class": "generic_device",
+                    "asset": "device.glb", "position": [5.0, 0.0, 5.0],
+                    "rotation_y_deg": 0.0,
+                    "target_dimensions": {
+                        "width": 0.4, "height": 0.1, "depth": 0.3},
+                },
+                {
+                    "id": "user_seat_01", "class": "seat",
+                    "asset": "seat.glb", "position": [5.0, 0.0, 3.0],
+                    "rotation_y_deg": 0.0,
+                    "target_dimensions": {
+                        "width": 0.5, "height": 0.9, "depth": 0.5},
+                },
+            ],
+        }
+        defect = {
+            "id": "device_01", "kind": "orientation",
+            "target_id": "user_seat_01", "confidence": 0.95,
+            "source": "detail_vlm",
+        }
+        new, applied = repair.apply_repairs(
+            scene, [], visual_defects=[defect], asset_dimensions={})
+        device = next(
+            obj for obj in new["objects"] if obj["id"] == "device_01")
+        self.assertEqual(180.0, device["rotation_y_deg"])
+        self.assertIn("詳細VLM向き指摘", applied[0])
+
 
 class PenetrationTests(unittest.TestCase):
     def test_detects_penetration_involving_requested_object(self):
@@ -302,6 +339,25 @@ class RelocateBlockerTests(unittest.TestCase):
         self.assertIn("[1.0,1.0]→[3.0,1.0]", result)
         self.assertEqual(scene["objects"][0]["position"], [3.0, 0.0, 1.0])
         self.assertGreaterEqual(reachable.call_count, 2)
+
+    @patch("repair.mc.walkability_reach_ratio")
+    @patch("repair.mc.walkability_grid",
+           return_value=([[True], [True], [True]], 2.0, 3, 1))
+    def test_relocation_rejects_candidate_that_lowers_room_reach_ratio(
+            self, _grid, reach_ratio):
+        scene = scene_at(1.0, 1.0)
+        scene["room"]["bounds"] = {"width": 6.0, "depth": 3.0}
+
+        def ratio_for(current, _aabbs=None):
+            x = current["objects"][0]["position"][0]
+            return 0.6 if x > 4.0 else 0.8
+
+        reach_ratio.side_effect = ratio_for
+        result = repair.relocate_blocker(
+            scene, {"type": "walkability", "object_id": "floor_lamp_01"})
+
+        self.assertIn("[1.0,1.0]→[3.0,1.0]", result)
+        self.assertEqual([3.0, 0.0, 1.0], scene["objects"][0]["position"])
 
     @patch("repair._clamp_obj")
     @patch("repair.mc.walkability_grid", return_value=([[True]], 7.0, 1, 1))

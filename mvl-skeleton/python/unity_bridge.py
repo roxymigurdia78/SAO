@@ -9,7 +9,7 @@ DEFAULT_TIMEOUT = 30 * 60  # ベイク込みで30分上限
 
 
 def build_command(unity_exe, project_path, scene_json, out_dir, log_file,
-                  fast_iteration=False):
+                  fast_iteration=False, detail_captures=False):
     cmd = [
         str(unity_exe),
         "-batchmode",
@@ -22,11 +22,14 @@ def build_command(unity_exe, project_path, scene_json, out_dir, log_file,
     ]
     if fast_iteration:
         cmd.append("-fastIteration")
+    if detail_captures:
+        cmd.append("-detailCaptures")
     return cmd
 
 
 def run_unity_build(unity_exe, project_path, scene_json, out_dir, log_file=None,
-                    timeout=DEFAULT_TIMEOUT, fast_iteration=False):
+                    timeout=DEFAULT_TIMEOUT, fast_iteration=False,
+                    detail_captures=False):
     """Unityをバッチ起動してシーン構築+撮影。成功時は report.json の dict を返す。
 
     注意: 同じプロジェクトを開いているUnityエディタがあると起動に失敗する(ロック)。
@@ -40,7 +43,8 @@ def run_unity_build(unity_exe, project_path, scene_json, out_dir, log_file=None,
     log_file = log_file or str(out_dir / "unity.log")
 
     cmd = build_command(unity_exe, project_path, scene_json, out_dir,
-                        log_file, fast_iteration=fast_iteration)
+                        log_file, fast_iteration=fast_iteration,
+                        detail_captures=detail_captures)
     t0 = time.time()
     proc = subprocess.run(cmd, timeout=timeout)
     elapsed = time.time() - t0
@@ -65,7 +69,10 @@ if __name__ == "__main__":
     ap.add_argument("--out", required=True)
     ap.add_argument("--fast-unity", action="store_true",
                     help="配置確認用: メッシュ加工・UV2・ライトマップベイクを省略")
+    ap.add_argument("--detail-captures", action="store_true",
+                    help="全オブジェクトを対象に3方向の詳細画像を追加撮影")
     a = ap.parse_args()
     r = run_unity_build(a.unity, a.project, a.scene, a.out,
-                        fast_iteration=a.fast_unity)
+                        fast_iteration=a.fast_unity,
+                        detail_captures=a.detail_captures)
     print(json.dumps(r, ensure_ascii=False, indent=2))

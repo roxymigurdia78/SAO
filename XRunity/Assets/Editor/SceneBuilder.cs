@@ -36,7 +36,9 @@ namespace MVL
                 return;
             }
             bool fastIteration = HasArg("-fastIteration");
-            int code = SceneBuilder.BuildAndCapture(sceneJson, outDir, fastIteration);
+            bool detailCaptures = HasArg("-detailCaptures");
+            int code = SceneBuilder.BuildAndCapture(
+                sceneJson, outDir, fastIteration, detailCaptures);
             EditorApplication.Exit(code);
         }
 
@@ -83,7 +85,8 @@ namespace MVL
         const int CAPTURE_W = 1920, CAPTURE_H = 1080;
 
         public static int BuildAndCapture(string sceneJsonPath, string outDir,
-                                          bool fastIteration = false)
+                                          bool fastIteration = false,
+                                          bool detailCaptures = false)
         {
             var report = new BuildReport();
             var totalSw = Stopwatch.StartNew();
@@ -137,6 +140,14 @@ namespace MVL
                 // 6) 8視点撮影(実測AABBを渡してカメラの家具メリ込みを回避)
                 var captureSw = Stopwatch.StartNew();
                 report.captures = CaptureViews(scene, outDir, report.objects);
+                if (detailCaptures)
+                {
+                    var detailCaptureSw = Stopwatch.StartNew();
+                    report.detail_captures = CaptureDetailViews(
+                        scene, outDir, report.objects);
+                    report.detail_capture_seconds =
+                        (float)detailCaptureSw.Elapsed.TotalSeconds;
+                }
                 report.capture_seconds = (float)captureSw.Elapsed.TotalSeconds;
 
                 // 6.5) カメラとベイク結果を含めた状態で再保存
@@ -154,7 +165,8 @@ namespace MVL
                 Debug.Log($"[MVL] 完了({mode}): {report.captures.Count}枚撮影, " +
                           $"配置{report.geometry_seconds:F1}秒, " +
                           $"ベイク{report.bake_seconds:F1}秒, " +
-                          $"撮影{report.capture_seconds:F1}秒");
+                          $"撮影{report.capture_seconds:F1}秒, " +
+                          $"詳細撮影{report.detail_capture_seconds:F1}秒");
                 return 0;
             }
             catch (Exception e)
@@ -469,6 +481,117 @@ namespace MVL
             var result = new List<Vector3>();
             for (int i = 0; i < Mathf.Min(n, list.Count); i++) result.Add(list[i].c);
             return result;
+        }
+
+        static List<DetailCaptureReport> CaptureDetailViews(
+            SceneJson scene, string outDir, List<ObjectReport> placed)
+        {
+            var results = new List<DetailCaptureReport>();
+            if (scene.objects == null || placed == null) return results;
+
+            var reports = new Dictionary<string, ObjectReport>();
+            foreach (var report in placed)
+                if (report != null && !string.IsNullOrEmpty(report.id))
+                    reports[report.id] = report;
+
+            float w = scene.room.bounds.width;
+            float d = scene.room.bounds.depth;
+            float h = scene.room.bounds.height;
+            var roomCenter = new Vector3(w / 2, 1.2f, d / 2);
+            var detailRoot = Path.Combine(outDir, "detail");
+            Directory.CreateDirectory(detailRoot);
+
+            var camGo = new GameObject("DetailCaptureCam");
+            var cam = camGo.AddComponent<Camera>();
+            cam.fieldOfView = 55f;
+            cam.nearClipPlane = 0.03f;
+            var rt = new RenderTexture(CAPTURE_W, CAPTURE_H, 24);
+            var tex = new Texture2D(
+                CAPTURE_W, CAPTURE_H, TextureFormat.RGB24, false);
+            cam.targetTexture = rt;
+
+            foreach (var obj in scene.objects)
+            {
+                if (obj == null || string.IsNullOrEmpty(obj.id)
+                    || !reports.TryGetValue(obj.id, out var report)
+                    || report.aabb_min == null || report.aabb_max == null)
+                    continue;
+
+                var mn = new Vector3(
+                    report.aabb_min[0], report.aabb_min[1], report.aabb_min[2]);
+                var mx = new Vector3(
+                    report.aabb_max[0], report.aabb_max[1], report.aabb_max[2]);
+                var center = (mn + mx) * 0.5f;
+                var size = mx - mn;
+                float radius = Mathf.Max(size.x, Mathf.Max(size.y, size.z));
+                float distance = Mathf.Clamp(radius * 2.2f, 1.15f, 2.8f);
+
+                // 壁際の物体でも最初の画像は必ず部屋側から見る。残り2枚は
+                // 左右55度に振り、正面・背面・接地面の手掛かりを増やす。
+                var inward = roomCenter - center;
+                inward.y = 0;
+                if (inward.sqrMagnitude < 1e-4f) inward = Vector3.back;
+                inward.Normalize();
+                var directions = new[] {
+                    inward,
+                    Quaternion.Euler(0, 55, 0) * inward,
+                    Quaternion.Euler(0, -55, 0) * inward,
+                };
+
+                string safeId = SafeFileName(obj.id);
+                string objectDir = Path.Combine(detailRoot, safeId);
+                Directory.CreateDirectory(objectDir);
+                var detail = new DetailCaptureReport {
+                    object_id = obj.id,
+                    object_class = obj.@class,
+                };
+                AddRelatedId(detail.related_ids, obj.rests_on);
+                AddRelatedId(detail.related_ids, obj.faces);
+                if (obj.near != null) AddRelatedId(
+                    detail.related_ids, obj.near.target);
+
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    var pos = center + directions[i] * distance;
+                    pos.y = Mathf.Clamp(
+                        center.y + Mathf.Max(0.18f, size.y * 0.22f),
+                        0.25f, h - 0.15f);
+                    pos.x = Mathf.Clamp(pos.x, 0.12f, w - 0.12f);
+                    pos.z = Mathf.Clamp(pos.z, 0.12f, d - 0.12f);
+                    cam.transform.position = AvoidObstacles(
+                        pos, placed, roomCenter);
+                    cam.transform.LookAt(center);
+                    cam.Render();
+                    RenderTexture.active = rt;
+                    tex.ReadPixels(
+                        new Rect(0, 0, CAPTURE_W, CAPTURE_H), 0, 0);
+                    tex.Apply();
+                    string file = Path.Combine(objectDir, $"view_{i:D2}.png");
+                    File.WriteAllBytes(file, tex.EncodeToPNG());
+                    detail.files.Add(Path.Combine(
+                        "detail", safeId, $"view_{i:D2}.png"));
+                }
+                results.Add(detail);
+            }
+
+            RenderTexture.active = null;
+            cam.targetTexture = null;
+            UnityEngine.Object.DestroyImmediate(rt);
+            UnityEngine.Object.DestroyImmediate(camGo);
+            return results;
+        }
+
+        static string SafeFileName(string value)
+        {
+            foreach (char c in Path.GetInvalidFileNameChars())
+                value = value.Replace(c, '_');
+            return value;
+        }
+
+        static void AddRelatedId(List<string> values, string value)
+        {
+            if (!string.IsNullOrEmpty(value) && !values.Contains(value))
+                values.Add(value);
         }
 
         static void WriteReport(BuildReport report, string outDir)

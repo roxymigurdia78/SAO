@@ -243,6 +243,180 @@ def score_scene(image_paths, scene, max_retries=3, sleep=time.sleep):
     return result
 
 
+DETAIL_KINDS = {
+    "floating", "penetration", "orientation", "scale",
+    "functional_relation",
+}
+DETAIL_REPAIRS = {
+    "snap_to_support", "orient_to_target", "move_near", "rescale",
+    "swap_variant", "none",
+}
+
+
+def _detail_context(scene, object_id, nearby_limit=8):
+    """詳細監査用に宣言関係と近傍候補を決定的に列挙する。"""
+    objects = {o.get("id"): o for o in scene.get("objects", [])}
+    obj = objects.get(object_id)
+    if obj is None:
+        raise ValueError(f"シーンに対象IDがない: {object_id}")
+
+    relations = []
+    related_ids = []
+    if obj.get("rests_on"):
+        relations.append(f"rests_on={obj['rests_on']}")
+        related_ids.append(obj["rests_on"])
+    faces = obj.get("faces")
+    faces_id = faces.get("target") if isinstance(faces, dict) else faces
+    if faces_id:
+        relations.append(f"faces={faces_id}")
+        related_ids.append(faces_id)
+    near = obj.get("near")
+    if isinstance(near, dict) and near.get("target"):
+        relations.append(
+            f"near={near['target']} (max={near.get('max_distance')}m)")
+        related_ids.append(near["target"])
+
+    position = obj.get("position") or [0, 0, 0]
+    nearby = []
+    for other in scene.get("objects", []):
+        if other.get("id") == object_id:
+            continue
+        other_position = other.get("position") or [0, 0, 0]
+        distance = math.hypot(
+            float(other_position[0]) - float(position[0]),
+            float(other_position[2]) - float(position[2]))
+        nearby.append((distance, other.get("id"), other.get("class", "")))
+    nearby.sort(key=lambda item: (item[0], str(item[1])))
+    nearby = nearby[:nearby_limit]
+
+    allowed_ids = {object_id}
+    allowed_ids.update(value for value in related_ids if value in objects)
+    allowed_ids.update(value for _, value, _ in nearby if value in objects)
+    relation_text = ", ".join(relations) if relations else "なし"
+    nearby_text = ", ".join(
+        f"{oid}({cls}, {distance:.2f}m)"
+        for distance, oid, cls in nearby)
+    return obj, relation_text, nearby_text or "なし", allowed_ids
+
+
+def _validate_detail_audit(result, expected_id, allowed_ids, image_count):
+    if not isinstance(result, dict):
+        raise ValueError("詳細監査応答がJSONオブジェクトではない")
+    if result.get("object_id") != expected_id:
+        raise ValueError(
+            f"詳細監査のobject_id不一致: {result.get('object_id')!r}")
+    status = result.get("status")
+    if status not in ("pass", "fail", "uncertain"):
+        raise ValueError(f"詳細監査のstatusが不正: {status!r}")
+
+    normalized_findings = []
+    findings = result.get("findings", [])
+    if not isinstance(findings, list):
+        raise ValueError("詳細監査のfindingsが配列ではない")
+    for finding in findings:
+        if not isinstance(finding, dict):
+            raise ValueError("詳細監査のfindingがオブジェクトではない")
+        kind = finding.get("kind")
+        if kind not in DETAIL_KINDS:
+            raise ValueError(f"詳細監査のkindが不正: {kind!r}")
+        target_id = finding.get("target_id")
+        if target_id is not None and target_id not in allowed_ids:
+            raise ValueError(f"存在しない周辺target_id: {target_id!r}")
+        repair_name = finding.get("suggested_repair", "none")
+        if repair_name not in DETAIL_REPAIRS:
+            raise ValueError(f"詳細監査のsuggested_repairが不正: {repair_name!r}")
+        try:
+            confidence = float(finding.get("confidence"))
+        except (TypeError, ValueError):
+            raise ValueError("詳細監査のconfidenceが数値ではない")
+        if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
+            raise ValueError(f"詳細監査のconfidenceが範囲外: {confidence!r}")
+        normalized_findings.append({
+            "kind": kind,
+            "target_id": target_id,
+            "confidence": confidence,
+            "detail": str(finding.get("detail", "")),
+            "suggested_repair": repair_name,
+        })
+    if status == "pass" and normalized_findings:
+        raise ValueError("passなのにfindingsが存在する")
+    if status == "fail" and not normalized_findings:
+        raise ValueError("failなのにfindingsが空")
+
+    evidence = result.get("evidence_views", [])
+    if not isinstance(evidence, list) or any(
+            not isinstance(index, int) or isinstance(index, bool)
+            or index < 0 or index >= image_count for index in evidence):
+        raise ValueError("詳細監査のevidence_viewsが不正")
+    return {
+        "object_id": expected_id,
+        "status": status,
+        "findings": normalized_findings,
+        "evidence_views": evidence,
+    }
+
+
+def audit_scene_details(detail_captures, capture_dir, scene,
+                        max_retries=3, sleep=time.sleep):
+    """全オブジェクトを個別に監査する。1対象=1リクエストで注意希釈を避ける。"""
+    template = (PROMPT_DIR / "detail_audit_prompt.txt").read_text(
+        encoding="utf-8")
+    capture_dir = Path(capture_dir)
+    audits = []
+    for detail in detail_captures or []:
+        object_id = detail.get("object_id")
+        obj, relations, nearby, allowed_ids = _detail_context(
+            scene, object_id)
+        image_paths = [capture_dir / value for value in detail.get("files", [])]
+        image_paths = [path for path in image_paths if path.is_file()]
+        if not image_paths:
+            audits.append({
+                "object_id": object_id,
+                "status": "uncertain",
+                "findings": [],
+                "evidence_views": [],
+                "error": "detail_images_missing",
+            })
+            continue
+        prompt = template.format(
+            object_id=object_id,
+            object_class=obj.get("class", ""),
+            declared_relations=relations,
+            nearby_objects=nearby,
+        )
+        validator = lambda value, oid=object_id, ids=allowed_ids, n=len(image_paths): (
+            _validate_detail_audit(value, oid, ids, n))
+        result = _ask(
+            prompt, image_paths, max_retries=max_retries, sleep=sleep,
+            validator=validator, return_none_on_failure=True)
+        if result is None:
+            result = {
+                "object_id": object_id,
+                "status": "uncertain",
+                "findings": [],
+                "evidence_views": [],
+                "error": "vlm_invalid_after_retries",
+            }
+        audits.append(result)
+    return audits
+
+
+def detail_defects(audits, min_confidence=0.8):
+    """明確なfailだけを既存の安全な修復経路へ渡す。"""
+    defects = []
+    for audit in audits or []:
+        if audit.get("status") != "fail":
+            continue
+        for finding in audit.get("findings", []):
+            if float(finding.get("confidence", 0.0)) < min_confidence:
+                continue
+            defect = dict(finding)
+            defect["id"] = audit.get("object_id")
+            defect["source"] = "detail_vlm"
+            defects.append(defect)
+    return defects
+
+
 def pairwise(images_a, images_b, scene):
     """修正前(A)と修正後(B)のペア比較。順序を入れ替えて2回聞き、一致した時だけ勝敗を確定。
     戻り値: "A" | "B" | "tie"

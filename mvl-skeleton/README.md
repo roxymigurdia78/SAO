@@ -105,6 +105,45 @@ python orchestrator.py --scene ..\scene\scene_study_seed3.json ^
 `VLM_MAX_IMAGE_PX` (既定1024) で独立に縮小されるため、原画解像度を変えても
 採点APIへの画像サイズを別に調整できる。
 
+小物の向き・見た目上の接地・局所的な使いやすさまで確認する場合は
+`--detail-vlm` を付ける。機械違反がゼロになった候補について、全オブジェクトを
+3方向から拡大撮影し、1対象ずつ別のVLMリクエストで監査する。
+
+```
+python orchestrator.py --scene ..\scene\scene_study_seed1.json ^
+  --unity "C:\Program Files\Unity\Hub\Editor\6000.5.6f1\Editor\Unity.exe" ^
+  --project ..\..\XRunity --detail-vlm
+```
+
+出力は `iter_XX/capture/detail/<object_id>/view_00〜02.png` と
+`iter_XX/detail_audit.json`。詳細監査は全景8枚のB1〜B5採点とは分離される。
+判定は `pass` / `fail` / `uncertain` として記録する。既定では監査記録だけを
+残し、自動修復は行わない。詳細VLMを修復にも使う実験では
+`--detail-vlm-repair` を明示し、その場合だけ信頼度0.8以上の修復可能な指摘を渡す。
+API呼び出し数が対象数だけ増えるため、通常は最終確認時だけ有効にする。
+
+監査専用を既定にした理由は、2026-08-28の機械違反ゼロの対照シーンで、
+詳細VLMが浮遊・貫通を複数誤検出したため。非決定的な指摘をそのまま修復へ
+渡すと、正しい幾何状態を壊す可能性がある。fail数はベスト保持の最下位
+タイブレークには使うが、決定的な機械違反数・縦横比誤差より優先しない。
+
+欠陥を仕込んだ初期シーンと機械検査結果を突き合わせ、詳細VLMの検出率を
+測る場合だけ `--detail-vlm-every-iteration` を使う。この評価用オプションは
+機械違反が残る反復にも監査を行うため、通常の実ランよりAPI呼び出しが増える。
+ログと `meta.json` には詳細撮影の対象数・枚数・秒数、および詳細VLMの
+リクエスト数・合計秒数を記録する。
+
+複数反復の検出率・誤検出率は次のように集計する。浮遊・貫通は
+`物体×項目` を1判定として2×2表を作り、scaleは問いが異なるため別枠にする。
+
+```
+python detail_vlm_eval.py ^
+  ..\runs\study_room_seed1_<日時>\iter_00 ^
+  ..\runs\study_room_seed2_<日時>\iter_00 ^
+  ..\runs\study_room_seed3_<日時>\iter_00 ^
+  --csv ..\runs\detail_vlm_eval.csv
+```
+
 ## 設計メモ(なぜこうなっているか)
 
 - **スケールはtarget_dimensions基準で強制**: TRELLISのGLB出力スケールは信用せず、

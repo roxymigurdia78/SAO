@@ -99,17 +99,27 @@ namespace MVL
         public int triangle_count_after;
     }
 
+    [Serializable] public class DetailCaptureReport
+    {
+        public string object_id;
+        public string object_class;
+        public List<string> related_ids = new List<string>();
+        public List<string> files = new List<string>();
+    }
+
     [Serializable] public class BuildReport
     {
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
+        public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
         public bool fast_iteration;
         public int capture_width;
         public int capture_height;
         public float geometry_seconds;
         public float bake_seconds;
         public float capture_seconds;
+        public float detail_capture_seconds;
         public float total_seconds;
         public string error; // 失敗時のみ
     }
