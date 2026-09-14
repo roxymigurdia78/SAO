@@ -23,6 +23,19 @@ def _machine_positive_ids(violations, kind):
     return ids
 
 
+def _machine_positive_penetration_pairs(violations, universe):
+    """監査対象内の貫通違反を、順序なしの物体ペア（集合）で返す。"""
+    pairs = set()
+    for violation in violations or []:
+        if violation.get("type") != "penetration":
+            continue
+        pair = frozenset(value for value in violation.get("object_ids", [])
+                         if value)
+        if pair and pair <= universe:
+            pairs.add(pair)
+    return pairs
+
+
 def _vlm_positive_ids(audits, kind):
     ids = set()
     for audit in audits or []:
@@ -75,6 +88,27 @@ def evaluate_records(violations, audits, scope="input"):
             "vlm_positive_objects": len(predicted),
             "vlm_findings": _vlm_finding_count(audits, kind),
         })
+
+    penetration_pairs = _machine_positive_penetration_pairs(violations, universe)
+    penetration_predictions = _vlm_positive_ids(audits, "penetration") & universe
+    pair_tp = sum(bool(pair & penetration_predictions)
+                  for pair in penetration_pairs)
+    pair_fn = len(penetration_pairs) - pair_tp
+    rows.append({
+        "section": "confusion_pair",
+        "scope": str(scope),
+        "item": "penetration_pair",
+        "audited_objects": len(universe),
+        "tp": pair_tp,
+        "fn": pair_fn,
+        "fp": None,
+        "tn": None,
+        "detection_rate": _rate(pair_tp, pair_tp + pair_fn),
+        "false_positive_rate": None,
+        "machine_positive_objects": len(penetration_pairs),
+        "vlm_positive_objects": len(penetration_predictions),
+        "vlm_findings": _vlm_finding_count(audits, "penetration"),
+    })
 
     for kind in COUNT_ONLY_KINDS:
         machine_ids = _machine_positive_ids(violations, kind) & universe
@@ -143,6 +177,21 @@ def aggregate_rows(rows, scope="TOTAL"):
         "false_positive_rate": _rate(
             combined["fp"], combined["fp"] + combined["tn"]),
     })
+    pair_rows = [row for row in rows
+                 if row["section"] == "confusion_pair"
+                 and row["item"] == "penetration_pair"]
+    pair_totals = {key: sum(row[key] for row in pair_rows)
+                   for key in ("audited_objects", "tp", "fn",
+                               "machine_positive_objects",
+                               "vlm_positive_objects", "vlm_findings")}
+    result.append({
+        "section": "confusion_pair", "scope": scope,
+        "item": "penetration_pair", **pair_totals,
+        "fp": None, "tn": None,
+        "detection_rate": _rate(
+            pair_totals["tp"], pair_totals["tp"] + pair_totals["fn"]),
+        "false_positive_rate": None,
+    })
     for kind in COUNT_ONLY_KINDS:
         selected = [row for row in rows
                     if row["section"] == "count_only" and row["item"] == kind]
@@ -190,6 +239,13 @@ def print_summary(rows):
         print(f"  正解なし       {row['fp']:>6}       {row['tn']:>6}")
         print(f"  検出率={_percent(row['detection_rate'])} / "
               f"誤検出率={_percent(row['false_positive_rate'])}")
+
+    for row in totals:
+        if row["section"] != "confusion_pair":
+            continue
+        print(f"\n[{row['item']}] 貫通ペア")
+        print(f"  当たり={row['tp']} / 見逃し={row['fn']} / "
+              f"検出率={_percent(row['detection_rate'])}")
 
     print("\n別枠集計")
     for row in totals:

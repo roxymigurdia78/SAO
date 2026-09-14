@@ -34,6 +34,14 @@ class DetailVlmEvaluationTests(unittest.TestCase):
             penetration[key] for key in ("tp", "fn", "fp", "tn")))
         self.assertEqual(1.0, floating["detection_rate"])
         self.assertAlmostEqual(1 / 3, floating["false_positive_rate"])
+        penetration_pair = next(
+            row for row in rows if row["item"] == "penetration_pair")
+        self.assertEqual("confusion_pair", penetration_pair["section"])
+        self.assertEqual((1, 0), tuple(
+            penetration_pair[key] for key in ("tp", "fn")))
+        self.assertEqual(1.0, penetration_pair["detection_rate"])
+        self.assertIsNone(penetration_pair["fp"])
+        self.assertIsNone(penetration_pair["false_positive_rate"])
 
     def test_scale_and_semantics_are_counted_without_confusion_labels(self):
         rows = evaluate_records(self.violations, self.audits, "sample")
@@ -57,13 +65,25 @@ class DetailVlmEvaluationTests(unittest.TestCase):
         self.assertEqual(4, floating["audited_objects"])
         self.assertEqual((2, 1, 1, 4), tuple(
             combined[key] for key in ("tp", "fn", "fp", "tn")))
+        penetration_pair = next(
+            row for row in total if row["item"] == "penetration_pair")
+        self.assertEqual("confusion_pair", penetration_pair["section"])
+        self.assertEqual((1, 0), tuple(
+            penetration_pair[key] for key in ("tp", "fn")))
+        self.assertIsNone(penetration_pair["fp"])
         path = Path(__file__).with_name("_test_detail_vlm_eval.csv")
         try:
             write_csv(path, detail + total)
             with path.open(encoding="utf-8-sig", newline="") as handle:
                 written = list(csv.DictReader(handle))
-            self.assertEqual(11, len(written))
+            self.assertEqual(13, len(written))
             self.assertEqual("confusion", written[0]["section"])
+            self.assertEqual(
+                ["section", "scope", "item", "audited_objects", "tp", "fn",
+                 "fp", "tn", "detection_rate", "false_positive_rate",
+                 "machine_positive_objects", "vlm_positive_objects", "vlm_findings"],
+                list(written[0]),
+            )
         finally:
             path.unlink(missing_ok=True)
 
