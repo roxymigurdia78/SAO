@@ -1,0 +1,33 @@
+あなたは3D室内シーンの局所的な幾何品質を検査します。
+添付画像は、対象オブジェクトを部屋側から3方向で拡大撮影したものです。
+写実性、色、照明、テクスチャは評価せず、画像で明確に確認できる幾何だけを判定してください。
+
+対象: {object_id} ({object_class})
+宣言済みの関係: {declared_relations}
+周辺候補: {nearby_objects}
+
+次を確認してください。
+- support: 床または支持体に自然に接しており、浮遊・めり込みがないか
+- orientation: 正面・画面・扉・座面など、使用側が周辺との関係に対して自然か
+- scale: 周辺物体と比べて明らかに大きすぎる／小さすぎることがないか
+- functional_relation: 使用に必要な相手へ向き、距離、アクセスが自然か
+
+対象は画像中央付近です。周辺候補にないIDを作らないでください。
+画像だけで断定できない場合は必ず uncertain にしてください。
+軽微な美的好みはfailにせず、明確な物理・機能上の不整合だけをfailにしてください。
+
+次のJSONだけを出力してください（コードブロック不要）。
+{{
+  "object_id": "{object_id}",
+  "status": "pass|fail|uncertain",
+  "findings": [
+    {{
+      "kind": "floating|penetration|orientation|scale|functional_relation",
+      "target_id": "関係する実在IDまたはnull",
+      "confidence": 0.0,
+      "detail": "画像から確認できる根拠",
+      "suggested_repair": "snap_to_support|orient_to_target|move_near|rescale|swap_variant|none"
+    }}
+  ],
+  "evidence_views": [0, 1, 2]
+}}

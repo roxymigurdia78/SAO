@@ -852,7 +852,7 @@ def load_asset_dimensions(assets_dir):
 
 
 def aspect_ratio_error(target_dimensions, asset_dimensions):
-    """Unityの一様スケール後も残る、幅/高さと奥行/高さの誤差。"""
+    """元GLBを目標寸法へ合わせる際の最大対数軸比（形状歪み量）。"""
     try:
         tw = float(target_dimensions["width"])
         th = float(target_dimensions["height"])
@@ -1105,8 +1105,8 @@ def apply_repairs(scene, violations, worst_object=None, assets_dir="assets",
                 records.append(repair_record(new, msg, op, object_id))
                 break
 
-    # SceneBuilderは高さだけから一様スケールするため、形の誤差は
-    # rescaleでは直らない。寸法表があり、明確に近い別GLBがある時だけ交換する。
+    # 各軸スケールで寸法は合っても、元GLBとの形状比差が大きいほど見た目が
+    # 歪む。既存の1.35倍基準を超え、明確に近い別GLBがある時だけ交換する。
     if not applied:
         dimensions = (load_asset_dimensions(assets_dir)
                       if asset_dimensions is None else asset_dimensions)

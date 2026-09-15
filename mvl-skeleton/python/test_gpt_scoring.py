@@ -247,6 +247,54 @@ class GptScoringTests(unittest.TestCase):
         self.assertEqual(["pass", "pass"],
                          [audit["status"] for audit in audits])
 
+    def test_rejected_prompt_revision_is_not_the_active_prompt(self):
+        active = (gpt_scoring.PROMPT_DIR / "detail_audit_prompt.txt").read_text(
+            encoding="utf-8")
+        baseline = (gpt_scoring.PROMPT_DIR /
+                    "detail_audit_prompt_v1.txt").read_text(encoding="utf-8")
+        self.assertEqual(baseline, active)
+
+    def test_penetration_pair_audit_checks_both_object_captures(self):
+        scene = self.detail_scene()
+        violations = [{
+            "type": "penetration",
+            "object_ids": ["laptop_01", "chair_01"],
+            "detail": "AABB overlap x=0.02m",
+        }]
+        reports = [
+            {"object_id": "laptop_01",
+             "files": ["detail/laptop_01/view_00.png"]},
+            {"object_id": "chair_01",
+             "files": ["detail/chair_01/view_00.png"]},
+        ]
+
+        def fake_ask(prompt, images, validator=None, **_kwargs):
+            self.assertIn("laptop_01", prompt)
+            self.assertIn("chair_01", prompt)
+            self.assertEqual(2, len(images))
+            return validator({
+                "object_ids": ["chair_01", "laptop_01"],
+                "verdict": "not_penetrating",
+                "confidence": 0.91,
+                "detail": "surfaces are separated",
+                "evidence_views": [0, 1],
+            })
+
+        with mock.patch.object(gpt_scoring, "_ask", side_effect=fake_ask), \
+             mock.patch.object(Path, "is_file", return_value=True):
+            audits = gpt_scoring.audit_penetration_pairs(
+                violations, reports, Path("capture"), scene, max_retries=1)
+        self.assertEqual(["chair_01", "laptop_01"], audits[0]["object_ids"])
+        self.assertEqual("not_penetrating", audits[0]["verdict"])
+
+    def test_penetration_pair_validator_rejects_another_pair(self):
+        with self.assertRaisesRegex(ValueError, "候補ペア"):
+            gpt_scoring._validate_penetration_pair_audit({
+                "object_ids": ["laptop_01", "desk_01"],
+                "verdict": "penetrating", "confidence": 0.9,
+                "evidence_views": [0],
+            }, ("chair_01", "laptop_01"), 2)
+
     def test_only_high_confidence_failed_findings_become_defects(self):
         audits = [{
             "object_id": "laptop_01", "status": "fail",

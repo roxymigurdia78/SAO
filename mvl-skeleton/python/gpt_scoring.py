@@ -357,10 +357,11 @@ def _validate_detail_audit(result, expected_id, allowed_ids, image_count):
 
 
 def audit_scene_details(detail_captures, capture_dir, scene,
-                        max_retries=3, sleep=time.sleep):
+                        max_retries=3, sleep=time.sleep, prompt_path=None):
     """全オブジェクトを個別に監査する。1対象=1リクエストで注意希釈を避ける。"""
-    template = (PROMPT_DIR / "detail_audit_prompt.txt").read_text(
-        encoding="utf-8")
+    prompt_path = (Path(prompt_path) if prompt_path else
+                   PROMPT_DIR / "detail_audit_prompt.txt")
+    template = prompt_path.read_text(encoding="utf-8")
     capture_dir = Path(capture_dir)
     audits = []
     for detail in detail_captures or []:
@@ -382,6 +383,10 @@ def audit_scene_details(detail_captures, capture_dir, scene,
             object_id=object_id,
             object_class=obj.get("class", ""),
             declared_relations=relations,
+            expected_support=(
+                obj.get("rests_on") or
+                ("floor" if obj.get("must_touch_floor", True)
+                 else "宣言なし")),
             nearby_objects=nearby,
         )
         validator = lambda value, oid=object_id, ids=allowed_ids, n=len(image_paths): (
@@ -394,6 +399,113 @@ def audit_scene_details(detail_captures, capture_dir, scene,
                 "object_id": object_id,
                 "status": "uncertain",
                 "findings": [],
+                "evidence_views": [],
+                "error": "vlm_invalid_after_retries",
+            }
+        audits.append(result)
+    return audits
+
+
+PENETRATION_PAIR_VERDICTS = {
+    "penetrating", "not_penetrating", "uncertain",
+}
+
+
+def _penetration_pair_candidates(violations):
+    """機械検査の貫通候補を、順序なしの重複しないペアで返す。"""
+    candidates = {}
+    for violation in violations or []:
+        if violation.get("type") != "penetration":
+            continue
+        object_ids = tuple(sorted({value for value in violation.get("object_ids", [])
+                                   if value}))
+        if len(object_ids) == 2:
+            candidates[object_ids] = violation.get("detail", "")
+    return [(object_ids, candidates[object_ids]) for object_ids in
+            sorted(candidates)]
+
+
+def _validate_penetration_pair_audit(result, expected_ids, image_count):
+    if not isinstance(result, dict):
+        raise ValueError("貫通ペア監査応答がJSONオブジェクトではない")
+    object_ids = result.get("object_ids")
+    if not isinstance(object_ids, list) or set(object_ids) != set(expected_ids) \
+            or len(object_ids) != 2:
+        raise ValueError("貫通ペア監査のobject_idsが候補ペアと一致しない")
+    verdict = result.get("verdict")
+    if verdict not in PENETRATION_PAIR_VERDICTS:
+        raise ValueError(f"貫通ペア監査のverdictが不正: {verdict!r}")
+    try:
+        confidence = float(result.get("confidence"))
+    except (TypeError, ValueError):
+        raise ValueError("貫通ペア監査のconfidenceが数値ではない")
+    if not math.isfinite(confidence) or not 0.0 <= confidence <= 1.0:
+        raise ValueError("貫通ペア監査のconfidenceが範囲外")
+    evidence = result.get("evidence_views", [])
+    if not isinstance(evidence, list) or any(
+            not isinstance(index, int) or isinstance(index, bool)
+            or index < 0 or index >= image_count for index in evidence):
+        raise ValueError("貫通ペア監査のevidence_viewsが不正")
+    return {
+        "object_ids": list(expected_ids),
+        "verdict": verdict,
+        "confidence": confidence,
+        "detail": str(result.get("detail", "")),
+        "evidence_views": evidence,
+    }
+
+
+def audit_penetration_pairs(violations, detail_captures, capture_dir, scene,
+                            max_retries=3, sleep=time.sleep):
+    """AABB貫通候補を、両物体の周辺付き拡大画像でVLMに再確認させる。"""
+    template = (PROMPT_DIR / "penetration_pair_audit_prompt.txt").read_text(
+        encoding="utf-8")
+    objects = {obj.get("id"): obj for obj in scene.get("objects", [])}
+    captures_by_id = {
+        item.get("object_id"): item.get("files", [])
+        for item in detail_captures or [] if item.get("object_id")
+    }
+    capture_dir = Path(capture_dir)
+    audits = []
+    for object_ids, machine_detail in _penetration_pair_candidates(violations):
+        first_id, second_id = object_ids
+        first_obj, second_obj = objects.get(first_id), objects.get(second_id)
+        first_images = [capture_dir / value
+                        for value in captures_by_id.get(first_id, [])]
+        second_images = [capture_dir / value
+                         for value in captures_by_id.get(second_id, [])]
+        first_images = [path for path in first_images if path.is_file()]
+        second_images = [path for path in second_images if path.is_file()]
+        image_paths = first_images + second_images
+        if first_obj is None or second_obj is None or not image_paths:
+            audits.append({
+                "object_ids": list(object_ids),
+                "verdict": "uncertain",
+                "confidence": 0.0,
+                "detail": "ペア構成物または詳細画像が不足",
+                "evidence_views": [],
+                "error": "pair_objects_or_images_missing",
+            })
+            continue
+        first_count = len(first_images)
+        prompt = template.format(
+            first_id=first_id,
+            first_class=first_obj.get("class", ""),
+            second_id=second_id,
+            second_class=second_obj.get("class", ""),
+            first_image_count=first_count,
+            machine_detail=machine_detail or "記録なし",
+        )
+        validator = lambda value, ids=object_ids, n=len(image_paths): (
+            _validate_penetration_pair_audit(value, ids, n))
+        result = _ask(prompt, image_paths, max_retries=max_retries, sleep=sleep,
+                      validator=validator, return_none_on_failure=True)
+        if result is None:
+            result = {
+                "object_ids": list(object_ids),
+                "verdict": "uncertain",
+                "confidence": 0.0,
+                "detail": "VLM応答を検証できなかった",
                 "evidence_views": [],
                 "error": "vlm_invalid_after_retries",
             }

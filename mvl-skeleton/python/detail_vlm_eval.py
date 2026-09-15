@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 
 
-COMPARABLE_KINDS = ("floating", "penetration")
-COUNT_ONLY_KINDS = ("scale", "orientation", "functional_relation")
+COMPARABLE_KINDS = ("floating", "penetration", "orientation")
+COUNT_ONLY_KINDS = ("scale", "functional_relation")
 
 
 def _machine_positive_ids(violations, kind):
@@ -164,7 +164,9 @@ def aggregate_rows(rows, scope="TOTAL"):
             "false_positive_rate": _rate(
                 totals["fp"], totals["fp"] + totals["tn"]),
         })
-    comparable = list(result)
+    # Keep the historical physical-error summary limited to these two kinds.
+    comparable = [row for row in result
+                  if row["item"] in ("floating", "penetration")]
     combined = {key: sum(row[key] for row in comparable)
                 for key in ("audited_objects", "tp", "fn", "fp", "tn",
                             "machine_positive_objects", "vlm_positive_objects",

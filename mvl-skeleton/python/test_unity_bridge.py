@@ -5,10 +5,11 @@ import unity_bridge
 
 
 class UnityCommandTests(unittest.TestCase):
-    def command(self, fast, details=False):
+    def command(self, fast, details=False, uniform=False):
         return unity_bridge.build_command(
             "Unity.exe", "Project", "scene.json", "capture", "unity.log",
-            fast_iteration=fast, detail_captures=details)
+            fast_iteration=fast, detail_captures=details,
+            uniform_scale=uniform)
 
     def test_normal_mode_does_not_add_fast_flag(self):
         self.assertNotIn("-fastIteration", self.command(False))
@@ -25,6 +26,13 @@ class UnityCommandTests(unittest.TestCase):
         command = self.command(False, details=True)
         self.assertIn("-detailCaptures", command)
         self.assertNotIn("-fastIteration", command)
+
+    def test_uniform_scale_mode_adds_explicit_unity_flag(self):
+        command = self.command(False, uniform=True)
+        self.assertIn("-uniformScale", command)
+
+    def test_per_axis_scale_is_the_default(self):
+        self.assertNotIn("-uniformScale", self.command(False))
 
 
 if __name__ == "__main__":

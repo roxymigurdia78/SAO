@@ -11,6 +11,7 @@ class DetailVlmEvaluationTests(unittest.TestCase):
         self.violations = [
             {"type": "floating", "object_id": "a"},
             {"type": "penetration", "object_ids": ["b", "c"]},
+            {"type": "orientation", "object_id": "a"},
             {"type": "scale", "object_id": "c"},
         ]
         self.audits = [
@@ -28,12 +29,16 @@ class DetailVlmEvaluationTests(unittest.TestCase):
         rows = evaluate_records(self.violations, self.audits, "sample")
         floating = next(row for row in rows if row["item"] == "floating")
         penetration = next(row for row in rows if row["item"] == "penetration")
+        orientation = next(row for row in rows if row["item"] == "orientation")
         self.assertEqual((1, 0, 1, 2), tuple(
             floating[key] for key in ("tp", "fn", "fp", "tn")))
         self.assertEqual((1, 1, 0, 2), tuple(
             penetration[key] for key in ("tp", "fn", "fp", "tn")))
         self.assertEqual(1.0, floating["detection_rate"])
         self.assertAlmostEqual(1 / 3, floating["false_positive_rate"])
+        self.assertEqual((1, 0, 0, 3), tuple(
+            orientation[key] for key in ("tp", "fn", "fp", "tn")))
+        self.assertEqual(1.0, orientation["detection_rate"])
         penetration_pair = next(
             row for row in rows if row["item"] == "penetration_pair")
         self.assertEqual("confusion_pair", penetration_pair["section"])
@@ -43,7 +48,7 @@ class DetailVlmEvaluationTests(unittest.TestCase):
         self.assertIsNone(penetration_pair["fp"])
         self.assertIsNone(penetration_pair["false_positive_rate"])
 
-    def test_scale_and_semantics_are_counted_without_confusion_labels(self):
+    def test_scale_and_functional_relation_are_counted_without_confusion_labels(self):
         rows = evaluate_records(self.violations, self.audits, "sample")
         scale = next(row for row in rows if row["item"] == "scale")
         orientation = next(row for row in rows if row["item"] == "orientation")
@@ -52,6 +57,7 @@ class DetailVlmEvaluationTests(unittest.TestCase):
         self.assertEqual(1, scale["machine_positive_objects"])
         self.assertEqual(1, scale["vlm_positive_objects"])
         self.assertIsNone(scale["false_positive_rate"])
+        self.assertEqual("confusion", orientation["section"])
         self.assertEqual(1, orientation["vlm_findings"])
         self.assertEqual(1, functional["vlm_findings"])
 

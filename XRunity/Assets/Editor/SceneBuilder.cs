@@ -37,8 +37,9 @@ namespace MVL
             }
             bool fastIteration = HasArg("-fastIteration");
             bool detailCaptures = HasArg("-detailCaptures");
+            bool uniformScale = HasArg("-uniformScale");
             int code = SceneBuilder.BuildAndCapture(
-                sceneJson, outDir, fastIteration, detailCaptures);
+                sceneJson, outDir, fastIteration, detailCaptures, uniformScale);
             EditorApplication.Exit(code);
         }
 
@@ -86,11 +87,13 @@ namespace MVL
 
         public static int BuildAndCapture(string sceneJsonPath, string outDir,
                                           bool fastIteration = false,
-                                          bool detailCaptures = false)
+                                          bool detailCaptures = false,
+                                          bool uniformScale = false)
         {
             var report = new BuildReport();
             var totalSw = Stopwatch.StartNew();
             report.fast_iteration = fastIteration;
+            report.scale_mode = uniformScale ? "uniform" : "per_axis";
             report.capture_width = CAPTURE_W;
             report.capture_height = CAPTURE_H;
             try
@@ -121,7 +124,7 @@ namespace MVL
                 foreach (var obj in scene.objects)
                 {
                     var or = PlaceObject(obj, assetsDirAbs, importFolder,
-                                         fastIteration);
+                                         fastIteration, uniformScale);
                     if (or != null) report.objects.Add(or);
                 }
                 report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
@@ -236,7 +239,8 @@ namespace MVL
 
         // ---------- 配置 ----------
         static ObjectReport PlaceObject(SceneObject obj, string assetsDirAbs,
-                                        string importFolder, bool fastIteration)
+                                        string importFolder, bool fastIteration,
+                                        bool uniformScale)
         {
             string src = Path.Combine(assetsDirAbs, obj.asset);
             if (!File.Exists(src)) { Debug.LogWarning($"[MVL] GLBなし: {src}(スキップ)"); return null; }
@@ -251,15 +255,40 @@ namespace MVL
             var inst = (GameObject)UnityEngine.Object.Instantiate(prefab);
             inst.name = obj.id;
 
-            // 実測サイズ → target_dimensionsに合わせて一様スケール(TRELLISのスケールは信用しない)
+            // 比較実験では旧方式の一様スケールも選べる。既定は各軸スケール。
             var bounds = MeasureBounds(inst);
-            float measured = bounds.size.y;
-            float target = obj.target_dimensions?.height ?? 0f;
-            // ラグ等の薄物は高さ基準が不安定なので幅基準にする
-            if (target < 0.1f && obj.target_dimensions != null)
-            { measured = Mathf.Max(bounds.size.x, bounds.size.z); target = Mathf.Max(obj.target_dimensions.width, obj.target_dimensions.depth); }
-            if (measured > 1e-4f && target > 1e-4f)
-                inst.transform.localScale = Vector3.one * (target / measured);
+            if (obj.target_dimensions != null)
+            {
+                const float MinDimension = 1e-4f;
+                if (uniformScale)
+                {
+                    float measured = bounds.size.y;
+                    float target = obj.target_dimensions.height;
+                    // ラグ等の薄物は高さ基準が不安定なので幅基準にする。
+                    if (target < 0.1f)
+                    {
+                        measured = Mathf.Max(bounds.size.x, bounds.size.z);
+                        target = Mathf.Max(obj.target_dimensions.width,
+                                           obj.target_dimensions.depth);
+                    }
+                    if (measured > MinDimension && target > MinDimension)
+                        inst.transform.localScale = Vector3.one *
+                            (target / measured);
+                }
+                else
+                {
+                    var measured = bounds.size;
+                    var target = obj.target_dimensions;
+                    var scale = inst.transform.localScale;
+                    if (measured.x > MinDimension && target.width > MinDimension)
+                        scale.x *= target.width / measured.x;
+                    if (measured.y > MinDimension && target.height > MinDimension)
+                        scale.y *= target.height / measured.y;
+                    if (measured.z > MinDimension && target.depth > MinDimension)
+                        scale.z *= target.depth / measured.z;
+                    inst.transform.localScale = scale;
+                }
+            }
 
             // 回転 → 底面中心をposition[x,z]、底面をposition[y]に合わせる
             inst.transform.rotation = Quaternion.Euler(0, obj.rotation_y_deg, 0);

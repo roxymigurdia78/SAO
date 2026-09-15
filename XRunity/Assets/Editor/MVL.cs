@@ -114,6 +114,7 @@ namespace MVL
         public List<string> captures = new List<string>();
         public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
         public bool fast_iteration;
+        public string scale_mode;
         public int capture_width;
         public int capture_height;
         public float geometry_seconds;

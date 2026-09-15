@@ -18,6 +18,17 @@ class FrontOffsetTests(unittest.TestCase):
         self.assertEqual(0.0, result["front_offset_deg"])
         self.assertEqual("upper_mesh_asymmetry", result["front_offset_method"])
 
+    def test_laptop_front_follows_upper_screen_bias(self):
+        # 画面が-Z側にあるノートPCは、-Zが正面=180度。
+        vertices = np.array([
+            [-1, 0, -1], [1, 0, 1], [-0.5, 1, -0.9], [0.5, 1, -0.9],
+        ], dtype=float)
+        with patch("front_offsets.contact_offset.load_mesh",
+                   return_value=(vertices, np.empty((0, 3), dtype=int))):
+            result = front_offsets.estimate_asset("laptop_v1.glb", "laptop")
+        self.assertEqual(180.0, result["front_offset_deg"])
+        self.assertEqual("upper_mesh_asymmetry", result["front_offset_method"])
+
     def test_manual_asset_override_has_priority(self):
         result = front_offsets.estimate_asset(
             "cabinet_v1.glb", "cabinet", {

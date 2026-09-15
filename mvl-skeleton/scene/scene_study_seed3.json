@@ -462,6 +462,7 @@
         1.75
       ],
       "rotation_y_deg": 0,
+      "faces": "chair_01",
       "target_dimensions": {
         "width": 0.35,
         "height": 0.24,

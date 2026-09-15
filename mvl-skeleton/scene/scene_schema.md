@@ -33,7 +33,7 @@
 | `asset_variants` | バリアントプール(3個)。低品質→差し替えオペレータがここから選ぶ |
 | `position` | [x, y, z] 底面中心 |
 | `rotation_y_deg` | Y軸回転(度) |
-| `target_dimensions` | 望む実寸(w/h/d)。**SceneBuilderはGLBの実測サイズをこの高さに合わせて一様スケール**する(TRELLISの出力スケールは信用しない) |
+| `target_dimensions` | 望む実寸(w/h/d)。**SceneBuilderはGLBの実測幅・高さ・奥行きを各値に合わせて非一様スケール**する(TRELLISの出力スケールは信用しない)。比較実験では `orchestrator.py --uniform-scale` で旧一様スケールへ切替可能 |
 | `class_height_range` | クラスとして許容される高さ範囲[m]。スケール逸脱検査が参照 |
 | `must_touch_floor` | true なら浮遊検査の対象(y=0 かつ実測AABB底面が床±許容差) |
 | `rests_on` | 他オブジェクトの上に載る場合の親ID(ランプ→机)。浮遊検査は親の上面を基準にする |

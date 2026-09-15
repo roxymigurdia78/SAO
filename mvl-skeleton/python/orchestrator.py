@@ -14,6 +14,7 @@ import argparse
 import copy
 import json
 import shutil
+import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime
@@ -206,6 +207,12 @@ def save_json(path, data):
 
 
 def main():
+    # VLM responses can contain characters outside the active Windows code page.
+    # Keep the run alive even when such text is printed to a legacy console.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(errors="backslashreplace")
+
     ap = argparse.ArgumentParser(description="生成→評価→修正の自律ループ")
     ap.add_argument("--scene", required=True, help="初期シーンJSON")
     ap.add_argument("--unity", help="Unity.exe のパス")
@@ -224,6 +231,8 @@ def main():
         help="実験用: 詳細VLMの高信頼度指摘を修復へ渡す(既定は監査のみ)")
     ap.add_argument("--fast-unity", action="store_true",
                     help="配置確認用: Unityのメッシュ加工・UV2・ベイクを省略")
+    ap.add_argument("--uniform-scale", action="store_true",
+                    help="比較実験用: Unity配置を旧方式の一様スケールにする")
     ap.add_argument(
         "--runs-dir", default=str(DEFAULT_RUNS_DIR),
         help="実行ログの出力先 (既定: mvl-skeleton/runs)")
@@ -320,7 +329,8 @@ def main():
             report = unity_bridge.run_unity_build(args.unity, args.project,
                                                  it_dir / "scene.json", cap_dir,
                                                  fast_iteration=args.fast_unity,
-                                                 detail_captures=detail_vlm_enabled)
+                                                 detail_captures=detail_vlm_enabled,
+                                                 uniform_scale=args.uniform_scale)
             captures = sorted(cap_dir.glob("view_*.png"))
             mode = "高速" if report.get("fast_iteration") else "通常"
             print(f"[iter {i}] 撮影 {len(captures)}枚 / {mode}モード / "
@@ -357,6 +367,7 @@ def main():
         worst = None
         visual_defects = []
         detail_audits = []
+        penetration_pair_audits = []
         detail_failure_count = None
         detail_uncertain_count = 0
         if captures and not args.skip_vlm:
@@ -411,6 +422,35 @@ def main():
                     for finding in audit.get("findings", []):
                         print(f"    - {audit['object_id']} / "
                               f"{finding['kind']}: {finding.get('detail', '')}")
+
+            penetration_violations = [
+                violation for violation in violations
+                if violation.get("type") == "penetration"]
+            if detail_vlm_enabled and penetration_violations:
+                pair_audit_started = time.monotonic()
+                penetration_pair_audits = gpt_scoring.audit_penetration_pairs(
+                    penetration_violations, report.get("detail_captures", []),
+                    cap_dir, scene)
+                pair_audit_seconds = time.monotonic() - pair_audit_started
+                save_json(it_dir / "penetration_pair_audit.json",
+                          penetration_pair_audits)
+                pair_verdicts = {
+                    verdict: sum(audit.get("verdict") == verdict
+                                 for audit in penetration_pair_audits)
+                    for verdict in ("penetrating", "not_penetrating", "uncertain")
+                }
+                meta["penetration_pair_audit"] = {
+                    "pairs": len(penetration_pair_audits),
+                    **pair_verdicts,
+                    "requests": len(penetration_pair_audits),
+                    "seconds": round(pair_audit_seconds, 3),
+                }
+                print(f"[iter {i}] 貫通ペアVLM: "
+                      f"対象 {pair_verdicts['penetrating'] + pair_verdicts['not_penetrating'] + pair_verdicts['uncertain']} / "
+                      f"貫通 {pair_verdicts['penetrating']} / "
+                      f"非貫通 {pair_verdicts['not_penetrating']} / "
+                      f"不確実 {pair_verdicts['uncertain']} / "
+                      f"合計 {pair_audit_seconds:.1f}秒")
 
         # --- 3) 採否判定(前反復と比較。悪化なら巻き戻し) ---
         if prev_scene is not None:
