@@ -1,7 +1,0 @@
-runs/
-images/
-scene/assets/*
-!scene/assets/contact_offsets.json
-scene/capture*/
-.env
-__pycache__/

@@ -10,7 +10,8 @@
 
 # MVLの生成画像
 /mvl-skeleton/images/
-
+/mvl-skeleton/scene/capture*/
+**/.front_offsets_backup_*.json
 # Python生成物
 __pycache__/
 *.py[cod]

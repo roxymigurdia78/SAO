@@ -1,0 +1,440 @@
+{
+  "input_dir": "/home/23rd067/kuro/ComfyUI/selected_assets",
+  "output_dir": "/home/23rd067/kuro/TRELLIS.2/generated_glbs",
+  "decimation_target": 150000,
+  "texture_size": 1024,
+  "assets": [
+    {
+      "name": "backpack_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/backpack_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/backpack_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "backpack_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/backpack_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/backpack_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "backpack_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/backpack_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/backpack_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "books_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/books_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/books_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "books_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/books_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/books_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "books_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/books_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/books_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "bookshelf_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/bookshelf_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/bookshelf_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "bookshelf_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/bookshelf_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/bookshelf_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "bookshelf_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/bookshelf_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/bookshelf_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "cabinet_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/cabinet_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/cabinet_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "cabinet_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/cabinet_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/cabinet_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "cabinet_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/cabinet_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/cabinet_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "chair_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/chair_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/chair_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "chair_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/chair_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/chair_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "chair_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/chair_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/chair_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "desk_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/desk_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/desk_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "desk_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/desk_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/desk_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "desk_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/desk_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/desk_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "floor_lamp_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/floor_lamp_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/floor_lamp_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "floor_lamp_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/floor_lamp_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/floor_lamp_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "floor_lamp_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/floor_lamp_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/floor_lamp_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "lamp_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/lamp_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/lamp_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "lamp_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/lamp_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/lamp_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "lamp_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/lamp_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/lamp_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "laptop_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/laptop_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/laptop_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "laptop_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/laptop_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/laptop_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "laptop_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/laptop_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/laptop_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "monitor_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/monitor_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/monitor_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "monitor_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/monitor_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/monitor_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "monitor_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/monitor_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/monitor_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "mug_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/mug_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/mug_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "mug_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/mug_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/mug_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "mug_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/mug_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/mug_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "pen_holder_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/pen_holder_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/pen_holder_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "pen_holder_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/pen_holder_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/pen_holder_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "pen_holder_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/pen_holder_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/pen_holder_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "plant_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/plant_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/plant_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "plant_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/plant_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/plant_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "plant_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/plant_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/plant_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "printer_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/printer_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/printer_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "printer_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/printer_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/printer_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "printer_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/printer_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/printer_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "rug_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/rug_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/rug_v1.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "rug_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/rug_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/rug_v2.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "rug_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/rug_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/rug_v3.glb",
+      "status": "skipped_existing"
+    },
+    {
+      "name": "trash_bin_v1",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/trash_bin_v1.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/trash_bin_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "trash_bin_v2",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/trash_bin_v2.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/trash_bin_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "trash_bin_v3",
+      "input_image": "/home/23rd067/kuro/ComfyUI/selected_assets/trash_bin_v3.png",
+      "glb": "/home/23rd067/kuro/TRELLIS.2/generated_glbs/trash_bin_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    }
+  ]
+}

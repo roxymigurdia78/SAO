@@ -1,0 +1,1081 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "method": "surface_sampling+spread_profile",
+    "params": {
+      "n_slabs": 64,
+      "tau_body": 0.1,
+      "tau_support": 0.35,
+      "periphery": 0.2
+    },
+    "updated_at": "2026-09-15 18:27:11"
+  },
+  "backpack_v1.glb": {
+    "sha256": "fe5d2f46caeafa19",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0234,
+    "support_planes": [
+      {
+        "y_frac": 0.9766,
+        "area_frac": 0.2662,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0014,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "backpack_v2.glb": {
+    "sha256": "73f1614838d42172",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0234,
+    "support_planes": [
+      {
+        "y_frac": 0.9766,
+        "area_frac": 0.2073,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0001,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "backpack_v3.glb": {
+    "sha256": "cbdf5b68640e46ef",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0547,
+    "support_planes": [
+      {
+        "y_frac": 0.9453,
+        "area_frac": 0.2306,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0013,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "books_v1.glb": {
+    "sha256": "cf59ebfc2c87bdd3",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9702,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8647,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "books_v2.glb": {
+    "sha256": "f7619fb9cc9fe182",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.6313,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.8746,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "books_v3.glb": {
+    "sha256": "6aef1730804372d9",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0391,
+    "support_planes": [
+      {
+        "y_frac": 0.9609,
+        "area_frac": 0.1817,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.6818,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "bookshelf_v1.glb": {
+    "sha256": "545133a2aaa36a41",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.987,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "bookshelf_v2.glb": {
+    "sha256": "360e536fac5f12f2",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "bookshelf_v3.glb": {
+    "sha256": "8b4e8a7f1cc1e87b",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.8394,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "cabinet_v1.glb": {
+    "sha256": "3d6ed71dec118e43",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9928,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0018,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "cabinet_v2.glb": {
+    "sha256": "936119c296510e51",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9942,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "cabinet_v3.glb": {
+    "sha256": "345f7a266c538a18",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9998,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "chair_v1.glb": {
+    "sha256": "78f0ab85aa123a70",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.2734,
+    "support_planes": [
+      {
+        "y_frac": 0.7266,
+        "area_frac": 0.293,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0017,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "chair_v2.glb": {
+    "sha256": "868bfc85a4e0206e",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.1797,
+    "support_planes": [
+      {
+        "y_frac": 0.8203,
+        "area_frac": 0.7777,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.9,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0018,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "chair_v3.glb": {
+    "sha256": "6bc5379457d3fa7b",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.4375,
+    "support_planes": [
+      {
+        "y_frac": 0.5625,
+        "area_frac": 0.495,
+        "clearance_frac": 0.25,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0015,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "desk_v1.glb": {
+    "sha256": "e8c66c2f82cc05ef",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.6019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "desk_v2.glb": {
+    "sha256": "4fd6e9cec67b5a70",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 1.0,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.6557,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "desk_v3.glb": {
+    "sha256": "e623d7309496e060",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9599,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.5895,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "floor_lamp_v1.glb": {
+    "sha256": "8078358b07c96426",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0312,
+    "support_planes": [
+      {
+        "y_frac": 0.9688,
+        "area_frac": 0.9157,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0017,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "floor_lamp_v2.glb": {
+    "sha256": "046c967b42c572b4",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9992,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "floor_lamp_v3.glb": {
+    "sha256": "07bca66f8a23a01d",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0312,
+    "support_planes": [
+      {
+        "y_frac": 0.9688,
+        "area_frac": 0.9989,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0017,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "lamp_v1.glb": {
+    "sha256": "ffda91c87b697bd7",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9375,
+    "support_planes": [
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.4916,
+        "clearance_frac": 0.5469,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0013,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "lamp_v2.glb": {
+    "sha256": "62a23f9604a32453",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9062,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.4916,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "y_frac": 0.0938,
+        "area_frac": 0.6688,
+        "clearance_frac": 0.7344,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "lamp_v3.glb": {
+    "sha256": "2cef4a7ae570cbc2",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9219,
+    "support_planes": [
+      {
+        "y_frac": 0.0781,
+        "area_frac": 0.5549,
+        "clearance_frac": 0.4531,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0016,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "laptop_v1.glb": {
+    "sha256": "b10dbce8255357a4",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9375,
+    "support_planes": [
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.893,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.6994,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "laptop_v2.glb": {
+    "sha256": "c8e7d84b3bd1bc08",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9531,
+    "support_planes": [
+      {
+        "y_frac": 0.0469,
+        "area_frac": 0.8518,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.7329,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "laptop_v3.glb": {
+    "sha256": "8bd5108510d0cfc3",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9375,
+    "support_planes": [
+      {
+        "y_frac": 0.0625,
+        "area_frac": 0.8601,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.6661,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "monitor_v1.glb": {
+    "sha256": "d23df3e42b86070c",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9688,
+    "support_planes": [
+      {
+        "y_frac": 0.0312,
+        "area_frac": 0.4235,
+        "clearance_frac": 0.2188,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8397,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "monitor_v2.glb": {
+    "sha256": "a9f38fb77ecd7712",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9688,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.5338,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      },
+      {
+        "y_frac": 0.0312,
+        "area_frac": 0.4084,
+        "clearance_frac": 0.25,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8885,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "monitor_v3.glb": {
+    "sha256": "a45db8d290dd9033",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.9531,
+    "support_planes": [
+      {
+        "y_frac": 0.0469,
+        "area_frac": 0.41,
+        "clearance_frac": 0.1562,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8104,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "mug_v1.glb": {
+    "sha256": "15d7c8d6aa1d3250",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.7159,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8957,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "mug_v2.glb": {
+    "sha256": "8d3baca9a97ea086",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.6425,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8281,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "mug_v3.glb": {
+    "sha256": "78faf4e2e3182a98",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.5007,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.8071,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "pen_holder_v1.glb": {
+    "sha256": "a83eafbd2653130e",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0547,
+    "support_planes": [
+      {
+        "y_frac": 0.9453,
+        "area_frac": 0.3304,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.9995,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "pen_holder_v2.glb": {
+    "sha256": "4e425c0d3c2aeadb",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0703,
+    "support_planes": [
+      {
+        "y_frac": 0.9297,
+        "area_frac": 0.4157,
+        "clearance_frac": 0.0156,
+        "confidence": 0.4
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.9,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.9961,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "pen_holder_v3.glb": {
+    "sha256": "38ba167355ab0c02",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0703,
+    "support_planes": [
+      {
+        "y_frac": 0.9297,
+        "area_frac": 0.1962,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.9953,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "plant_v1.glb": {
+    "sha256": "36400a9585d0429f",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0703,
+    "support_planes": [
+      {
+        "y_frac": 0.9297,
+        "area_frac": 0.2163,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "unknown",
+    "confidence": 0.0,
+    "needs_review": true,
+    "axis_warning": false,
+    "aabb_height": 1.0013,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "plant_v2.glb": {
+    "sha256": "24b7a124a7e18df3",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0703,
+    "support_planes": [
+      {
+        "y_frac": 0.9297,
+        "area_frac": 0.2587,
+        "clearance_frac": 1.0,
+        "confidence": 0.5
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.9996,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "plant_v3.glb": {
+    "sha256": "91e60c5e78da842e",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.1094,
+    "support_planes": [
+      {
+        "y_frac": 0.8906,
+        "area_frac": 0.5501,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0004,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "printer_v1.glb": {
+    "sha256": "ba9d84564c41be2c",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.8425,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.4012,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "printer_v2.glb": {
+    "sha256": "0a2191bab11c69aa",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.8003,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.3727,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "printer_v3.glb": {
+    "sha256": "5f1d733d18d2e0ea",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.6656,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 0.3826,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "rug_v1.glb": {
+    "sha256": "28331d9ca7000f6b",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9478,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.0145,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "rug_v2.glb": {
+    "sha256": "4ee94af20178cd5d",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.8022,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.0227,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "rug_v3.glb": {
+    "sha256": "33dd15f75f26204d",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9507,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "tabletop",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 0.0168,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "trash_bin_v1.glb": {
+    "sha256": "d039aeb87e7a0ac7",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9089,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "trash_bin_v2.glb": {
+    "sha256": "4aadc5342871f4ff",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9961,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 0.65,
+    "needs_review": true,
+    "axis_warning": true,
+    "aabb_height": 1.0012,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  },
+  "trash_bin_v3.glb": {
+    "sha256": "b63076a78092c6b6",
+    "schema_version": 2,
+    "contact_offset": 0.0,
+    "support_offset": 0.0,
+    "support_planes": [
+      {
+        "y_frac": 0.9844,
+        "area_frac": 0.9977,
+        "clearance_frac": 1.0,
+        "confidence": 0.9
+      }
+    ],
+    "ground_type": "floor",
+    "confidence": 1.0,
+    "needs_review": false,
+    "axis_warning": false,
+    "aabb_height": 1.0019,
+    "samples": 200000,
+    "measured_at": "2026-08-25",
+    "method": "surface_sampling+spread_profile"
+  }
+}
