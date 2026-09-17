@@ -47,26 +47,28 @@ __pycache__/
 # Unity生成フォルダ
 # ==================================================
 
-XRunity/[Ll]ibrary/
-XRunity/[Tt]emp/
-XRunity/[Oo]bj/
-XRunity/[Bb]uild/
-XRunity/[Bb]uilds/
-XRunity/[Ll]ogs/
-XRunity/[Uu]ser[Ss]ettings/
-XRunity/MemoryCaptures/
-XRunity/Recordings/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+Recordings/
 
 
 # ==================================================
 # MVLがUnity側へ生成・コピーするファイル
 # ==================================================
 
-XRunity/Assets/MVLImported/
-XRunity/Assets/MVL_Temp/
-XRunity/Assets/MVL_Temp.meta
-XRunity/Assets/MVL_Temp.unity
-XRunity/Assets/MVL_Temp.unity.meta
+**/Assets/MVLImported/
+**/Assets/MVLImported.meta
+
+**/Assets/MVL_Temp/
+**/Assets/MVL_Temp.meta
+**/Assets/MVL_Temp.unity
+**/Assets/MVL_Temp.unity.meta
 
 
 # ==================================================

@@ -14,6 +14,12 @@ FLOOR_TOL = 0.02      # 接地判定の許容差 [m]
 PEN_TOL = 0.02        # 貫通とみなす最小めり込み深さ [m]
 REST_TOL = 0.06       # rests_on の親上面との許容差 [m]
 DEFAULT_FACE_TOLERANCE_DEG = 45.0
+UNVERIFIED_FRONT_OFFSET_METHODS = {
+    "upper_mesh_asymmetry",
+    "heuristic_vlm_conflict",
+    "vlm_no_consensus",
+    "unresolved",
+}
 
 
 # ---------- AABB ----------
@@ -75,7 +81,10 @@ def load_asset_front_offsets(assets_dir):
     for asset in inventory.get("assets", []):
         name = asset.get("file") or (
             f"{asset['asset_id']}.glb" if asset.get("asset_id") else None)
-        if "front_offset_deg" not in asset:
+        method = asset.get("front_offset_method")
+        if method in UNVERIFIED_FRONT_OFFSET_METHODS:
+            offset = None
+        elif "front_offset_deg" not in asset:
             offset = 0.0
         elif asset.get("front_offset_deg") is None:
             offset = None

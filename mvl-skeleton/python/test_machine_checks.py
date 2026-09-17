@@ -1,4 +1,7 @@
 import unittest
+import json
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 import machine_checks as mc
@@ -103,6 +106,51 @@ class SemanticConstraintTests(unittest.TestCase):
         scene["objects"][0].pop("faces")
         scene["objects"][0].pop("near")
         self.assertEqual([], mc.check_semantic_constraints(scene, {}))
+
+    def test_unverified_mesh_heuristic_is_not_used_for_rotation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            inventory = {
+                "assets": [{
+                    "file": "laptop_v1.glb",
+                    "front_offset_deg": 180,
+                    "front_offset_method": "upper_mesh_asymmetry",
+                }]
+            }
+            Path(directory, "assets_inventory.json").write_text(
+                json.dumps(inventory), encoding="utf-8")
+            mc.load_asset_front_offsets.cache_clear()
+            offsets = mc.load_asset_front_offsets(directory)
+            self.assertIsNone(offsets["laptop_v1.glb"])
+
+    def test_verified_agreement_is_used_for_rotation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            inventory = {
+                "assets": [{
+                    "file": "monitor_v1.glb",
+                    "front_offset_deg": 0,
+                    "front_offset_method": "heuristic_vlm_agreement",
+                }]
+            }
+            Path(directory, "assets_inventory.json").write_text(
+                json.dumps(inventory), encoding="utf-8")
+            mc.load_asset_front_offsets.cache_clear()
+            offsets = mc.load_asset_front_offsets(directory)
+            self.assertEqual(0.0, offsets["monitor_v1.glb"])
+
+    def test_trusted_semantic_geometry_is_used_without_manual_override(self):
+        with tempfile.TemporaryDirectory() as directory:
+            inventory = {
+                "assets": [{
+                    "file": "laptop_v1.glb",
+                    "front_offset_deg": 0,
+                    "front_offset_method": "semantic_geometry_vlm_unresolved",
+                }]
+            }
+            Path(directory, "assets_inventory.json").write_text(
+                json.dumps(inventory), encoding="utf-8")
+            mc.load_asset_front_offsets.cache_clear()
+            offsets = mc.load_asset_front_offsets(directory)
+            self.assertEqual(0.0, offsets["laptop_v1.glb"])
 
 
 if __name__ == "__main__":

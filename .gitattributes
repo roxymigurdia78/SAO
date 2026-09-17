@@ -1,0 +1,17 @@
+# 基本的なテキストファイルはLFで統一
+* text=auto eol=lf
+
+# Windowsで直接実行するスクリプト
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# バイナリファイル
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.exr binary
+*.glb binary
+*.fbx binary
+*.dll binary

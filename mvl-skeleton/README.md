@@ -163,6 +163,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\run_orientation_detection_
 出力CSVでは `orientation` のTOTAL（正例12件）だけを向きの評価結果として読む。
 欠陥注入によって配置条件が変わるため、同じCSVの浮遊・貫通行は主結果に使わない。
 
+正面方向の形状推定 `upper_mesh_asymmetry` は候補生成に限定し、単独では自動回転へ
+使用しない。方向性アセットを追加・変更した場合は、次のコマンドで四面図VLMを
+3回実行する。形状推定とVLM多数決が一致した場合だけ確定し、不一致または多数決不能は
+`orientation_unverified` として修復を停止する。実画像で確認した個別校正は
+`scene/front_offsets_overrides.json` に記録する。
+
+```powershell
+python .\front_offsets.py --assets-dir ..\scene\assets\0824 `
+  --vlm-verify-directional --vlm-attempts 3
+```
+
 ### 浮遊検出率の専用評価
 
 通常シーンにもともと含まれる少数の浮遊だけで100%という結論を出さないため、
