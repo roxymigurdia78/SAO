@@ -67,6 +67,10 @@ namespace MVL
 
     public static class SceneBuilder
     {
+        // 全オブジェクトのメッシュ簡略化を一括で切り替える。
+        // false: 元メッシュを維持（UV2生成とライトマップベイクは実行する）
+        // true : TARGET_TRIS_PER_OBJECTを超えるメッシュを簡略化する
+        const bool ENABLE_MESH_DECIMATION = false;
         const int TARGET_TRIS_PER_OBJECT = 40000; // 8月=PC撮影品質優先。Quest 2向けの15k締めは9月に実施
         // 保存する原画の解像度。VLM送信時の縮小はPython側で独立に設定する。
         const int CAPTURE_W = 1920, CAPTURE_H = 1080;
@@ -292,7 +296,7 @@ namespace MVL
             {
                 if (f.sharedMesh == null) continue;
                 Mesh mesh = f.sharedMesh;
-                if (quality < 1f)
+                if (ENABLE_MESH_DECIMATION && quality < 1f)
                 {
                     var simplifier = new UnityMeshSimplifier.MeshSimplifier();
                     simplifier.Initialize(mesh);

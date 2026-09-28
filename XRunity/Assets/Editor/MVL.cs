@@ -71,6 +71,9 @@ namespace MVL
         public NearConstraint near;
         public bool walkable_over = false;
         public bool locked = false;
+        // AIが事前分類してJSONへ固定する。fragile / standard / robust / original。
+        // 未指定時もAdaptiveLodBuilderのクラス別固定分類で再現可能。
+        public string mesh_profile;
     }
 
     [Serializable] public class NearConstraint
@@ -97,6 +100,10 @@ namespace MVL
         public float[] aabb_max;
         public int triangle_count_before;
         public int triangle_count_after;
+        public string mesh_profile;
+        public int[] lod_triangle_counts;
+        public int lod_cache_hits;
+        public int lod_cache_misses;
     }
 
     [Serializable] public class DetailCaptureReport

@@ -77,10 +77,31 @@ namespace MVL
             { RunFromMenu(); return; }
             SceneBuilder.BuildAndCapture(path, Path.Combine(Path.GetDirectoryName(path), "capture"));
         }
+
+        [MenuItem("MVL/Build LOD MVP (desk-chair-plant)")]
+        public static void BuildLodMvp()
+        {
+            string projectRoot = Path.GetDirectoryName(Application.dataPath);
+            string workspaceRoot = Path.GetDirectoryName(projectRoot);
+            string path = Path.Combine(
+                workspaceRoot, "mvl-skeleton", "scene", "scene_lod_mvp.json");
+            if (!File.Exists(path))
+            {
+                Debug.LogError("[MVL][LOD] MVPシーンが見つかりません: " + path);
+                return;
+            }
+            EditorPrefs.SetString("MVL_LastScenePath", path);
+            SceneBuilder.BuildAndCapture(
+                path, Path.Combine(Path.GetDirectoryName(path), "capture"));
+        }
     }
 
     public static class SceneBuilder
     {
+        // 全オブジェクトのメッシュ簡略化を一括で切り替える。
+        // false: 元メッシュを維持（UV2生成とライトマップベイクは実行する）
+        // true : TARGET_TRIS_PER_OBJECTを超えるメッシュを簡略化する
+        const bool ENABLE_MESH_DECIMATION = false;
         const int TARGET_TRIS_PER_OBJECT = 40000; // 8月=PC撮影品質優先。Quest 2向けの15k締めは9月に実施
         // 保存する原画の解像度。VLM送信時の縮小はPython側で独立に設定する。
         const int CAPTURE_W = 1920, CAPTURE_H = 1080;
@@ -299,10 +320,20 @@ namespace MVL
 
             // 高速モードは配置確認用。元メッシュのまま撮影し、UV2生成を省く。
             int before, after;
+            AdaptiveLodResult lodResult = null;
             if (fastIteration)
             {
                 before = CountTriangles(inst);
                 after = before;
+            }
+            else if (AdaptiveLodBuilder.TryBuild(inst, obj, dst, out lodResult))
+            {
+                before = lodResult.sourceTriangles;
+                after = lodResult.lodTriangles[0];
+                GameObjectUtility.SetStaticEditorFlags(inst, StaticEditorFlags.ContributeGI);
+                foreach (Transform t in inst.GetComponentsInChildren<Transform>(true))
+                    GameObjectUtility.SetStaticEditorFlags(
+                        t.gameObject, StaticEditorFlags.ContributeGI);
             }
             else
             {
@@ -320,7 +351,11 @@ namespace MVL
                 aabb_min = new[] { bounds.min.x, bounds.min.y, bounds.min.z },
                 aabb_max = new[] { bounds.max.x, bounds.max.y, bounds.max.z },
                 triangle_count_before = before,
-                triangle_count_after = after
+                triangle_count_after = after,
+                mesh_profile = lodResult?.profile ?? AdaptiveLodBuilder.ResolveProfile(obj),
+                lod_triangle_counts = lodResult?.lodTriangles,
+                lod_cache_hits = lodResult?.cacheHits ?? 0,
+                lod_cache_misses = lodResult?.cacheMisses ?? 0
             };
         }
 
@@ -355,7 +390,7 @@ namespace MVL
             {
                 if (f.sharedMesh == null) continue;
                 Mesh mesh = f.sharedMesh;
-                if (quality < 1f)
+                if (ENABLE_MESH_DECIMATION && quality < 1f)
                 {
                     var simplifier = new UnityMeshSimplifier.MeshSimplifier();
                     simplifier.Initialize(mesh);
@@ -367,7 +402,7 @@ namespace MVL
                 {
                     mesh = UnityEngine.Object.Instantiate(mesh); // 共有アセットを直接触らない
                 }
-                if (mesh.vertexCount <= 60000)
+                if (!ENABLE_MESH_DECIMATION || mesh.vertexCount <= 60000)
                     {
                         Unwrapping.GenerateSecondaryUVSet(mesh);
                     }

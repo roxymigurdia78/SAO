@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
+
 public class FlyCamera : MonoBehaviour
 {
     public float moveSpeed = 2.0f;
@@ -16,6 +17,9 @@ public class FlyCamera : MonoBehaviour
 
     void Start()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 90;
+
         var e = transform.eulerAngles;
         yaw = e.y;
         pitch = e.x > 180 ? e.x - 360 : e.x;

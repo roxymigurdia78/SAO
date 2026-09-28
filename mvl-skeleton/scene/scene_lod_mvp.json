@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "scene_id": "lod_mvp_desk_chair_plant",
+  "spec": {
+    "space_type": "study_room",
+    "theme": "LODの見た目と切替を確認する最小シーン"
+  },
+  "room": {
+    "bounds": {
+      "width": 4.0,
+      "depth": 3.5,
+      "height": 2.5
+    },
+    "floor_y": 0.0,
+    "entrance": {
+      "position": [2.0, 0.2],
+      "facing_deg": 0
+    },
+    "wall_material": "warm off-white plaster",
+    "floor_material": "oak wood planks",
+    "lighting": {
+      "sun": {
+        "rotation_euler_deg": [35, -60, 0],
+        "intensity": 1.3,
+        "color_hex": "FFE8C8",
+        "mode": "Mixed"
+      },
+      "ambient_intensity": 0.9
+    }
+  },
+  "assets_dir": "assets/0824",
+  "objects": [
+    {
+      "id": "desk_01",
+      "class": "desk",
+      "asset": "desk_v1.glb",
+      "mesh_profile": "robust",
+      "position": [1.3, 0.0, 3.05],
+      "rotation_y_deg": 180,
+      "target_dimensions": {
+        "width": 1.4,
+        "height": 0.73,
+        "depth": 0.7
+      },
+      "must_touch_floor": true
+    },
+    {
+      "id": "chair_01",
+      "class": "chair",
+      "asset": "chair_v1.glb",
+      "mesh_profile": "fragile",
+      "position": [1.3, 0.0, 2.3],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.55,
+        "height": 0.9,
+        "depth": 0.55
+      },
+      "must_touch_floor": true
+    },
+    {
+      "id": "plant_01",
+      "class": "plant",
+      "asset": "plant_v1.glb",
+      "mesh_profile": "fragile",
+      "position": [3.4, 0.0, 2.8],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.4,
+        "height": 1.05,
+        "depth": 0.4
+      },
+      "must_touch_floor": true
+    }
+  ]
+}

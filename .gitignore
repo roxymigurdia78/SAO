@@ -118,3 +118,7 @@ debug.log
 ehthumbs.db
 Thumbs.db
 Desktop.ini
+
+/tmp/
+**/Assets/_Recovery/
+**/Assets/_Recovery.meta
