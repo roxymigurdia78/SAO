@@ -1,17 +1,22 @@
-# 基本的なテキストファイルはLFで統一
-* text=auto eol=lf
+﻿* text=auto
 
-# Windowsで直接実行するスクリプト
-*.bat text eol=crlf
-*.cmd text eol=crlf
-*.ps1 text eol=crlf
+*.cs text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.unity text eol=lf
+*.meta text eol=lf
+*.asset text eol=lf
+*.shader text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
 
-# バイナリファイル
 *.png binary
 *.jpg binary
 *.jpeg binary
-*.gif binary
 *.exr binary
 *.glb binary
 *.fbx binary
-*.dll binary
+*.pdf binary
