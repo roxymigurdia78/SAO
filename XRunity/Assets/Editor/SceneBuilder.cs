@@ -131,7 +131,7 @@ namespace MVL
                     UnityEditor.SceneManagement.NewSceneMode.Single);
 
                 // 2) 部屋の殻(L1簡易版: 床+壁4面+天井。8月はテンプレート箱、材質は9月に生成置換)
-                BuildRoomShell(scene.room);
+                BuildRoomShell(scene.room, sceneJsonPath, report);
 
                 // 3) 照明(太陽=Mixed必須。C4の教訓: Realtimeのままだとベイクされない)
                 SetupLighting(scene.room.lighting, fastIteration);
@@ -203,18 +203,70 @@ namespace MVL
         }
 
         // ---------- 部屋の殻 ----------
-        static void BuildRoomShell(Room room)
+        static void BuildRoomShell(Room room, string sceneJsonPath,
+                                   BuildReport report)
         {
             float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
             var floorMat = MakeMat(new Color(0.55f, 0.42f, 0.28f)); // 仮: 木目調ブラウン
             var wallMat = MakeMat(new Color(0.93f, 0.91f, 0.86f));  // 仮: オフホワイト
+            var ceilingMat = wallMat;
+            var northMat = wallMat;
+            var southMat = wallMat;
+            var westMat = wallMat;
+            var eastMat = wallMat;
+
+            float tile = room.texture_tile_m > 0f ? room.texture_tile_m : 2.0f;
+            if (room.texture_tile_m <= 0f)
+                Debug.LogWarning("[MVL] texture_tile_m は正数である必要があります。既定値 2.0m を使います。");
+
+            if (!string.IsNullOrWhiteSpace(room.floor_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.floor_texture, "floor", sceneJsonPath, out var assetPath);
+                var tiling = new Vector2(w / tile, d / tile);
+                floorMat = MakeTexturedMat(texture, tiling);
+                AddShellTextureReport(report, "Floor", room.floor_texture,
+                                      assetPath, tiling);
+            }
+
+            if (!string.IsNullOrWhiteSpace(room.ceiling_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.ceiling_texture, "ceiling", sceneJsonPath, out var assetPath);
+                var tiling = new Vector2(w / tile, d / tile);
+                ceilingMat = MakeTexturedMat(texture, tiling);
+                AddShellTextureReport(report, "Ceiling", room.ceiling_texture,
+                                      assetPath, tiling);
+            }
+
+            if (!string.IsNullOrWhiteSpace(room.wall_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.wall_texture, "wall", sceneJsonPath, out var assetPath);
+                var northSouthTiling = new Vector2(w / tile, h / tile);
+                var eastWestTiling = new Vector2(d / tile, h / tile);
+
+                // 各壁を独立したマテリアルにして、向きごとの寸法を反映する。
+                northMat = MakeTexturedMat(texture, northSouthTiling);
+                southMat = MakeTexturedMat(texture, northSouthTiling);
+                westMat = MakeTexturedMat(texture, eastWestTiling);
+                eastMat = MakeTexturedMat(texture, eastWestTiling);
+                AddShellTextureReport(report, "Wall_N", room.wall_texture,
+                                      assetPath, northSouthTiling);
+                AddShellTextureReport(report, "Wall_S", room.wall_texture,
+                                      assetPath, northSouthTiling);
+                AddShellTextureReport(report, "Wall_W", room.wall_texture,
+                                      assetPath, eastWestTiling);
+                AddShellTextureReport(report, "Wall_E", room.wall_texture,
+                                      assetPath, eastWestTiling);
+            }
 
             MakeBox("Floor", new Vector3(w / 2, -0.05f, d / 2), new Vector3(w, 0.1f, d), floorMat);
-            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w, 0.1f, d), wallMat);
-            MakeBox("Wall_N", new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w, h, 0.1f), wallMat);
-            MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w, h, 0.1f), wallMat);
-            MakeBox("Wall_W", new Vector3(-0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), wallMat);
-            MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), wallMat);
+            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w, 0.1f, d), ceilingMat);
+            MakeBox("Wall_N", new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w, h, 0.1f), northMat);
+            MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w, h, 0.1f), southMat);
+            MakeBox("Wall_W", new Vector3(-0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), westMat);
+            MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), eastMat);
         }
 
         static Material MakeMat(Color c)
@@ -223,6 +275,105 @@ namespace MVL
             var m = new Material(shader);
             m.color = c;
             return m;
+        }
+
+        static Material MakeTexturedMat(Texture2D texture, Vector2 tiling)
+        {
+            var m = MakeMat(Color.white);
+            string textureProperty = m.HasProperty("_BaseMap")
+                ? "_BaseMap"
+                : "_MainTex";
+            m.SetTexture(textureProperty, texture);
+            m.SetTextureScale(textureProperty, tiling);
+            return m;
+        }
+
+        static Texture2D ImportShellTexture(string relativePath, string surface,
+                                            string sceneJsonPath,
+                                            out string assetPath)
+        {
+            if (Path.IsPathRooted(relativePath))
+                throw new ArgumentException(
+                    $"{surface}_texture は mvl-skeleton からの相対パスで指定してください: {relativePath}");
+
+            string skeletonRoot = FindMvlSkeletonRoot(sceneJsonPath);
+            string rootWithSeparator = skeletonRoot.TrimEnd(
+                Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                + Path.DirectorySeparatorChar;
+            string sourcePath = Path.GetFullPath(Path.Combine(
+                skeletonRoot,
+                relativePath.Replace('/', Path.DirectorySeparatorChar)));
+            if (!sourcePath.StartsWith(rootWithSeparator,
+                                       StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException(
+                    $"{surface}_texture が mvl-skeleton の外を指しています: {relativePath}");
+            if (!File.Exists(sourcePath))
+                throw new FileNotFoundException(
+                    $"{surface}_texture が見つかりません", sourcePath);
+
+            EnsureAssetFolder("Assets/MVLGenerated");
+            EnsureAssetFolder("Assets/MVLGenerated/Shell");
+            string fileName = surface + "_" + Path.GetFileName(sourcePath);
+            assetPath = "Assets/MVLGenerated/Shell/" + fileName;
+            string destinationPath = Path.Combine(
+                Application.dataPath, "MVLGenerated", "Shell", fileName);
+            File.Copy(sourcePath, destinationPath, true);
+            AssetDatabase.ImportAsset(
+                assetPath,
+                ImportAssetOptions.ForceSynchronousImport
+                | ImportAssetOptions.ForceUpdate);
+
+            var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            if (importer == null)
+                throw new InvalidOperationException(
+                    $"テクスチャとしてインポートできませんでした: {assetPath}");
+            if (importer.wrapMode != TextureWrapMode.Repeat)
+            {
+                importer.wrapMode = TextureWrapMode.Repeat;
+                importer.SaveAndReimport();
+            }
+
+            var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+            if (texture == null)
+                throw new InvalidOperationException(
+                    $"テクスチャを読み込めませんでした: {assetPath}");
+            return texture;
+        }
+
+        static string FindMvlSkeletonRoot(string sceneJsonPath)
+        {
+            var directory = new DirectoryInfo(
+                Path.GetDirectoryName(Path.GetFullPath(sceneJsonPath)));
+            while (directory != null)
+            {
+                if (string.Equals(directory.Name, "mvl-skeleton",
+                                  StringComparison.OrdinalIgnoreCase))
+                    return directory.FullName;
+                directory = directory.Parent;
+            }
+            throw new DirectoryNotFoundException(
+                "scene JSON は mvl-skeleton 配下に置いてください。");
+        }
+
+        static void EnsureAssetFolder(string assetPath)
+        {
+            if (AssetDatabase.IsValidFolder(assetPath)) return;
+            string parent = Path.GetDirectoryName(assetPath).Replace('\\', '/');
+            string folderName = Path.GetFileName(assetPath);
+            EnsureAssetFolder(parent);
+            AssetDatabase.CreateFolder(parent, folderName);
+        }
+
+        static void AddShellTextureReport(BuildReport report, string surface,
+                                          string sourceImage, string assetPath,
+                                          Vector2 tiling)
+        {
+            report.shell_textures.Add(new ShellTextureReport {
+                surface = surface,
+                source_image = sourceImage.Replace('\\', '/'),
+                imported_asset = assetPath,
+                tiling = new[] { tiling.x, tiling.y },
+            });
         }
 
         static GameObject MakeBox(string name, Vector3 center, Vector3 size, Material mat)

@@ -39,6 +39,8 @@ __pycache__/
 
 # PNGをすべて除外
 *.png
+# シェルテクスチャ機能の最小テスト素材だけはリポジトリに含める
+!/mvl-skeleton/scene/test_assets/shell/study_seed1/*.png
 
 # GLBをすべて除外
 *.glb

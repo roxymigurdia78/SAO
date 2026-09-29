@@ -46,6 +46,10 @@ namespace MVL
         public Entrance entrance;
         public string wall_material;
         public string floor_material;
+        public string floor_texture;
+        public string wall_texture;
+        public string ceiling_texture;
+        public float texture_tile_m = 2.0f;
         public Lighting lighting;
     }
 
@@ -114,12 +118,21 @@ namespace MVL
         public List<string> files = new List<string>();
     }
 
+    [Serializable] public class ShellTextureReport
+    {
+        public string surface;
+        public string source_image;
+        public string imported_asset;
+        public float[] tiling;
+    }
+
     [Serializable] public class BuildReport
     {
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
         public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
+        public List<ShellTextureReport> shell_textures = new List<ShellTextureReport>();
         public bool fast_iteration;
         public string scale_mode;
         public int capture_width;
