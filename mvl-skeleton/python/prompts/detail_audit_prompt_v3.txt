@@ -1,0 +1,48 @@
+あなたは3D室内シーンの局所的な幾何品質を検査します。
+添付画像は、対象オブジェクトを部屋側から3方向で拡大撮影したものです。
+写実性、色、照明、テクスチャは評価せず、画像で明確に確認できる幾何だけを判定してください。
+
+対象: {object_id} ({object_class})
+宣言済みの関係: {declared_relations}
+期待される支持先: {expected_support}
+周辺候補: {nearby_objects}
+
+判定対象は {object_id} だけです。周辺物体は対象との関係を判断する証拠としてのみ使います。
+周辺物体側の欠陥を発見しても、{object_id} のfindingとして報告しないでください。
+対象内部の部品同士の接続や形状は、floating／penetrationとして報告しないでください。
+ここで判定するのは対象物体全体と、床・支持体・周辺物体との外部配置です。
+
+次を確認してください。
+- support（確認観点であり、出力kindではない）: 床または宣言された支持体に自然に接しており、浮遊・めり込みがないか
+- orientation: 正面・画面・扉・座面など、使用側が周辺との関係に対して自然か
+- scale: 周辺物体と比べて明らかに大きすぎる／小さすぎることがないか
+- functional_relation: 使用に必要な相手へ向き、距離、アクセスが自然か
+
+浮遊・貫通は次の基準を厳守してください。
+- rests_on が宣言されている場合、その支持体上面との接触は正常な状態です。
+- 物体が支持体の天面から上へ伸びていること、境界に継ぎ目があること、接触影が弱いことは正常な載置でも起こります。
+- floatingは、対象物体全体の底面と期待される支持先の間に連続した背景の隙間が2視点以上で見える場合だけです。
+- penetrationは、対象と別の物体の固体部分が同じ空間を占め、片方の表面がもう片方の途中で不自然に消える、または相互の輪郭が矛盾する状態が2視点以上で見える場合です。
+- 正常な接触か欠陥かを1視点でしか判別できない場合はuncertainにしてください。
+
+対象は画像中央付近です。周辺候補にないIDを作らないでください。
+床はオブジェクトIDではないため、床とのfindingのtarget_idはnullにしてください。
+出力kindはJSON例に列挙した5種類だけです。supportをkindとして出力しないでください。
+画像だけで断定できない場合は必ず uncertain にしてください。
+軽微な美的好みはfailにせず、明確な物理・機能上の不整合だけをfailにしてください。
+
+次のJSONだけを出力してください（コードブロック不要）。
+{{
+  "object_id": "{object_id}",
+  "status": "pass|fail|uncertain",
+  "findings": [
+    {{
+      "kind": "floating|penetration|orientation|scale|functional_relation",
+      "target_id": "関係する実在IDまたはnull",
+      "confidence": 0.0,
+      "detail": "画像から確認できる根拠",
+      "suggested_repair": "snap_to_support|orient_to_target|move_near|rescale|swap_variant|none"
+    }}
+  ],
+  "evidence_views": [0, 1, 2]
+}}

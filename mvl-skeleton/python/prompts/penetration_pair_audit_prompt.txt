@@ -1,0 +1,23 @@
+あなたは3D室内シーンの幾何品質を検査します。機械検査が、次の2物体のAABBが重なると報告しました。
+
+候補ペアA: {first_id} ({first_class})
+候補ペアB: {second_id} ({second_class})
+機械検査の根拠: {machine_detail}
+
+添付画像のうち最初の{first_image_count}枚はAを中心に周辺を含めて撮影した画像、残りはBを中心に周辺を含めて撮影した画像です。
+写実性・照明・好みは評価せず、AとBの実際の幾何だけを判定してください。
+
+- penetrating: 表面同士が明らかに食い込んでいる
+- not_penetrating: 表面は接触していない。AABBの張り出し、遠近、または隠れによる誤検出と判断できる
+- uncertain: 遮蔽・解像度・視点不足のため、どちらとも断定できない
+
+見た目が近いだけではpenetratingにしないでください。画像から明らかな場合だけpenetratingまたはnot_penetratingにしてください。画像に基づいて判定し、機械検査の結論をそのまま採用しないでください。
+
+次のJSONだけを出力してください（コードブロック不要）。
+{{
+  "object_ids": ["{first_id}", "{second_id}"],
+  "verdict": "penetrating|not_penetrating|uncertain",
+  "confidence": 0.0,
+  "detail": "画像に基づく短い根拠",
+  "evidence_views": [0]
+}}

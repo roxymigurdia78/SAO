@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "scene_id": "study_room_geometry_constraints",
+  "spec": {
+    "space_type": "study_room",
+    "theme": "geometry constraint verification",
+    "required_objects": [
+      {"class": "desk", "min_count": 1},
+      {"class": "chair", "min_count": 1}
+    ]
+  },
+  "room": {
+    "bounds": {"width": 4.0, "depth": 3.5, "height": 2.5},
+    "floor_y": 0.0,
+    "entrance": {"position": [0.2, 0.2], "facing_deg": 0},
+    "wall_material": "plain_white",
+    "floor_material": "wood",
+    "lighting": {
+      "sun": {
+        "rotation_euler_deg": [50, -30, 0],
+        "intensity": 1.0,
+        "color_hex": "FFF4E8",
+        "mode": "Mixed"
+      },
+      "ambient_intensity": 0.9
+    }
+  },
+  "assets_dir": "assets/0824",
+  "objects": [
+    {
+      "id": "desk_01",
+      "class": "desk",
+      "asset": "desk_v1.glb",
+      "asset_variants": ["desk_v1.glb", "desk_v2.glb", "desk_v3.glb"],
+      "position": [2.0, 0.0, 1.8],
+      "rotation_y_deg": 0,
+      "target_dimensions": {"width": 1.4, "height": 0.73, "depth": 0.7},
+      "class_height_range": [0.65, 0.85],
+      "must_touch_floor": true,
+      "locked": false
+    },
+    {
+      "id": "chair_01",
+      "class": "chair",
+      "asset": "chair_v1.glb",
+      "asset_variants": ["chair_v1.glb", "chair_v2.glb", "chair_v3.glb"],
+      "position": [2.0, 0.0, 0.9],
+      "rotation_y_deg": 180,
+      "target_dimensions": {"width": 0.55, "height": 0.9, "depth": 0.55},
+      "class_height_range": [0.75, 1.1],
+      "must_touch_floor": true,
+      "locked": false,
+      "faces": "desk_01",
+      "faces_tolerance_deg": 45,
+      "near": {"target": "desk_01", "max_distance": 1.0}
+    }
+  ],
+  "walkable": {"agent_radius": 0.3, "grid_cell": 0.1},
+  "views": "auto",
+  "history": []
+}

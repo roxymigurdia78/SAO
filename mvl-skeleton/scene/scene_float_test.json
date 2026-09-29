@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0",
+  "scene_id": "study_room_float_test",
+  "spec": {
+    "space_type": "study_room",
+    "theme": "落ち着いた木目調の勉強部屋。夕方の柔らかい西日が窓から入る",
+    "required_objects": [
+      {
+        "class": "desk",
+        "min_count": 1
+      },
+      {
+        "class": "chair",
+        "min_count": 1
+      },
+      {
+        "class": "bookshelf",
+        "min_count": 1
+      },
+      {
+        "class": "desk_lamp",
+        "min_count": 1
+      },
+      {
+        "class": "monitor",
+        "min_count": 1
+      }
+    ],
+    "mood_keywords": [
+      "warm",
+      "quiet",
+      "wooden",
+      "cozy"
+    ]
+  },
+  "room": {
+    "bounds": {
+      "width": 4.0,
+      "depth": 3.5,
+      "height": 2.5
+    },
+    "origin_note": "部屋の床の左奥隅が(0,0,0)。x=幅方向, z=奥行方向, y=高さ。単位はメートル",
+    "floor_y": 0.0,
+    "entrance": {
+      "position": [
+        2.0,
+        0.2
+      ],
+      "facing_deg": 0
+    },
+    "wall_material": "warm off-white plaster",
+    "floor_material": "oak wood planks",
+    "lighting": {
+      "sun": {
+        "rotation_euler_deg": [
+          35,
+          -60,
+          0
+        ],
+        "intensity": 1.3,
+        "color_hex": "FFE8C8",
+        "mode": "Mixed"
+      },
+      "ambient_intensity": 0.9
+    }
+  },
+  "assets_dir": "assets",
+  "objects": [
+    {
+      "id": "desk_01",
+      "class": "desk",
+      "asset": "desk_v1.glb",
+      "asset_variants": [
+        "desk_v1.glb",
+        "desk_v2.glb",
+        "desk_v3.glb"
+      ],
+      "position": [
+        1.2,
+        0.0,
+        3.1
+      ],
+      "rotation_y_deg": 180,
+      "target_dimensions": {
+        "width": 1.2,
+        "height": 0.73,
+        "depth": 0.6
+      },
+      "class_height_range": [
+        0.65,
+        0.8
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "wooden study desk",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "chair_01",
+      "class": "chair",
+      "asset": "chair_v1.glb",
+      "asset_variants": [
+        "chair_v1.glb",
+        "chair_v2.glb",
+        "chair_v3.glb"
+      ],
+      "position": [
+        1.2,
+        0.0,
+        2.3
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 0.55,
+        "height": 0.9,
+        "depth": 0.55
+      },
+      "class_height_range": [
+        0.75,
+        1.1
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "office chair",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "bookshelf_01",
+      "class": "bookshelf",
+      "asset": "bookshelf_v1.glb",
+      "asset_variants": [
+        "bookshelf_v1.glb",
+        "bookshelf_v2.glb",
+        "bookshelf_v3.glb"
+      ],
+      "position": [
+        3.7,
+        1.2,
+        3.0
+      ],
+      "rotation_y_deg": 270,
+      "target_dimensions": {
+        "width": 0.9,
+        "height": 1.8,
+        "depth": 0.35
+      },
+      "class_height_range": [
+        1.5,
+        2.2
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "tall bookshelf with books",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "lamp_01",
+      "class": "desk_lamp",
+      "asset": "lamp_v1.glb",
+      "asset_variants": [
+        "lamp_v1.glb",
+        "lamp_v2.glb",
+        "lamp_v3.glb"
+      ],
+      "position": [
+        0.85,
+        1.5,
+        3.25
+      ],
+      "rotation_y_deg": 150,
+      "target_dimensions": {
+        "width": 0.2,
+        "height": 0.45,
+        "depth": 0.2
+      },
+      "class_height_range": [
+        0.3,
+        0.6
+      ],
+      "must_touch_floor": false,
+      "rests_on": "desk_01",
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "desk lamp",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "plant_01",
+      "class": "potted_plant",
+      "asset": "plant_v1.glb",
+      "asset_variants": [
+        "plant_v1.glb",
+        "plant_v2.glb",
+        "plant_v3.glb"
+      ],
+      "position": [
+        3.6,
+        0.0,
+        3.0
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 1.0,
+        "height": 0.1,
+        "depth": 1.0
+      },
+      "class_height_range": [
+        0.3,
+        1.8
+      ],
+      "must_touch_floor": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "potted plant",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    },
+    {
+      "id": "rug_01",
+      "class": "rug",
+      "asset": "rug_v1.glb",
+      "asset_variants": [
+        "rug_v1.glb",
+        "rug_v2.glb",
+        "rug_v3.glb"
+      ],
+      "position": [
+        2.0,
+        0.0,
+        1.8
+      ],
+      "rotation_y_deg": 0,
+      "target_dimensions": {
+        "width": 1.6,
+        "height": 0.02,
+        "depth": 1.1
+      },
+      "class_height_range": [
+        0.005,
+        0.05
+      ],
+      "must_touch_floor": true,
+      "walkable_over": true,
+      "locked": false,
+      "provenance": {
+        "source": "TRELLIS2",
+        "prompt": "small rug",
+        "generated_at": "2026-08-02"
+      },
+      "quality_score": null
+    }
+  ],
+  "walkable": {
+    "agent_radius": 0.3,
+    "min_corridor_width": 0.6,
+    "grid_cell": 0.1
+  },
+  "views": "auto",
+  "history": []
+}

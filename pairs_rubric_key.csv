@@ -1,0 +1,15 @@
+﻿pair_id,left_is,ai_winner,run,before,after,criterion,display_pair,before_score,after_score
+pair_01_B1,before,tie,study_room_seed1_20260825_220751,iter_00,iter_02,B1,pair_01,3.0,3.0
+pair_01_B3,before,B,study_room_seed1_20260825_220751,iter_00,iter_02,B3,pair_01,4.0,5.0
+pair_02_B1,after,A,wizard_study_seed1_20260820_164441,iter_00,iter_07,B1,pair_02,5.0,4.0
+pair_02_B3,after,tie,wizard_study_seed1_20260820_164441,iter_00,iter_07,B3,pair_02,4.0,4.0
+pair_03_B1,after,tie,wizard_study_seed3_20260820_180741,iter_00,iter_02,B1,pair_03,3.0,3.0
+pair_03_B3,after,tie,wizard_study_seed3_20260820_180741,iter_00,iter_02,B3,pair_03,4.0,4.0
+pair_04_B1,before,tie,wizard_study_seed2_20260820_172402,iter_00,iter_04,B1,pair_04,3.0,3.0
+pair_04_B3,before,A,wizard_study_seed2_20260820_172402,iter_00,iter_04,B3,pair_04,4.0,3.0
+pair_05_B1,after,B,study_room_seed2_20260826_142819,iter_00,iter_05,B1,pair_05,3.0,5.0
+pair_05_B3,after,tie,study_room_seed2_20260826_142819,iter_00,iter_05,B3,pair_05,4.0,4.0
+pair_06_B1,before,B,study_room_seed3_20260826_145948,iter_00,iter_06,B1,pair_06,3.0,4.0
+pair_06_B3,before,B,study_room_seed3_20260826_145948,iter_00,iter_06,B3,pair_06,4.0,5.0
+pair_07_B1,after,B,wizard_study_seed3_20260820_174441,iter_00,iter_05,B1,pair_07,3.0,5.0
+pair_07_B3,after,B,wizard_study_seed3_20260820_174441,iter_00,iter_05,B3,pair_07,3.0,4.0

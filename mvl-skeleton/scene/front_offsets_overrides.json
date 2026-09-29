@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "note": "assets はファイル名、classes はクラス名。assets が優先される。値は角度または {front_offset_deg, note}。Unityの+Zを0度とする。",
+  "assets": {},
+  "classes": {}
+}

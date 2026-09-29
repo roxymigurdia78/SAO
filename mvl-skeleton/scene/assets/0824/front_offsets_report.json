@@ -1,0 +1,400 @@
+{
+  "generated_at": "2026-09-15T18:08:17+09:00",
+  "count": 48,
+  "resolved_count": 48,
+  "unresolved_count": 0,
+  "unresolved": [],
+  "method_counts": {
+    "vlm_turntable_consensus": 13,
+    "not_applicable": 24,
+    "heuristic_vlm_agreement": 8,
+    "semantic_geometry_rule": 3
+  },
+  "overrides_file": "..\\scene\\front_offsets_overrides.json",
+  "results": [
+    {
+      "file": "backpack_v1.glb",
+      "class": "backpack",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (labeled 0 deg) clearly shows the main body and front pocket of the backpack, which is typically considered the primary user-facing side for viewing and access. (VLM votes=3/3)"
+    },
+    {
+      "file": "backpack_v2.glb",
+      "class": "backpack",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The front of the backpack (with main compartment zipper and pocket) is clearly visible in the view labeled 'View from +Z: front here = 0 deg', which aligns with the standard user-facing side of a backpack. (VLM votes=3/3)"
+    },
+    {
+      "file": "backpack_v3.glb",
+      "class": "backpack",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The 'View from +Z: front here = 0 deg' panel shows the backpack's front face with the main compartment and zippered pocket clearly visible, confirming the front orientation. (VLM votes=3/3)"
+    },
+    {
+      "file": "books_v1.glb",
+      "class": "books",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "books_v2.glb",
+      "class": "books",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "books_v3.glb",
+      "class": "books",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "bookshelf_v1.glb",
+      "class": "bookshelf",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The top-left panel (View from +Z) shows the front of the bookshelf with open shelves and spines, clearly intended as the primary viewing side; this aligns with standard 3D model conventions where front=0deg. (VLM votes=3/3)"
+    },
+    {
+      "file": "bookshelf_v2.glb",
+      "class": "bookshelf",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The front view (0 deg) displays the open shelves with books, clearly indicating it is the user-facing side where items are stored and accessed. (VLM votes=3/3)"
+    },
+    {
+      "file": "bookshelf_v3.glb",
+      "class": "bookshelf",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly indicates that the +Z direction is the semantic front of the object. (VLM votes=2/3)"
+    },
+    {
+      "file": "cabinet_v1.glb",
+      "class": "cabinet",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The front of the cabinet is clearly visible in the top-left view labeled 'View from +Z: front here = 0 deg', showing drawer handles and user-facing design elements. (VLM votes=3/3)"
+    },
+    {
+      "file": "cabinet_v2.glb",
+      "class": "cabinet",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The label under the top-left panel states 'front here = 0 deg'. This view clearly shows the functional front of the cabinet with drawer pulls, whereas the side views show flat sides. (VLM votes=3/3)"
+    },
+    {
+      "file": "cabinet_v3.glb",
+      "class": "cabinet",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.85,
+      "front_offset_note": "The panel labeled 'View from +Z: front here = 0 deg' shows the most detailed and complete facade of the cabinet with visible drawer lines and legs, consistent with a user-facing side. (VLM votes=3/3)"
+    },
+    {
+      "file": "chair_v1.glb",
+      "class": "chair",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The view from +Z (0 deg) shows the front of the chair directly facing the camera with armrests and backrest clearly aligned for a frontal presentation. (VLM votes=2/3)"
+    },
+    {
+      "file": "chair_v2.glb",
+      "class": "chair",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The chair's front is defined by the seat and backrest orientation. The +Z view (0 deg) shows the most natural, user-facing frontal perspective with symmetrical armrests and visible seat depth consistent with a standard chair front. (VLM votes=3/3)"
+    },
+    {
+      "file": "chair_v3.glb",
+      "class": "chair",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly identifies the front-facing view as corresponding to the 0-degree orientation, which shows the chair's user-facing side with the seat and backrest aligned for seating. (VLM votes=2/3)"
+    },
+    {
+      "file": "desk_v1.glb",
+      "class": "desk",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (labeled 'front here = 0 deg') shows the most complete and natural user-facing side of the desk with two drawers clearly visible, indicating this is the semantic front. (VLM votes=3/3)"
+    },
+    {
+      "file": "desk_v2.glb",
+      "class": "desk",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The view labeled 'View from +Z: front here = 0 deg' shows the drawer panel and user-facing side of the desk, which is semantically the front. (VLM votes=2/3)"
+    },
+    {
+      "file": "desk_v3.glb",
+      "class": "desk",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The panel labeled 'View from +Z: front here = 0 deg' shows the desk's primary face with drawers and a user-facing layout, consistent with semantic front definition. (VLM votes=2/3)"
+    },
+    {
+      "file": "floor_lamp_v1.glb",
+      "class": "floor_lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "floor_lamp_v2.glb",
+      "class": "floor_lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "floor_lamp_v3.glb",
+      "class": "floor_lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v1.glb",
+      "class": "lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v2.glb",
+      "class": "lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v3.glb",
+      "class": "lamp",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "laptop_v1.glb",
+      "class": "laptop",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.4776,
+      "front_offset_note": "上位35%の頂点重心偏り x=-0.004, z=-0.478; class polarity=-1"
+    },
+    {
+      "file": "laptop_v2.glb",
+      "class": "laptop",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.4744,
+      "front_offset_note": "上位35%の頂点重心偏り x=+0.001, z=-0.474; class polarity=-1"
+    },
+    {
+      "file": "laptop_v3.glb",
+      "class": "laptop",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.468,
+      "front_offset_note": "上位35%の頂点重心偏り x=-0.004, z=-0.468; class polarity=-1"
+    },
+    {
+      "file": "monitor_v1.glb",
+      "class": "monitor",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly identifies the screen-facing side as the semantic front of the monitor. (VLM votes=3/3)"
+    },
+    {
+      "file": "monitor_v2.glb",
+      "class": "monitor",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The monitor's front face (screen) is clearly visible in the +Z view, which corresponds to 0 degrees. The other views show side profiles or the back of the monitor. (VLM votes=3/3)"
+    },
+    {
+      "file": "monitor_v3.glb",
+      "class": "monitor",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The front view from +Z (labeled as 0 deg) shows the screen side of the monitor, which is the user-facing side and thus semantically the front. (VLM votes=3/3)"
+    },
+    {
+      "file": "mug_v1.glb",
+      "class": "mug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "mug_v2.glb",
+      "class": "mug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "mug_v3.glb",
+      "class": "mug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v1.glb",
+      "class": "pen_holder",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v2.glb",
+      "class": "pen_holder",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v3.glb",
+      "class": "pen_holder",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v1.glb",
+      "class": "plant",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v2.glb",
+      "class": "plant",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v3.glb",
+      "class": "plant",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "printer_v1.glb",
+      "class": "printer",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The top-left view labeled 'View from +Z: front here = 0 deg' shows the primary user-facing side with circular control buttons or indicator lights, which is characteristic of a printer's interface panel. (VLM votes=3/3)"
+    },
+    {
+      "file": "printer_v2.glb",
+      "class": "printer",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (0 deg) shows the front panel with a vented grille and handle-like indentation, consistent with typical control panel or user-facing side of a printer. (VLM votes=2/3)"
+    },
+    {
+      "file": "printer_v3.glb",
+      "class": "printer",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The view labeled 'View from +Z: front here = 0 deg' shows the most complete and recognizable front-facing features of a printer (control panel area, paper output slot), indicating this is the intended semantic front. (VLM votes=3/3)"
+    },
+    {
+      "file": "rug_v1.glb",
+      "class": "rug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "rug_v2.glb",
+      "class": "rug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "rug_v3.glb",
+      "class": "rug",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v1.glb",
+      "class": "trash_bin",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v2.glb",
+      "class": "trash_bin",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v3.glb",
+      "class": "trash_bin",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    }
+  ]
+}

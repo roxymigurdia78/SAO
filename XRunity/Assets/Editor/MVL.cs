@@ -66,8 +66,20 @@ namespace MVL
         public Dimensions target_dimensions;
         public bool must_touch_floor = true;
         public string rests_on;
+        public string faces;
+        public float faces_tolerance_deg = 45.0f;
+        public NearConstraint near;
         public bool walkable_over = false;
         public bool locked = false;
+        // AIが事前分類してJSONへ固定する。fragile / standard / robust / original。
+        // 未指定時もAdaptiveLodBuilderのクラス別固定分類で再現可能。
+        public string mesh_profile;
+    }
+
+    [Serializable] public class NearConstraint
+    {
+        public string target;
+        public float max_distance;
     }
 
     [Serializable] public class SceneJson
@@ -88,6 +100,18 @@ namespace MVL
         public float[] aabb_max;
         public int triangle_count_before;
         public int triangle_count_after;
+        public string mesh_profile;
+        public int[] lod_triangle_counts;
+        public int lod_cache_hits;
+        public int lod_cache_misses;
+    }
+
+    [Serializable] public class DetailCaptureReport
+    {
+        public string object_id;
+        public string object_class;
+        public List<string> related_ids = new List<string>();
+        public List<string> files = new List<string>();
     }
 
     [Serializable] public class BuildReport
@@ -95,7 +119,16 @@ namespace MVL
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
+        public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
+        public bool fast_iteration;
+        public string scale_mode;
+        public int capture_width;
+        public int capture_height;
+        public float geometry_seconds;
         public float bake_seconds;
+        public float capture_seconds;
+        public float detail_capture_seconds;
+        public float total_seconds;
         public string error; // 失敗時のみ
     }
 }

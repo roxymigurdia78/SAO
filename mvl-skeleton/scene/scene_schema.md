@@ -33,14 +33,27 @@
 | `asset_variants` | バリアントプール(3個)。低品質→差し替えオペレータがここから選ぶ |
 | `position` | [x, y, z] 底面中心 |
 | `rotation_y_deg` | Y軸回転(度) |
-| `target_dimensions` | 望む実寸(w/h/d)。**SceneBuilderはGLBの実測サイズをこの高さに合わせて一様スケール**する(TRELLISの出力スケールは信用しない) |
+| `target_dimensions` | 望む実寸(w/h/d)。**SceneBuilderはGLBの実測幅・高さ・奥行きを各値に合わせて非一様スケール**する(TRELLISの出力スケールは信用しない)。比較実験では `orchestrator.py --uniform-scale` で旧一様スケールへ切替可能 |
 | `class_height_range` | クラスとして許容される高さ範囲[m]。スケール逸脱検査が参照 |
 | `must_touch_floor` | true なら浮遊検査の対象(y=0 かつ実測AABB底面が床±許容差) |
 | `rests_on` | 他オブジェクトの上に載る場合の親ID(ランプ→机)。浮遊検査は親の上面を基準にする |
+| `faces` | 正面を向ける対象ID。`rotation_y_deg + assets_inventory.jsonのfront_offset_deg`が対象方向から既定±45度以内か検査する |
+| `faces_tolerance_deg` | `faces`の許容角度。省略時45度 |
+| `near` | 近接制約。`{"target": "desk_01", "max_distance": 1.0}`の形式で水平中心間距離[m]を検査する |
 | `walkable_over` | true(ラグ等)は動線検査で障害物扱いしない |
 | `locked` | true なら修正オペレータは変更禁止(ハード制約「変更不可属性」) |
 | `provenance` | source/prompt/generated_at。卒論の再現性記述に使う |
 | `quality_score` | VLM単体採点の最新値(オーケストレータが書き込む) |
+
+`assets_inventory.json` の各assetには任意で `front_offset_deg` を追加できる。
+`python mvl-skeleton/python/front_offsets.py --assets-dir mvl-skeleton/scene/assets/0824`
+でメッシュ非対称性から推定し、根拠・信頼度とともにinventoryへ記録する。
+形状だけで前後を決められないassetは `front_offset_deg: null` となり、
+`mvl-skeleton/scene/front_offsets_overrides.json` の `assets` または
+`classes` で手動設定できる。
+明示的なnullのassetに`faces`を指定すると、0度を仮定せず
+`orientation_unverified`として報告する。
+GLBのローカル+Z正面から見た補正角で、省略時は0度。値はアセットごとの実測後に設定する。
 
 ## Unity側の実測レポート(report.json)
 

@@ -1,0 +1,3693 @@
+{
+  "generated_at": "2026-08-26T19:49:12+09:00",
+  "root": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+  "count": 48,
+  "n_error": 0,
+  "n_warning": 48,
+  "classes": {
+    "0824/backpack": [
+      "backpack_v1",
+      "backpack_v2",
+      "backpack_v3"
+    ],
+    "0824/books": [
+      "books_v1",
+      "books_v2",
+      "books_v3"
+    ],
+    "0824/bookshelf": [
+      "bookshelf_v1",
+      "bookshelf_v2",
+      "bookshelf_v3"
+    ],
+    "0824/cabinet": [
+      "cabinet_v1",
+      "cabinet_v2",
+      "cabinet_v3"
+    ],
+    "0824/chair": [
+      "chair_v1",
+      "chair_v2",
+      "chair_v3"
+    ],
+    "0824/desk": [
+      "desk_v1",
+      "desk_v2",
+      "desk_v3"
+    ],
+    "0824/floor_lamp": [
+      "floor_lamp_v1",
+      "floor_lamp_v2",
+      "floor_lamp_v3"
+    ],
+    "0824/lamp": [
+      "lamp_v1",
+      "lamp_v2",
+      "lamp_v3"
+    ],
+    "0824/laptop": [
+      "laptop_v1",
+      "laptop_v2",
+      "laptop_v3"
+    ],
+    "0824/monitor": [
+      "monitor_v1",
+      "monitor_v2",
+      "monitor_v3"
+    ],
+    "0824/mug": [
+      "mug_v1",
+      "mug_v2",
+      "mug_v3"
+    ],
+    "0824/pen_holder": [
+      "pen_holder_v1",
+      "pen_holder_v2",
+      "pen_holder_v3"
+    ],
+    "0824/plant": [
+      "plant_v1",
+      "plant_v2",
+      "plant_v3"
+    ],
+    "0824/printer": [
+      "printer_v1",
+      "printer_v2",
+      "printer_v3"
+    ],
+    "0824/rug": [
+      "rug_v1",
+      "rug_v2",
+      "rug_v3"
+    ],
+    "0824/trash_bin": [
+      "trash_bin_v1",
+      "trash_bin_v2",
+      "trash_bin_v3"
+    ]
+  },
+  "assets": [
+    {
+      "file": "backpack_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\backpack_v1.glb",
+      "file_size_mb": 8.47,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.76974,
+        "y": 1.0015,
+        "z": 0.77312
+      },
+      "nominal_height_y": 1.0015,
+      "longest_axis_m": 1.0015,
+      "aabb_min": [
+        -0.38491,
+        -0.5008,
+        -0.38764
+      ],
+      "aabb_max": [
+        0.38483,
+        0.5007,
+        0.38548
+      ],
+      "min_y": -0.5008,
+      "tri_count": 143206,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "backpack_v1",
+      "class": "backpack",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (labeled 0 deg) clearly shows the main body and front pocket of the backpack, which is typically considered the primary user-facing side for viewing and access. (VLM votes=3/3)"
+    },
+    {
+      "file": "backpack_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\backpack_v2.glb",
+      "file_size_mb": 9.197,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.75364,
+        "y": 1.00016,
+        "z": 0.77554
+      },
+      "nominal_height_y": 1.00016,
+      "longest_axis_m": 1.00016,
+      "aabb_min": [
+        -0.37722,
+        -0.50072,
+        -0.38796
+      ],
+      "aabb_max": [
+        0.37642,
+        0.49944,
+        0.38758
+      ],
+      "min_y": -0.50072,
+      "tri_count": 146691,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "backpack_v2",
+      "class": "backpack",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The front of the backpack (with main compartment zipper and pocket) is clearly visible in the view labeled 'View from +Z: front here = 0 deg', which aligns with the standard user-facing side of a backpack. (VLM votes=3/3)"
+    },
+    {
+      "file": "backpack_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\backpack_v3.glb",
+      "file_size_mb": 8.619,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.70241,
+        "y": 1.00135,
+        "z": 0.94642
+      },
+      "nominal_height_y": 1.00135,
+      "longest_axis_m": 1.00135,
+      "aabb_min": [
+        -0.35195,
+        -0.50083,
+        -0.47103
+      ],
+      "aabb_max": [
+        0.35046,
+        0.50052,
+        0.47539
+      ],
+      "min_y": -0.50083,
+      "tri_count": 140563,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "backpack_v3",
+      "class": "backpack",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The 'View from +Z: front here = 0 deg' panel shows the backpack's front face with the main compartment and zippered pocket clearly visible, confirming the front orientation. (VLM votes=3/3)"
+    },
+    {
+      "file": "books_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\books_v1.glb",
+      "file_size_mb": 7.684,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.6761,
+        "y": 0.86479,
+        "z": 1.00089
+      },
+      "nominal_height_y": 0.86479,
+      "longest_axis_m": 1.00089,
+      "aabb_min": [
+        -0.33016,
+        -0.43107,
+        -0.50067
+      ],
+      "aabb_max": [
+        0.34595,
+        0.43372,
+        0.50022
+      ],
+      "min_y": -0.43107,
+      "tri_count": 147861,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "books_v1",
+      "class": "books",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "books_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\books_v2.glb",
+      "file_size_mb": 8.031,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.7346,
+        "y": 0.87461,
+        "z": 0.99766
+      },
+      "nominal_height_y": 0.87461,
+      "longest_axis_m": 0.99766,
+      "aabb_min": [
+        -0.36869,
+        -0.43819,
+        -0.49996
+      ],
+      "aabb_max": [
+        0.3659,
+        0.43642,
+        0.4977
+      ],
+      "min_y": -0.43819,
+      "tri_count": 145255,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "books_v2",
+      "class": "books",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "books_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\books_v3.glb",
+      "file_size_mb": 7.092,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00175,
+        "y": 0.6819,
+        "z": 0.88436
+      },
+      "nominal_height_y": 0.6819,
+      "longest_axis_m": 1.00175,
+      "aabb_min": [
+        -0.50084,
+        -0.34124,
+        -0.448
+      ],
+      "aabb_max": [
+        0.50091,
+        0.34066,
+        0.43635
+      ],
+      "min_y": -0.34124,
+      "tri_count": 144027,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "books_v3",
+      "class": "books",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "bookshelf_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\bookshelf_v1.glb",
+      "file_size_mb": 7.681,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.4695,
+        "y": 1.00191,
+        "z": 0.15267
+      },
+      "nominal_height_y": 1.00191,
+      "longest_axis_m": 1.00191,
+      "aabb_min": [
+        -0.23479,
+        -0.50093,
+        -0.07547
+      ],
+      "aabb_max": [
+        0.23471,
+        0.50098,
+        0.0772
+      ],
+      "min_y": -0.50093,
+      "tri_count": 147240,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "bookshelf_v1",
+      "class": "bookshelf",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The top-left panel (View from +Z) shows the front of the bookshelf with open shelves and spines, clearly intended as the primary viewing side; this aligns with standard 3D model conventions where front=0deg. (VLM votes=3/3)"
+    },
+    {
+      "file": "bookshelf_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\bookshelf_v2.glb",
+      "file_size_mb": 6.97,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.4697,
+        "y": 1.00195,
+        "z": 0.22323
+      },
+      "nominal_height_y": 1.00195,
+      "longest_axis_m": 1.00195,
+      "aabb_min": [
+        -0.23513,
+        -0.50097,
+        -0.12072
+      ],
+      "aabb_max": [
+        0.23457,
+        0.50099,
+        0.10251
+      ],
+      "min_y": -0.50097,
+      "tri_count": 143948,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "bookshelf_v2",
+      "class": "bookshelf",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The front view (0 deg) displays the open shelves with books, clearly indicating it is the user-facing side where items are stored and accessed. (VLM votes=3/3)"
+    },
+    {
+      "file": "bookshelf_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\bookshelf_v3.glb",
+      "file_size_mb": 7.66,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.45139,
+        "y": 1.00195,
+        "z": 0.2197
+      },
+      "nominal_height_y": 1.00195,
+      "longest_axis_m": 1.00195,
+      "aabb_min": [
+        -0.2257,
+        -0.50097,
+        -0.11233
+      ],
+      "aabb_max": [
+        0.22569,
+        0.50098,
+        0.10737
+      ],
+      "min_y": -0.50097,
+      "tri_count": 142954,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "bookshelf_v3",
+      "class": "bookshelf",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly indicates that the +Z direction is the semantic front of the object. (VLM votes=2/3)"
+    },
+    {
+      "file": "cabinet_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\cabinet_v1.glb",
+      "file_size_mb": 6.615,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.78016,
+        "y": 1.00194,
+        "z": 0.5895
+      },
+      "nominal_height_y": 1.00194,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.39,
+        -0.50096,
+        -0.29438
+      ],
+      "aabb_max": [
+        0.39016,
+        0.50097,
+        0.29512
+      ],
+      "min_y": -0.50096,
+      "tri_count": 142431,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "cabinet_v1",
+      "class": "cabinet",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The front of the cabinet is clearly visible in the top-left view labeled 'View from +Z: front here = 0 deg', showing drawer handles and user-facing design elements. (VLM votes=3/3)"
+    },
+    {
+      "file": "cabinet_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\cabinet_v2.glb",
+      "file_size_mb": 6.744,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.84041,
+        "y": 1.00193,
+        "z": 0.56039
+      },
+      "nominal_height_y": 1.00193,
+      "longest_axis_m": 1.00193,
+      "aabb_min": [
+        -0.4203,
+        -0.50096,
+        -0.27922
+      ],
+      "aabb_max": [
+        0.42011,
+        0.50097,
+        0.28117
+      ],
+      "min_y": -0.50096,
+      "tri_count": 142612,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "cabinet_v2",
+      "class": "cabinet",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The label under the top-left panel states 'front here = 0 deg'. This view clearly shows the functional front of the cabinet with drawer pulls, whereas the side views show flat sides. (VLM votes=3/3)"
+    },
+    {
+      "file": "cabinet_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\cabinet_v3.glb",
+      "file_size_mb": 7.241,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.69288,
+        "y": 1.00194,
+        "z": 0.55858
+      },
+      "nominal_height_y": 1.00194,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.34643,
+        -0.50097,
+        -0.27944
+      ],
+      "aabb_max": [
+        0.34644,
+        0.50097,
+        0.27914
+      ],
+      "min_y": -0.50097,
+      "tri_count": 149042,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "cabinet_v3",
+      "class": "cabinet",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.85,
+      "front_offset_note": "The panel labeled 'View from +Z: front here = 0 deg' shows the most detailed and complete facade of the cabinet with visible drawer lines and legs, consistent with a user-facing side. (VLM votes=3/3)"
+    },
+    {
+      "file": "chair_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\chair_v1.glb",
+      "file_size_mb": 8.657,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.71436,
+        "y": 1.0018,
+        "z": 0.75852
+      },
+      "nominal_height_y": 1.0018,
+      "longest_axis_m": 1.0018,
+      "aabb_min": [
+        -0.35731,
+        -0.50099,
+        -0.37848
+      ],
+      "aabb_max": [
+        0.35705,
+        0.50081,
+        0.38003
+      ],
+      "min_y": -0.50099,
+      "tri_count": 142591,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "chair_v1",
+      "class": "chair",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The view from +Z (0 deg) shows the front of the chair directly facing the camera with armrests and backrest clearly aligned for a frontal presentation. (VLM votes=2/3)"
+    },
+    {
+      "file": "chair_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\chair_v2.glb",
+      "file_size_mb": 7.63,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.73351,
+        "y": 1.00183,
+        "z": 0.6977
+      },
+      "nominal_height_y": 1.00183,
+      "longest_axis_m": 1.00183,
+      "aabb_min": [
+        -0.36681,
+        -0.50097,
+        -0.34878
+      ],
+      "aabb_max": [
+        0.3667,
+        0.50086,
+        0.34892
+      ],
+      "min_y": -0.50097,
+      "tri_count": 147228,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "chair_v2",
+      "class": "chair",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The chair's front is defined by the seat and backrest orientation. The +Z view (0 deg) shows the most natural, user-facing frontal perspective with symmetrical armrests and visible seat depth consistent with a standard chair front. (VLM votes=3/3)"
+    },
+    {
+      "file": "chair_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\chair_v3.glb",
+      "file_size_mb": 8.035,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.65625,
+        "y": 1.00178,
+        "z": 0.63475
+      },
+      "nominal_height_y": 1.00178,
+      "longest_axis_m": 1.00178,
+      "aabb_min": [
+        -0.32965,
+        -0.5008,
+        -0.31789
+      ],
+      "aabb_max": [
+        0.3266,
+        0.50098,
+        0.31685
+      ],
+      "min_y": -0.5008,
+      "tri_count": 146644,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "chair_v3",
+      "class": "chair",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly identifies the front-facing view as corresponding to the 0-degree orientation, which shows the chair's user-facing side with the seat and backrest aligned for seating. (VLM votes=2/3)"
+    },
+    {
+      "file": "desk_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\desk_v1.glb",
+      "file_size_mb": 6.574,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00194,
+        "y": 0.60189,
+        "z": 0.49525
+      },
+      "nominal_height_y": 0.60189,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.50097,
+        -0.30092,
+        -0.2477
+      ],
+      "aabb_max": [
+        0.50097,
+        0.30097,
+        0.24755
+      ],
+      "min_y": -0.30092,
+      "tri_count": 140241,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "desk_v1",
+      "class": "desk",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (labeled 'front here = 0 deg') shows the most complete and natural user-facing side of the desk with two drawers clearly visible, indicating this is the semantic front. (VLM votes=3/3)"
+    },
+    {
+      "file": "desk_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\desk_v2.glb",
+      "file_size_mb": 6.489,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00182,
+        "y": 0.65576,
+        "z": 0.54215
+      },
+      "nominal_height_y": 0.65576,
+      "longest_axis_m": 1.00182,
+      "aabb_min": [
+        -0.50084,
+        -0.32881,
+        -0.27111
+      ],
+      "aabb_max": [
+        0.50098,
+        0.32695,
+        0.27104
+      ],
+      "min_y": -0.32881,
+      "tri_count": 144118,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "desk_v2",
+      "class": "desk",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The view labeled 'View from +Z: front here = 0 deg' shows the drawer panel and user-facing side of the desk, which is semantically the front. (VLM votes=2/3)"
+    },
+    {
+      "file": "desk_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\desk_v3.glb",
+      "file_size_mb": 6.946,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00201,
+        "y": 0.58972,
+        "z": 0.48814
+      },
+      "nominal_height_y": 0.58972,
+      "longest_axis_m": 1.00201,
+      "aabb_min": [
+        -0.501,
+        -0.29548,
+        -0.24392
+      ],
+      "aabb_max": [
+        0.50101,
+        0.29424,
+        0.24423
+      ],
+      "min_y": -0.29548,
+      "tri_count": 149691,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "desk_v3",
+      "class": "desk",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The panel labeled 'View from +Z: front here = 0 deg' shows the desk's primary face with drawers and a user-facing layout, consistent with semantic front definition. (VLM votes=2/3)"
+    },
+    {
+      "file": "floor_lamp_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\floor_lamp_v1.glb",
+      "file_size_mb": 7.845,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.34152,
+        "y": 1.00174,
+        "z": 0.34169
+      },
+      "nominal_height_y": 1.00174,
+      "longest_axis_m": 1.00174,
+      "aabb_min": [
+        -0.17067,
+        -0.50096,
+        -0.17085
+      ],
+      "aabb_max": [
+        0.17085,
+        0.50078,
+        0.17084
+      ],
+      "min_y": -0.50096,
+      "tri_count": 144335,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "floor_lamp_v1",
+      "class": "floor_lamp",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "floor_lamp_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\floor_lamp_v2.glb",
+      "file_size_mb": 6.629,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.32309,
+        "y": 1.00194,
+        "z": 0.32323
+      },
+      "nominal_height_y": 1.00194,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.16157,
+        -0.50097,
+        -0.16163
+      ],
+      "aabb_max": [
+        0.16152,
+        0.50097,
+        0.1616
+      ],
+      "min_y": -0.50097,
+      "tri_count": 147274,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "floor_lamp_v2",
+      "class": "floor_lamp",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "floor_lamp_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\floor_lamp_v3.glb",
+      "file_size_mb": 6.62,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.28325,
+        "y": 1.00179,
+        "z": 0.28322
+      },
+      "nominal_height_y": 1.00179,
+      "longest_axis_m": 1.00179,
+      "aabb_min": [
+        -0.14163,
+        -0.50097,
+        -0.14161
+      ],
+      "aabb_max": [
+        0.14163,
+        0.50081,
+        0.14161
+      ],
+      "min_y": -0.50097,
+      "tri_count": 145071,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "floor_lamp_v3",
+      "class": "floor_lamp",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\lamp_v1.glb",
+      "file_size_mb": 7.727,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.35202,
+        "y": 1.00141,
+        "z": 0.73562
+      },
+      "nominal_height_y": 1.00141,
+      "longest_axis_m": 1.00141,
+      "aabb_min": [
+        -0.17592,
+        -0.50097,
+        -0.36956
+      ],
+      "aabb_max": [
+        0.1761,
+        0.50044,
+        0.36606
+      ],
+      "min_y": -0.50097,
+      "tri_count": 144354,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "lamp_v1",
+      "class": "lamp",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\lamp_v2.glb",
+      "file_size_mb": 6.644,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.68158,
+        "y": 1.00194,
+        "z": 0.50244
+      },
+      "nominal_height_y": 1.00194,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.33711,
+        -0.50097,
+        -0.25123
+      ],
+      "aabb_max": [
+        0.34447,
+        0.50097,
+        0.25121
+      ],
+      "min_y": -0.50097,
+      "tri_count": 145663,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "lamp_v2",
+      "class": "lamp",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "lamp_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\lamp_v3.glb",
+      "file_size_mb": 6.737,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.35719,
+        "y": 1.00184,
+        "z": 0.65678
+      },
+      "nominal_height_y": 1.00184,
+      "longest_axis_m": 1.00184,
+      "aabb_min": [
+        -0.17862,
+        -0.50097,
+        -0.32818
+      ],
+      "aabb_max": [
+        0.17858,
+        0.50087,
+        0.32859
+      ],
+      "min_y": -0.50097,
+      "tri_count": 145561,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "lamp_v3",
+      "class": "lamp",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "laptop_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\laptop_v1.glb",
+      "file_size_mb": 7.621,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00197,
+        "y": 0.6995,
+        "z": 0.83052
+      },
+      "nominal_height_y": 0.6995,
+      "longest_axis_m": 1.00197,
+      "aabb_min": [
+        -0.50101,
+        -0.34923,
+        -0.41429
+      ],
+      "aabb_max": [
+        0.50097,
+        0.35027,
+        0.41623
+      ],
+      "min_y": -0.34923,
+      "tri_count": 144397,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "laptop_v1",
+      "class": "laptop",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.4776,
+      "front_offset_note": "上位35%の頂点重心偏り x=-0.004, z=-0.478; class polarity=-1"
+    },
+    {
+      "file": "laptop_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\laptop_v2.glb",
+      "file_size_mb": 7.661,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00192,
+        "y": 0.73334,
+        "z": 0.87437
+      },
+      "nominal_height_y": 0.73334,
+      "longest_axis_m": 1.00192,
+      "aabb_min": [
+        -0.50094,
+        -0.36733,
+        -0.43668
+      ],
+      "aabb_max": [
+        0.50098,
+        0.366,
+        0.43769
+      ],
+      "min_y": -0.36733,
+      "tri_count": 141336,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "laptop_v2",
+      "class": "laptop",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.4744,
+      "front_offset_note": "上位35%の頂点重心偏り x=+0.001, z=-0.474; class polarity=-1"
+    },
+    {
+      "file": "laptop_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\laptop_v3.glb",
+      "file_size_mb": 7.575,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00194,
+        "y": 0.66641,
+        "z": 0.83118
+      },
+      "nominal_height_y": 0.66641,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.50095,
+        -0.33396,
+        -0.41648
+      ],
+      "aabb_max": [
+        0.50099,
+        0.33245,
+        0.4147
+      ],
+      "min_y": -0.33396,
+      "tri_count": 141072,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "laptop_v3",
+      "class": "laptop",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "semantic_geometry_rule",
+      "front_offset_confidence": 0.468,
+      "front_offset_note": "上位35%の頂点重心偏り x=-0.004, z=-0.468; class polarity=-1"
+    },
+    {
+      "file": "monitor_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\monitor_v1.glb",
+      "file_size_mb": 7.741,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00196,
+        "y": 0.83986,
+        "z": 0.36909
+      },
+      "nominal_height_y": 0.83986,
+      "longest_axis_m": 1.00196,
+      "aabb_min": [
+        -0.50098,
+        -0.42036,
+        -0.18455
+      ],
+      "aabb_max": [
+        0.50097,
+        0.41951,
+        0.18454
+      ],
+      "min_y": -0.42036,
+      "tri_count": 145316,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "monitor_v1",
+      "class": "monitor",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The label 'View from +Z: front here = 0 deg' explicitly identifies the screen-facing side as the semantic front of the monitor. (VLM votes=3/3)"
+    },
+    {
+      "file": "monitor_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\monitor_v2.glb",
+      "file_size_mb": 6.882,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00195,
+        "y": 0.88851,
+        "z": 0.39836
+      },
+      "nominal_height_y": 0.88851,
+      "longest_axis_m": 1.00195,
+      "aabb_min": [
+        -0.50097,
+        -0.44494,
+        -0.19966
+      ],
+      "aabb_max": [
+        0.50097,
+        0.44357,
+        0.19869
+      ],
+      "min_y": -0.44494,
+      "tri_count": 144544,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "monitor_v2",
+      "class": "monitor",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The monitor's front face (screen) is clearly visible in the +Z view, which corresponds to 0 degrees. The other views show side profiles or the back of the monitor. (VLM votes=3/3)"
+    },
+    {
+      "file": "monitor_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\monitor_v3.glb",
+      "file_size_mb": 6.635,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00196,
+        "y": 0.81046,
+        "z": 0.30354
+      },
+      "nominal_height_y": 0.81046,
+      "longest_axis_m": 1.00196,
+      "aabb_min": [
+        -0.50098,
+        -0.40534,
+        -0.15171
+      ],
+      "aabb_max": [
+        0.50098,
+        0.40512,
+        0.15183
+      ],
+      "min_y": -0.40534,
+      "tri_count": 143159,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "monitor_v3",
+      "class": "monitor",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "heuristic_vlm_agreement",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "mesh=0deg and VLM=0deg agree; The front view from +Z (labeled as 0 deg) shows the screen side of the monitor, which is the user-facing side and thus semantically the front. (VLM votes=3/3)"
+    },
+    {
+      "file": "mug_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\mug_v1.glb",
+      "file_size_mb": 6.926,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.73647,
+        "y": 0.89581,
+        "z": 1.00158
+      },
+      "nominal_height_y": 0.89581,
+      "longest_axis_m": 1.00158,
+      "aabb_min": [
+        -0.36824,
+        -0.44784,
+        -0.50079
+      ],
+      "aabb_max": [
+        0.36823,
+        0.44797,
+        0.50079
+      ],
+      "min_y": -0.44784,
+      "tri_count": 144472,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "mug_v1",
+      "class": "mug",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "mug_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\mug_v2.glb",
+      "file_size_mb": 6.514,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.78398,
+        "y": 0.82818,
+        "z": 1.00149
+      },
+      "nominal_height_y": 0.82818,
+      "longest_axis_m": 1.00149,
+      "aabb_min": [
+        -0.392,
+        -0.41417,
+        -0.50076
+      ],
+      "aabb_max": [
+        0.39198,
+        0.41401,
+        0.50073
+      ],
+      "min_y": -0.41417,
+      "tri_count": 141907,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "mug_v2",
+      "class": "mug",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "mug_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\mug_v3.glb",
+      "file_size_mb": 6.762,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00105,
+        "y": 0.80712,
+        "z": 0.74041
+      },
+      "nominal_height_y": 0.80712,
+      "longest_axis_m": 1.00105,
+      "aabb_min": [
+        -0.50074,
+        -0.40372,
+        -0.37023
+      ],
+      "aabb_max": [
+        0.50031,
+        0.4034,
+        0.37018
+      ],
+      "min_y": -0.40372,
+      "tri_count": 142393,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "mug_v3",
+      "class": "mug",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\pen_holder_v1.glb",
+      "file_size_mb": 7.453,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.58387,
+        "y": 1.0019,
+        "z": 0.60763
+      },
+      "nominal_height_y": 1.0019,
+      "longest_axis_m": 1.0019,
+      "aabb_min": [
+        -0.29395,
+        -0.50098,
+        -0.29899
+      ],
+      "aabb_max": [
+        0.28993,
+        0.50092,
+        0.30864
+      ],
+      "min_y": -0.50098,
+      "tri_count": 145357,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "pen_holder_v1",
+      "class": "pen_holder",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\pen_holder_v2.glb",
+      "file_size_mb": 7.953,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.62535,
+        "y": 1.00113,
+        "z": 0.62411
+      },
+      "nominal_height_y": 1.00113,
+      "longest_axis_m": 1.00113,
+      "aabb_min": [
+        -0.319,
+        -0.50096,
+        -0.30789
+      ],
+      "aabb_max": [
+        0.30634,
+        0.50017,
+        0.31622
+      ],
+      "min_y": -0.50096,
+      "tri_count": 145513,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "pen_holder_v2",
+      "class": "pen_holder",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "pen_holder_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\pen_holder_v3.glb",
+      "file_size_mb": 7.914,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.57161,
+        "y": 1.00101,
+        "z": 0.63562
+      },
+      "nominal_height_y": 1.00101,
+      "longest_axis_m": 1.00101,
+      "aabb_min": [
+        -0.28686,
+        -0.50096,
+        -0.31695
+      ],
+      "aabb_max": [
+        0.28475,
+        0.50005,
+        0.31867
+      ],
+      "min_y": -0.50096,
+      "tri_count": 145813,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "pen_holder_v3",
+      "class": "pen_holder",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\plant_v1.glb",
+      "file_size_mb": 9.204,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.9908,
+        "y": 1.0016,
+        "z": 0.83811
+      },
+      "nominal_height_y": 1.0016,
+      "longest_axis_m": 1.0016,
+      "aabb_min": [
+        -0.49393,
+        -0.50097,
+        -0.41802
+      ],
+      "aabb_max": [
+        0.49687,
+        0.50063,
+        0.42008
+      ],
+      "min_y": -0.50097,
+      "tri_count": 144539,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "plant_v1",
+      "class": "plant",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\plant_v2.glb",
+      "file_size_mb": 10.33,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.62854,
+        "y": 0.9997,
+        "z": 0.5889
+      },
+      "nominal_height_y": 0.9997,
+      "longest_axis_m": 0.9997,
+      "aabb_min": [
+        -0.31432,
+        -0.50093,
+        -0.29742
+      ],
+      "aabb_max": [
+        0.31422,
+        0.49877,
+        0.29148
+      ],
+      "min_y": -0.50093,
+      "tri_count": 145281,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "plant_v2",
+      "class": "plant",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "plant_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\plant_v3.glb",
+      "file_size_mb": 8.895,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.46495,
+        "y": 1.00146,
+        "z": 0.50829
+      },
+      "nominal_height_y": 1.00146,
+      "longest_axis_m": 1.00146,
+      "aabb_min": [
+        -0.23331,
+        -0.50098,
+        -0.2557
+      ],
+      "aabb_max": [
+        0.23165,
+        0.50048,
+        0.25259
+      ],
+      "min_y": -0.50098,
+      "tri_count": 141380,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "plant_v3",
+      "class": "plant",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "printer_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\printer_v1.glb",
+      "file_size_mb": 6.879,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00189,
+        "y": 0.40125,
+        "z": 0.88259
+      },
+      "nominal_height_y": 0.40125,
+      "longest_axis_m": 1.00189,
+      "aabb_min": [
+        -0.50092,
+        -0.20088,
+        -0.44064
+      ],
+      "aabb_max": [
+        0.50097,
+        0.20038,
+        0.44195
+      ],
+      "min_y": -0.20088,
+      "tri_count": 147823,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "printer_v1",
+      "class": "printer",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.9,
+      "front_offset_note": "The top-left view labeled 'View from +Z: front here = 0 deg' shows the primary user-facing side with circular control buttons or indicator lights, which is characteristic of a printer's interface panel. (VLM votes=3/3)"
+    },
+    {
+      "file": "printer_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\printer_v2.glb",
+      "file_size_mb": 8.268,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00194,
+        "y": 0.37361,
+        "z": 0.96115
+      },
+      "nominal_height_y": 0.37361,
+      "longest_axis_m": 1.00194,
+      "aabb_min": [
+        -0.50097,
+        -0.18525,
+        -0.48116
+      ],
+      "aabb_max": [
+        0.50097,
+        0.18836,
+        0.47999
+      ],
+      "min_y": -0.18525,
+      "tri_count": 147802,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "printer_v2",
+      "class": "printer",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The +Z view (0 deg) shows the front panel with a vented grille and handle-like indentation, consistent with typical control panel or user-facing side of a printer. (VLM votes=2/3)"
+    },
+    {
+      "file": "printer_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\printer_v3.glb",
+      "file_size_mb": 8.112,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00195,
+        "y": 0.38264,
+        "z": 0.87918
+      },
+      "nominal_height_y": 0.38264,
+      "longest_axis_m": 1.00195,
+      "aabb_min": [
+        -0.50097,
+        -0.1913,
+        -0.4395
+      ],
+      "aabb_max": [
+        0.50097,
+        0.19134,
+        0.43968
+      ],
+      "min_y": -0.1913,
+      "tri_count": 140244,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "printer_v3",
+      "class": "printer",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "vlm_turntable_consensus",
+      "front_offset_confidence": 0.95,
+      "front_offset_note": "The view labeled 'View from +Z: front here = 0 deg' shows the most complete and recognizable front-facing features of a printer (control panel area, paper output slot), indicating this is the intended semantic front. (VLM votes=3/3)"
+    },
+    {
+      "file": "rug_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\rug_v1.glb",
+      "file_size_mb": 8.404,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00177,
+        "y": 0.01499,
+        "z": 0.71181
+      },
+      "nominal_height_y": 0.01499,
+      "longest_axis_m": 1.00177,
+      "aabb_min": [
+        -0.50091,
+        -0.00785,
+        -0.35594
+      ],
+      "aabb_max": [
+        0.50086,
+        0.00715,
+        0.35587
+      ],
+      "min_y": -0.00785,
+      "tri_count": 148115,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "rug_v1",
+      "class": "rug",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "rug_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\rug_v2.glb",
+      "file_size_mb": 7.46,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00141,
+        "y": 0.02276,
+        "z": 1.00161
+      },
+      "nominal_height_y": 0.02276,
+      "longest_axis_m": 1.00161,
+      "aabb_min": [
+        -0.50058,
+        -0.0114,
+        -0.50075
+      ],
+      "aabb_max": [
+        0.50083,
+        0.01136,
+        0.50087
+      ],
+      "min_y": -0.0114,
+      "tri_count": 145935,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "rug_v2",
+      "class": "rug",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "rug_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\rug_v3.glb",
+      "file_size_mb": 5.923,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 1.00193,
+        "y": 0.01692,
+        "z": 0.74172
+      },
+      "nominal_height_y": 0.01692,
+      "longest_axis_m": 1.00193,
+      "aabb_min": [
+        -0.50101,
+        -0.00868,
+        -0.37092
+      ],
+      "aabb_max": [
+        0.50091,
+        0.00824,
+        0.3708
+      ],
+      "min_y": -0.00868,
+      "tri_count": 140400,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "rug_v3",
+      "class": "rug",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v1.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\trash_bin_v1.glb",
+      "file_size_mb": 6.36,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.73341,
+        "y": 1.00198,
+        "z": 0.7348
+      },
+      "nominal_height_y": 1.00198,
+      "longest_axis_m": 1.00198,
+      "aabb_min": [
+        -0.36682,
+        -0.50095,
+        -0.36716
+      ],
+      "aabb_max": [
+        0.36659,
+        0.50103,
+        0.36764
+      ],
+      "min_y": -0.50095,
+      "tri_count": 144878,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "trash_bin_v1",
+      "class": "trash_bin",
+      "variant": 1,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v2.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\trash_bin_v2.glb",
+      "file_size_mb": 6.324,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.70298,
+        "y": 1.00153,
+        "z": 0.83697
+      },
+      "nominal_height_y": 1.00153,
+      "longest_axis_m": 1.00153,
+      "aabb_min": [
+        -0.35213,
+        -0.50067,
+        -0.41866
+      ],
+      "aabb_max": [
+        0.35085,
+        0.50087,
+        0.4183
+      ],
+      "min_y": -0.50067,
+      "tri_count": 149265,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "trash_bin_v2",
+      "class": "trash_bin",
+      "variant": 2,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    },
+    {
+      "file": "trash_bin_v3.glb",
+      "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824\\trash_bin_v3.glb",
+      "file_size_mb": 6.113,
+      "ok": true,
+      "warnings": [
+        "法線マップ無し(9月のリテクスチャ対象)"
+      ],
+      "errors": [],
+      "extensions_required": [],
+      "draco": false,
+      "nominal_dims": {
+        "x": 0.82973,
+        "y": 1.00192,
+        "z": 0.6734
+      },
+      "nominal_height_y": 1.00192,
+      "longest_axis_m": 1.00192,
+      "aabb_min": [
+        -0.41484,
+        -0.50091,
+        -0.33677
+      ],
+      "aabb_max": [
+        0.41489,
+        0.50102,
+        0.33663
+      ],
+      "min_y": -0.50091,
+      "tri_count": 142860,
+      "mesh_count": 1,
+      "mesh_node_count": 1,
+      "primitive_count": 1,
+      "materials": [
+        {
+          "name": "",
+          "basecolor_px": [
+            1024,
+            1024
+          ],
+          "metallicRoughness_px": [
+            1024,
+            1024
+          ],
+          "normal_px": null,
+          "occlusion_px": null,
+          "emissive_px": null,
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "metallic": 1.0,
+          "roughness": 1.0,
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "material_count": 1,
+      "image_count": 2,
+      "max_texture_px": 1024,
+      "has_basecolor_texture": true,
+      "has_normal_map": false,
+      "has_metallicRoughness_texture": true,
+      "has_uv0": true,
+      "asset_id": "trash_bin_v3",
+      "class": "trash_bin",
+      "variant": 3,
+      "room": "0824",
+      "front_offset_deg": 0.0,
+      "front_offset_method": "not_applicable",
+      "front_offset_confidence": "not_applicable",
+      "front_offset_note": "このクラスでは意味的な正面を定義しない"
+    }
+  ],
+  "front_offsets_updated_at": "2026-09-15T18:08:17+09:00",
+  "front_offsets_method": "semantic class+mesh rules, manual overrides, or VLM consensus; generic mesh-only asymmetry is unverified; Unity +Z is 0deg"
+}
