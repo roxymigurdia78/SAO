@@ -1,0 +1,296 @@
+{
+  "input_dir": "/home/23rd067/kuro/images",
+  "output_dir": "/home/23rd067/kuro/GLBs/1006",
+  "decimation_target": 150000,
+  "texture_size": 4096,
+  "assets": [
+    {
+      "name": "backpack_v1",
+      "input_image": "/home/23rd067/kuro/images/backpack_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/backpack_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "backpack_v2",
+      "input_image": "/home/23rd067/kuro/images/backpack_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/backpack_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "backpack_v3",
+      "input_image": "/home/23rd067/kuro/images/backpack_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/backpack_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "books_v1",
+      "input_image": "/home/23rd067/kuro/images/books_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/books_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "books_v2",
+      "input_image": "/home/23rd067/kuro/images/books_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/books_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "books_v3",
+      "input_image": "/home/23rd067/kuro/images/books_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/books_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "bookshelf_v1",
+      "input_image": "/home/23rd067/kuro/images/bookshelf_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/bookshelf_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "bookshelf_v2",
+      "input_image": "/home/23rd067/kuro/images/bookshelf_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/bookshelf_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "bookshelf_v3",
+      "input_image": "/home/23rd067/kuro/images/bookshelf_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/bookshelf_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "cabinet_v1",
+      "input_image": "/home/23rd067/kuro/images/cabinet_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/cabinet_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "cabinet_v2",
+      "input_image": "/home/23rd067/kuro/images/cabinet_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/cabinet_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "cabinet_v3",
+      "input_image": "/home/23rd067/kuro/images/cabinet_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/cabinet_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "chair_v1",
+      "input_image": "/home/23rd067/kuro/images/chair_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/chair_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "chair_v2",
+      "input_image": "/home/23rd067/kuro/images/chair_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/chair_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "chair_v3",
+      "input_image": "/home/23rd067/kuro/images/chair_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/chair_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "desk_v1",
+      "input_image": "/home/23rd067/kuro/images/desk_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/desk_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "desk_v2",
+      "input_image": "/home/23rd067/kuro/images/desk_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/desk_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "desk_v3",
+      "input_image": "/home/23rd067/kuro/images/desk_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/desk_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "floor_lamp_v1",
+      "input_image": "/home/23rd067/kuro/images/floor_lamp_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/floor_lamp_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "floor_lamp_v2",
+      "input_image": "/home/23rd067/kuro/images/floor_lamp_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/floor_lamp_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "floor_lamp_v3",
+      "input_image": "/home/23rd067/kuro/images/floor_lamp_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/floor_lamp_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "lamp_v1",
+      "input_image": "/home/23rd067/kuro/images/lamp_v1.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/lamp_v1.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "lamp_v2",
+      "input_image": "/home/23rd067/kuro/images/lamp_v2.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/lamp_v2.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    },
+    {
+      "name": "lamp_v3",
+      "input_image": "/home/23rd067/kuro/images/lamp_v3.png",
+      "glb": "/home/23rd067/kuro/GLBs/1006/lamp_v3.glb",
+      "status": "success",
+      "suggested_position": [
+        0,
+        0,
+        0
+      ],
+      "suggested_scale": 1.0
+    }
+  ]
+}

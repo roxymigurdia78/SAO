@@ -1,0 +1,5 @@
+{
+  "assets_dir": "blender_bake5/variants",
+  "assets": ["desk_v1_none.glb", "desk_v1_v2.glb", "desk_v1_blender.glb"],
+  "capture": { "width": 2048, "height": 2048, "margin": 1.15, "elevation_deg": 25.0 }
+}

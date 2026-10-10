@@ -1,0 +1,142 @@
+{
+  "checked_date": "2026-10-09",
+  "places365_selected_counts": [
+    {
+      "label_id": 52,
+      "category": "bedroom",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 99,
+      "category": "coffee_shop",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 121,
+      "category": "dining_room",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 176,
+      "category": "home_office",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 212,
+      "category": "library/indoor",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 215,
+      "category": "living_room",
+      "train": 5000,
+      "validation": 100
+    },
+    {
+      "label_id": 244,
+      "category": "office",
+      "train": 5000,
+      "validation": 100
+    }
+  ],
+  "places365_train_total": 1803460,
+  "places365_validation_total": 36500,
+  "openimages_selected_counts": [
+    {
+      "label_mid": "/m/02_58j",
+      "category": "Bedroom",
+      "validation_positive_images": 38,
+      "test_positive_images": 113,
+      "combined_positive_images": 151,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/03f6tq",
+      "category": "Living room",
+      "validation_positive_images": 53,
+      "test_positive_images": 121,
+      "combined_positive_images": 174,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/03d2yw",
+      "category": "Study",
+      "validation_positive_images": 0,
+      "test_positive_images": 0,
+      "combined_positive_images": 0,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/g/122sgqnb",
+      "category": "Office",
+      "validation_positive_images": 0,
+      "test_positive_images": 1,
+      "combined_positive_images": 1,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/025s4nn",
+      "category": "Coffeehouse",
+      "validation_positive_images": 31,
+      "test_positive_images": 74,
+      "combined_positive_images": 105,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/02pdnx",
+      "category": "Cafeteria",
+      "validation_positive_images": 10,
+      "test_positive_images": 48,
+      "combined_positive_images": 58,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/03d2wd",
+      "category": "Dining room",
+      "validation_positive_images": 7,
+      "test_positive_images": 22,
+      "combined_positive_images": 29,
+      "train_positive_images": "unverified"
+    },
+    {
+      "label_mid": "/m/06l8d",
+      "category": "Restaurant",
+      "validation_positive_images": 89,
+      "test_positive_images": 256,
+      "combined_positive_images": 345,
+      "train_positive_images": "unverified"
+    }
+  ],
+  "openimages_count_definition": "Unique image IDs with human-verified Confidence == 1.0; val and test only; not a count of usable indoor photographs.",
+  "source_files": [
+    {
+      "filename": "places365-source-filelist.tar",
+      "url": "http://data.csail.mit.edu/places/places365/filelist_places365-standard.tar",
+      "bytes": 67498496,
+      "sha256": "520699e00d69b63ddc29fac54645aa00ce1c10ca42e288960aa1cf791d6e9aa9"
+    },
+    {
+      "filename": "openimages-class-descriptions.csv",
+      "url": "https://storage.googleapis.com/openimages/v7/oidv7-class-descriptions.csv",
+      "bytes": 501178,
+      "sha256": "84a4373a0efb7fd6d93fe19b0e7ceb6c1b855c233d13b9b78a9a33655c9fdce3"
+    },
+    {
+      "filename": "openimages-val-human-labels.csv",
+      "url": "https://storage.googleapis.com/openimages/v7/oidv7-val-annotations-human-imagelabels.csv",
+      "bytes": 28392297,
+      "sha256": "92ddbdfceb3626e044df5e89100b24f6c22a79c1888a4bddd00a6f231d86d56a"
+    },
+    {
+      "filename": "openimages-test-human-labels.csv",
+      "url": "https://storage.googleapis.com/openimages/v7/oidv7-test-annotations-human-imagelabels.csv",
+      "bytes": 93606939,
+      "sha256": "917d3ca8c0a2e09d652fb3148e9264df6117bfcaccf425a60a29b23269487953"
+    }
+  ]
+}

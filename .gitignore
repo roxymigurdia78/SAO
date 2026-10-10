@@ -8,6 +8,9 @@
 # mvl-skeleton内の実験結果
 /mvl-skeleton/runs/
 
+# 研究用の画像データセット（コード・集計結果は残す）
+/research/data_256/
+
 # MVLの生成画像
 /mvl-skeleton/images/
 /mvl-skeleton/scene/capture*/
@@ -124,3 +127,37 @@ Desktop.ini
 /tmp/
 **/Assets/_Recovery/
 **/Assets/_Recovery.meta
+
+# ダウンロードした外部ツール
+/external/realesrgan-ncnn-vulkan-*
+/external/gltf-asset-auditor/
+
+# 再取得できる大容量の元メタデータ
+/research/indoor_dataset_20261009/sources/*.tar
+/research/indoor_dataset_20261009/sources/openimages-*-human-labels.csv
+/research/indoor_dataset_20261009/sources/places365_*.txt
+
+# Python・開発環境の生成物
+.venv/
+venv/
+*.log
+*.slnx
+.utmp/
+.gradle/
+
+# 撮影時にコピーする素材
+**/Assets/MVLStudioImported/
+**/Assets/MVLStudioImported.meta
+
+# 元データから変換したglTF一式
+/mvl-skeleton/scene/assets/gltf/
+/mvl-skeleton/test/gltf/
+
+# Unityで使用する素材は本体も保存する
+# 既存の *.png / *.glb の除外に対する例外
+!/XRunity/Assets/**/*.png
+!/XRunity/Assets/**/*.glb
+!/XRunity_view/Assets/**/*.png
+!/XRunity_view/Assets/**/*.glb
+!/XRunity_view2/Assets/**/*.png
+!/XRunity_view2/Assets/**/*.glb

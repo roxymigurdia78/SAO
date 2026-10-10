@@ -1,0 +1,17 @@
+﻿label,label_value,metric,measure,n,minimum,q1,median,q3,maximum
+detail_lost,yes,weighted_median_px_per_m,class_rank_1_best_3_lowest,4,2.0,2.75,3.0,3.0,3.0
+detail_lost,yes,weighted_median_px_per_m,raw_px_per_m,4,252.38831,521.460839,772.5773295,1056.7127305,1424.841991
+detail_lost,no,weighted_median_px_per_m,class_rank_1_best_3_lowest,39,1.0,1.0,2.0,3.0,3.0
+detail_lost,no,weighted_median_px_per_m,raw_px_per_m,39,161.563775,363.8715665,558.40225,716.8776125,2263.8862
+detail_lost,yes,weighted_p10_px_per_m,class_rank_1_best_3_lowest,4,2.0,2.0,2.5,3.0,3.0
+detail_lost,yes,weighted_p10_px_per_m,raw_px_per_m,4,249.440772,519.06381675,767.9771795,1039.570126,1377.231922
+detail_lost,no,weighted_p10_px_per_m,class_rank_1_best_3_lowest,39,1.0,1.0,2.0,3.0,3.0
+detail_lost,no,weighted_p10_px_per_m,raw_px_per_m,39,149.90494,356.8397295,520.134145,695.1741335,2101.150187
+flat_surface,yes,weighted_median_px_per_m,class_rank_1_best_3_lowest,7,1.0,1.5,2.0,3.0,3.0
+flat_surface,yes,weighted_median_px_per_m,raw_px_per_m,7,589.659668,626.6845585,934.002977,1136.0580455,1424.841991
+flat_surface,no,weighted_median_px_per_m,class_rank_1_best_3_lowest,37,1.0,1.0,2.0,3.0,3.0
+flat_surface,no,weighted_median_px_per_m,raw_px_per_m,37,161.563775,324.52295,523.518001,695.203665,2263.8862
+flat_surface,yes,weighted_p10_px_per_m,class_rank_1_best_3_lowest,7,1.0,2.0,2.0,3.0,3.0
+flat_surface,yes,weighted_p10_px_per_m,raw_px_per_m,7,507.884178,598.1244765,868.761457,1090.09066,1377.231922
+flat_surface,no,weighted_p10_px_per_m,class_rank_1_best_3_lowest,37,1.0,1.0,2.0,3.0,3.0
+flat_surface,no,weighted_p10_px_per_m,raw_px_per_m,37,149.90494,323.597448,480.069372,669.238069,2101.150187

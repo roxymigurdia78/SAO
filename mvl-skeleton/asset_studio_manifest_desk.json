@@ -1,0 +1,26 @@
+{
+  "assets_dir": "scene/assets/0824",
+  "assets": ["desk_v1.glb"],
+  "capture": {
+    "width": 1024,
+    "height": 1024,
+    "margin": 1.15
+  },
+  "material_overrides": [
+    {
+      "asset": "desk_v1.glb",
+      "label": "none",
+      "material": "Assets/Materials/Desk_test_base.mat"
+    },
+    {
+      "asset": "desk_v1.glb",
+      "label": "normal1",
+      "material": "Assets/Materials/Desk_testnormal.mat"
+    },
+    {
+      "asset": "desk_v1.glb",
+      "label": "normal3",
+      "material": "Assets/Materials/Desk_testnormal 1.mat"
+    }
+  ]
+}

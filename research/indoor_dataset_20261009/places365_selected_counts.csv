@@ -1,0 +1,8 @@
+﻿label_id,category,train,validation
+52,bedroom,5000,100
+99,coffee_shop,5000,100
+121,dining_room,5000,100
+176,home_office,5000,100
+212,library/indoor,5000,100
+215,living_room,5000,100
+244,office,5000,100

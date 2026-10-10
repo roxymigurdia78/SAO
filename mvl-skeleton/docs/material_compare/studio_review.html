@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio material review</title>
+<style>
+:root { color-scheme: dark; font-family: system-ui, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #181818; color: #f5f5f5; }
+header { position: sticky; top: 0; z-index: 5; display: grid;
+  grid-template-columns: auto 1fr auto auto; align-items: center;
+  gap: 12px; padding: 12px 20px; background: #101010ee;
+  border-bottom: 1px solid #444; }
+h1 { margin: 0; text-align: center; font-size: clamp(20px, 3vw, 34px); }
+button { border: 1px solid #777; border-radius: 8px; background: #292929; color: white;
+  padding: 10px 18px; font-size: 16px; cursor: pointer; }
+button:hover { background: #3b3b3b; }
+#export { border-color: #5aa970; background: #235d34; }
+#export:hover { background: #2f7845; }
+main { padding: 16px; }
+.content { display: block; }
+.content.has-reference { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
+  gap: 16px; align-items: start; }
+.reference { position: sticky; top: 84px; background: #242424; border-radius: 10px;
+  overflow: hidden; }
+.reference h2 { margin: 0 0 10px; font-size: 18px; }
+.reference h2 { padding: 10px 12px 0; }
+.reference img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain;
+  background: #888; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.view { position: relative; padding: 0; overflow: hidden; background: #888;
+  border: 1px solid #555; border-radius: 8px; }
+.view img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; }
+.azimuth { position: absolute; left: 8px; bottom: 8px; padding: 3px 7px;
+  border-radius: 5px; background: #000b; font: 600 14px ui-monospace, monospace; }
+.review { margin-top: 18px; padding: 18px; border: 1px solid #555;
+  border-radius: 10px; background: #222; }
+.review-grid { display: grid; grid-template-columns: repeat(3, minmax(240px, 1fr));
+  gap: 18px; }
+.wide-question { grid-column: 1 / -1; }
+.example-note { margin: 0 0 14px; padding: 10px 12px; border-radius: 7px;
+  background: #5b4a18; color: #fff0b0; font-weight: 700; }
+fieldset { margin: 0; padding: 14px; border: 1px solid #666; border-radius: 8px; }
+legend { padding: 0 6px; font-weight: 700; }
+.choices { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice { display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px;
+  border: 1px solid #666; border-radius: 7px; background: #303030; cursor: pointer; }
+.choice:has(input:checked) { border-color: #8dc6ff; background: #234766; }
+.choice input { width: 19px; height: 19px; margin: 0; }
+.hint { margin: 10px 0 0; color: #bbb; font-size: 14px; }
+.memo-label { display: block; margin-top: 16px; font-weight: 700; }
+textarea { width: 100%; min-height: 92px; margin-top: 7px; resize: vertical;
+  border: 1px solid #666; border-radius: 8px; padding: 10px; background: #151515;
+  color: white; font: inherit; }
+.saved { min-height: 1.4em; margin: 8px 0 0; color: #9bd4aa; }
+#modal { position: fixed; inset: 0; z-index: 20; display: none; align-items: center;
+  justify-content: center; background: #000e; padding: 16px; }
+#modal.open { display: flex; }
+#modal img { width: min(1024px, 92vw); height: min(1024px, 88vh); object-fit: contain; }
+#modalLabel { position: absolute; top: 18px; left: 20px; font: 600 20px ui-monospace, monospace; }
+#close { position: absolute; top: 14px; right: 18px; }
+@media (max-width: 900px) {
+  header { grid-template-columns: 1fr 1fr; }
+  h1 { grid-column: 1 / -1; grid-row: 1; }
+  .content.has-reference { display: block; }
+  .reference { position: static; margin-bottom: 16px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .review-grid { grid-template-columns: 1fr; }
+  .wide-question { grid-column: auto; }
+}
+</style>
+</head>
+<body>
+<header>
+  <button id="previous">前のアセット</button>
+  <h1 id="heading"></h1>
+  <button id="next">次のアセット</button>
+  <button id="export">CSVを書き出す</button>
+</header>
+<main><div id="content" class="content"></div></main>
+<div id="modal" role="dialog" aria-modal="true">
+  <div id="modalLabel"></div><button id="close">閉じる</button><img id="modalImage" alt="">
+</div>
+<script>
+const assets = [{"anon_id": "#01", "class_name": "monitor", "is_example": true, "views": [{"azimuth": 0, "src": "../../aaa0930/monitor_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/monitor_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/monitor_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/monitor_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/monitor_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/monitor_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/monitor_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/monitor_v1/azimuth_315.png"}], "reference": "../../images/8_17/monitor_v1.png"}, {"anon_id": "#02", "class_name": "printer", "is_example": true, "views": [{"azimuth": 0, "src": "../../aaa0930/printer_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/printer_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/printer_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/printer_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/printer_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/printer_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/printer_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/printer_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/printer_v1.png"}, {"anon_id": "#03", "class_name": "desk", "is_example": true, "views": [{"azimuth": 0, "src": "../../aaa0930/desk_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/desk_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/desk_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/desk_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/desk_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/desk_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/desk_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/desk_v1/azimuth_315.png"}], "reference": "../../images/8_17/desk_v1.png"}, {"anon_id": "#04", "class_name": "laptop", "is_example": true, "views": [{"azimuth": 0, "src": "../../aaa0930/laptop_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/laptop_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/laptop_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/laptop_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/laptop_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/laptop_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/laptop_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/laptop_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/laptop_v1.png"}, {"anon_id": "#05", "class_name": "chair", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/chair_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/chair_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/chair_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/chair_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/chair_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/chair_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/chair_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/chair_v2/azimuth_315.png"}], "reference": "../../images/8_17/chair_v2.png"}, {"anon_id": "#06", "class_name": "floor_lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/floor_lamp_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/floor_lamp_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/floor_lamp_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/floor_lamp_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/floor_lamp_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/floor_lamp_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/floor_lamp_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/floor_lamp_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/floor_lamp_v2.png"}, {"anon_id": "#07", "class_name": "plant", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/plant_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/plant_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/plant_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/plant_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/plant_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/plant_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/plant_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/plant_v3/azimuth_315.png"}], "reference": "../../images/8_17/f_plant_v3.png"}, {"anon_id": "#08", "class_name": "bookshelf", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/bookshelf_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/bookshelf_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/bookshelf_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/bookshelf_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/bookshelf_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/bookshelf_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/bookshelf_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/bookshelf_v1/azimuth_315.png"}], "reference": "../../images/8_17/bookshelf_v1.png"}, {"anon_id": "#09", "class_name": "lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/lamp_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/lamp_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/lamp_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/lamp_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/lamp_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/lamp_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/lamp_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/lamp_v3/azimuth_315.png"}], "reference": "../../images/8_17/f_lamp_v3.png"}, {"anon_id": "#10", "class_name": "trash_bin", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/trash_bin_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/trash_bin_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/trash_bin_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/trash_bin_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/trash_bin_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/trash_bin_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/trash_bin_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/trash_bin_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/trash_bin_v2.png"}, {"anon_id": "#11", "class_name": "laptop", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/laptop_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/laptop_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/laptop_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/laptop_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/laptop_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/laptop_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/laptop_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/laptop_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/laptop_v3.png"}, {"anon_id": "#12", "class_name": "desk", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/desk_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/desk_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/desk_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/desk_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/desk_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/desk_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/desk_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/desk_v3/azimuth_315.png"}], "reference": "../../images/8_17/desk_v3.png"}, {"anon_id": "#13", "class_name": "cabinet", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/cabinet_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/cabinet_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/cabinet_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/cabinet_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/cabinet_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/cabinet_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/cabinet_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/cabinet_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/cabinet_v1.png"}, {"anon_id": "#14", "class_name": "laptop", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/laptop_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/laptop_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/laptop_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/laptop_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/laptop_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/laptop_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/laptop_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/laptop_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/laptop_v2.png"}, {"anon_id": "#15", "class_name": "mug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/mug_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/mug_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/mug_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/mug_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/mug_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/mug_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/mug_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/mug_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/mug_v2.png"}, {"anon_id": "#16", "class_name": "books", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/books_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/books_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/books_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/books_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/books_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/books_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/books_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/books_v2/azimuth_315.png"}], "reference": "../../images/8_17/books_v2.png"}, {"anon_id": "#17", "class_name": "bookshelf", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/bookshelf_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/bookshelf_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/bookshelf_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/bookshelf_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/bookshelf_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/bookshelf_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/bookshelf_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/bookshelf_v3/azimuth_315.png"}], "reference": "../../images/8_17/bookshelf_v3.png"}, {"anon_id": "#18", "class_name": "backpack", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/backpack_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/backpack_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/backpack_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/backpack_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/backpack_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/backpack_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/backpack_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/backpack_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/backpack_v1.png"}, {"anon_id": "#19", "class_name": "trash_bin", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/trash_bin_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/trash_bin_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/trash_bin_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/trash_bin_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/trash_bin_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/trash_bin_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/trash_bin_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/trash_bin_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/trash_bin_v1.png"}, {"anon_id": "#20", "class_name": "bookshelf", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/bookshelf_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/bookshelf_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/bookshelf_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/bookshelf_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/bookshelf_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/bookshelf_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/bookshelf_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/bookshelf_v2/azimuth_315.png"}], "reference": "../../images/8_17/bookshelf_v2.png"}, {"anon_id": "#21", "class_name": "plant", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/plant_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/plant_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/plant_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/plant_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/plant_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/plant_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/plant_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/plant_v1/azimuth_315.png"}], "reference": "../../images/8_17/f_plant_v1.png"}, {"anon_id": "#22", "class_name": "lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/lamp_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/lamp_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/lamp_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/lamp_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/lamp_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/lamp_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/lamp_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/lamp_v1/azimuth_315.png"}], "reference": "../../images/8_17/f_lamp_v1.png"}, {"anon_id": "#23", "class_name": "lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/lamp_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/lamp_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/lamp_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/lamp_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/lamp_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/lamp_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/lamp_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/lamp_v2/azimuth_315.png"}], "reference": "../../images/8_17/f_lamp_v2.png"}, {"anon_id": "#24", "class_name": "cabinet", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/cabinet_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/cabinet_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/cabinet_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/cabinet_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/cabinet_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/cabinet_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/cabinet_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/cabinet_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/cabinet_v2.png"}, {"anon_id": "#25", "class_name": "chair", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/chair_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/chair_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/chair_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/chair_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/chair_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/chair_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/chair_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/chair_v1/azimuth_315.png"}], "reference": "../../images/8_17/chair_v1.png"}, {"anon_id": "#26", "class_name": "pen_holder", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/pen_holder_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/pen_holder_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/pen_holder_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/pen_holder_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/pen_holder_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/pen_holder_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/pen_holder_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/pen_holder_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/pen_holder_v1.png"}, {"anon_id": "#27", "class_name": "cabinet", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/cabinet_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/cabinet_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/cabinet_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/cabinet_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/cabinet_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/cabinet_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/cabinet_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/cabinet_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/cabinet_v3.png"}, {"anon_id": "#28", "class_name": "plant", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/plant_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/plant_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/plant_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/plant_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/plant_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/plant_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/plant_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/plant_v2/azimuth_315.png"}], "reference": "../../images/8_17/f_plant_v2.png"}, {"anon_id": "#29", "class_name": "rug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/rug_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/rug_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/rug_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/rug_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/rug_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/rug_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/rug_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/rug_v2/azimuth_315.png"}], "reference": "../../images/8_17/f_rug_v2.png"}, {"anon_id": "#30", "class_name": "books", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/books_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/books_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/books_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/books_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/books_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/books_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/books_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/books_v3/azimuth_315.png"}], "reference": "../../images/8_17/books_v3.png"}, {"anon_id": "#31", "class_name": "backpack", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/backpack_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/backpack_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/backpack_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/backpack_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/backpack_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/backpack_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/backpack_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/backpack_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/backpack_v3.png"}, {"anon_id": "#32", "class_name": "rug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/rug_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/rug_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/rug_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/rug_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/rug_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/rug_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/rug_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/rug_v1/azimuth_315.png"}], "reference": "../../images/8_17/f_rug_v1.png"}, {"anon_id": "#33", "class_name": "desk", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/desk_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/desk_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/desk_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/desk_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/desk_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/desk_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/desk_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/desk_v2/azimuth_315.png"}], "reference": "../../images/8_17/desk_v2.png"}, {"anon_id": "#34", "class_name": "pen_holder", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/pen_holder_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/pen_holder_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/pen_holder_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/pen_holder_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/pen_holder_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/pen_holder_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/pen_holder_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/pen_holder_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/pen_holder_v2.png"}, {"anon_id": "#35", "class_name": "printer", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/printer_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/printer_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/printer_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/printer_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/printer_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/printer_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/printer_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/printer_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/printer_v3.png"}, {"anon_id": "#36", "class_name": "printer", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/printer_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/printer_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/printer_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/printer_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/printer_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/printer_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/printer_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/printer_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/printer_v2.png"}, {"anon_id": "#37", "class_name": "mug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/mug_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/mug_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/mug_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/mug_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/mug_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/mug_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/mug_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/mug_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/mug_v1.png"}, {"anon_id": "#38", "class_name": "trash_bin", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/trash_bin_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/trash_bin_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/trash_bin_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/trash_bin_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/trash_bin_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/trash_bin_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/trash_bin_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/trash_bin_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/trash_bin_v3.png"}, {"anon_id": "#39", "class_name": "floor_lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/floor_lamp_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/floor_lamp_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/floor_lamp_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/floor_lamp_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/floor_lamp_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/floor_lamp_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/floor_lamp_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/floor_lamp_v1/azimuth_315.png"}], "reference": "../../images/8_24/images/floor_lamp_v1.png"}, {"anon_id": "#40", "class_name": "books", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/books_v1/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/books_v1/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/books_v1/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/books_v1/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/books_v1/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/books_v1/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/books_v1/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/books_v1/azimuth_315.png"}], "reference": "../../images/8_17/books_v1.png"}, {"anon_id": "#41", "class_name": "backpack", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/backpack_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/backpack_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/backpack_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/backpack_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/backpack_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/backpack_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/backpack_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/backpack_v2/azimuth_315.png"}], "reference": "../../images/8_24/images/backpack_v2.png"}, {"anon_id": "#42", "class_name": "monitor", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/monitor_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/monitor_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/monitor_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/monitor_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/monitor_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/monitor_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/monitor_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/monitor_v3/azimuth_315.png"}], "reference": "../../images/8_17/monitor_v3.png"}, {"anon_id": "#43", "class_name": "pen_holder", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/pen_holder_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/pen_holder_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/pen_holder_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/pen_holder_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/pen_holder_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/pen_holder_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/pen_holder_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/pen_holder_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/pen_holder_v3.png"}, {"anon_id": "#44", "class_name": "floor_lamp", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/floor_lamp_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/floor_lamp_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/floor_lamp_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/floor_lamp_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/floor_lamp_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/floor_lamp_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/floor_lamp_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/floor_lamp_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/floor_lamp_v3.png"}, {"anon_id": "#45", "class_name": "chair", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/chair_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/chair_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/chair_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/chair_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/chair_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/chair_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/chair_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/chair_v3/azimuth_315.png"}], "reference": "../../images/8_17/chair_v3.png"}, {"anon_id": "#46", "class_name": "rug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/rug_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/rug_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/rug_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/rug_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/rug_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/rug_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/rug_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/rug_v3/azimuth_315.png"}], "reference": "../../images/8_17/f_rug_v3.png"}, {"anon_id": "#47", "class_name": "monitor", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/monitor_v2/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/monitor_v2/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/monitor_v2/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/monitor_v2/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/monitor_v2/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/monitor_v2/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/monitor_v2/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/monitor_v2/azimuth_315.png"}], "reference": "../../images/8_17/monitor_v2.png"}, {"anon_id": "#48", "class_name": "mug", "is_example": false, "views": [{"azimuth": 0, "src": "../../aaa0930/mug_v3/azimuth_000.png"}, {"azimuth": 45, "src": "../../aaa0930/mug_v3/azimuth_045.png"}, {"azimuth": 90, "src": "../../aaa0930/mug_v3/azimuth_090.png"}, {"azimuth": 135, "src": "../../aaa0930/mug_v3/azimuth_135.png"}, {"azimuth": 180, "src": "../../aaa0930/mug_v3/azimuth_180.png"}, {"azimuth": 225, "src": "../../aaa0930/mug_v3/azimuth_225.png"}, {"azimuth": 270, "src": "../../aaa0930/mug_v3/azimuth_270.png"}, {"azimuth": 315, "src": "../../aaa0930/mug_v3/azimuth_315.png"}], "reference": "../../images/8_24/images/mug_v3.png"}];
+let assetIndex = 0;
+let viewIndex = 0;
+const content = document.getElementById('content');
+const heading = document.getElementById('heading');
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modalImage');
+const modalLabel = document.getElementById('modalLabel');
+const storageKey = 'mvl-studio-material-review-v2';
+let reviews = loadReviews();
+
+function loadReviews() {
+  try { return JSON.parse(localStorage.getItem(storageKey) || '{}'); }
+  catch (_error) { return {}; }
+}
+function currentReview() {
+  const id = assets[assetIndex].anon_id;
+  if (!reviews[id]) reviews[id] = {
+    detail_lost: '', flat_surface: '', smeared_azimuths: [], color_shift: '', memo: ''
+  };
+  return reviews[id];
+}
+function saveReviews(message) {
+  localStorage.setItem(storageKey, JSON.stringify(reviews));
+  const status = document.getElementById('saved');
+  if (status) status.textContent = message || '入力内容を保存しました';
+}
+
+function renderAsset() {
+  const asset = assets[assetIndex];
+  heading.textContent = `${asset.class_name} ${asset.anon_id}`
+    + (asset.is_example ? '（練習用）' : '');
+  content.className = asset.reference ? 'content has-reference' : 'content';
+  content.replaceChildren();
+  if (asset.reference) {
+    const panel = document.createElement('aside'); panel.className = 'reference';
+    const title = document.createElement('h2'); title.textContent = '入力画像（参考）';
+    const image = document.createElement('img'); image.src = asset.reference; image.alt = '入力画像';
+    panel.append(title, image); content.append(panel);
+  }
+  const grid = document.createElement('section'); grid.className = 'grid';
+  asset.views.forEach((view, index) => {
+    const button = document.createElement('button'); button.className = 'view';
+    const image = document.createElement('img'); image.src = view.src; image.alt = `${view.azimuth}度`;
+    const label = document.createElement('span'); label.className = 'azimuth';
+    label.textContent = String(view.azimuth).padStart(3, '0') + '°';
+    button.append(image, label); button.addEventListener('click', () => openModal(index));
+    grid.append(button);
+  });
+  content.append(grid);
+  content.append(buildReviewForm(asset));
+}
+
+function buildReviewForm(asset) {
+  const review = currentReview();
+  const section = document.createElement('section'); section.className = 'review';
+  if (asset.is_example) {
+    const note = document.createElement('p'); note.className = 'example-note';
+    note.textContent = 'これは判定練習用です。集計から除外されます。';
+    section.append(note);
+  }
+  const layout = document.createElement('div'); layout.className = 'review-grid';
+
+  layout.append(
+    buildTriStateQuestion(
+      'detail_lost', '入力画像にあった細部が消えているか',
+      '模様、部品、境界など、入力画像で確認できる細部と比較します。', review
+    ),
+    buildTriStateQuestion(
+      'flat_surface', '入力画像より表面がのっぺりしているか',
+      '凹凸感や材質感が弱く、平坦に見えるかを比較します。', review
+    ),
+    buildTriStateQuestion(
+      'color_shift', '色が明らかに違うか',
+      '照明差では説明できない大きな色の違いを判定します。', review
+    )
+  );
+
+  const smeared = document.createElement('fieldset'); smeared.className = 'wide-question';
+  smeared.innerHTML = '<legend>特定方向だけ汚れ・にじみがある場合</legend>';
+  const smearedChoices = document.createElement('div'); smearedChoices.className = 'choices';
+  const values = asset.views.map(view => String(view.azimuth));
+  [...values, 'なし'].forEach(value => {
+    const label = document.createElement('label'); label.className = 'choice';
+    const input = document.createElement('input'); input.type = 'checkbox'; input.value = value;
+    input.checked = review.smeared_azimuths.includes(value);
+    input.addEventListener('change', () => {
+      if (value === 'なし' && input.checked) review.smeared_azimuths = ['なし'];
+      else if (value !== 'なし' && input.checked)
+        review.smeared_azimuths = [...review.smeared_azimuths.filter(item => item !== 'なし'), value];
+      else review.smeared_azimuths = review.smeared_azimuths.filter(item => item !== value);
+      saveReviews(); renderAsset();
+    });
+    label.append(input, document.createTextNode(value === 'なし' ? value : value.padStart(3, '0') + '°'));
+    smearedChoices.append(label);
+  });
+  smeared.append(smearedChoices);
+  layout.append(smeared); section.append(layout);
+
+  const memoLabel = document.createElement('label'); memoLabel.className = 'memo-label';
+  memoLabel.textContent = 'メモ';
+  const memo = document.createElement('textarea'); memo.value = review.memo;
+  memo.placeholder = '気になった点があれば記入';
+  memo.addEventListener('input', () => { review.memo = memo.value; saveReviews(); });
+  const saved = document.createElement('p'); saved.id = 'saved'; saved.className = 'saved';
+  section.append(memoLabel, memo, saved);
+  return section;
+}
+
+function buildTriStateQuestion(field, legendText, hintText, review) {
+  const question = document.createElement('fieldset');
+  const legend = document.createElement('legend'); legend.textContent = legendText;
+  const choices = document.createElement('div'); choices.className = 'choices';
+  [['yes', 'Yes'], ['no', 'No'], ['unsure', 'Unsure']].forEach(([value, text]) => {
+    const label = document.createElement('label'); label.className = 'choice';
+    const input = document.createElement('input'); input.type = 'radio';
+    input.name = field; input.value = value; input.checked = review[field] === value;
+    input.addEventListener('change', () => { review[field] = value; saveReviews(); });
+    label.append(input, document.createTextNode(text)); choices.append(label);
+  });
+  const hint = document.createElement('p'); hint.className = 'hint'; hint.textContent = hintText;
+  question.append(legend, choices, hint);
+  return question;
+}
+function openModal(index) { viewIndex = index; modal.classList.add('open'); renderModal(); }
+function renderModal() {
+  const view = assets[assetIndex].views[viewIndex];
+  modalImage.src = view.src; modalLabel.textContent = String(view.azimuth).padStart(3, '0') + '°';
+}
+function closeModal() { modal.classList.remove('open'); }
+document.getElementById('previous').addEventListener('click', () => {
+  assetIndex = (assetIndex - 1 + assets.length) % assets.length; renderAsset();
+});
+document.getElementById('next').addEventListener('click', () => {
+  assetIndex = (assetIndex + 1) % assets.length; renderAsset();
+});
+document.getElementById('export').addEventListener('click', () => {
+  const header = [
+    'anon_id', 'class', 'is_example', 'detail_lost(yes/no/unsure)',
+    'flat_surface(yes/no/unsure)', 'smeared_azimuths',
+    'color_shift(yes/no/unsure)', 'memo'
+  ];
+  const escapeCsv = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
+  const lines = [header.map(escapeCsv).join(',')];
+  assets.forEach(asset => {
+    const review = reviews[asset.anon_id] || {
+      detail_lost: '', flat_surface: '', smeared_azimuths: [], color_shift: '', memo: ''
+    };
+    const smeared = review.smeared_azimuths.includes('なし')
+      ? 'なし'
+      : asset.views.map(view => String(view.azimuth))
+          .filter(value => review.smeared_azimuths.includes(value)).join(',');
+    lines.push([
+      asset.anon_id, asset.class_name, asset.is_example ? 'yes' : 'no',
+      review.detail_lost, review.flat_surface, smeared, review.color_shift, review.memo
+    ].map(escapeCsv).join(','));
+  });
+  const csvText = String.fromCharCode(0xfeff)
+    + lines.join(String.fromCharCode(13, 10));
+  const blob = new Blob([csvText], { type: 'text/csv;charset=utf-8' });
+  const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
+  link.download = 'studio_review_completed.csv'; link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+});
+document.getElementById('close').addEventListener('click', closeModal);
+modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+document.addEventListener('keydown', event => {
+  if (!modal.classList.contains('open')) return;
+  if (event.key === 'Escape') closeModal();
+  if (event.key === 'ArrowLeft') { viewIndex = (viewIndex + 7) % 8; renderModal(); }
+  if (event.key === 'ArrowRight') { viewIndex = (viewIndex + 1) % 8; renderModal(); }
+});
+renderAsset();
+</script>
+</body>
+</html>

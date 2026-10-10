@@ -1,0 +1,103 @@
+{
+  "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+  "assets": [
+    "laptop_v2.glb",
+    "monitor_v2.glb",
+    "rug_v1.glb",
+    "desk_v1.glb",
+    "cabinet_v1.glb",
+    "mug_v3.glb"
+  ],
+  "capture": {
+    "width": 1024,
+    "height": 1024,
+    "margin": 1.15,
+    "elevation_deg": 25.0
+  },
+  "material_overrides": [
+    {
+      "asset": "laptop_v2.glb",
+      "label": "original"
+    },
+    {
+      "asset": "laptop_v2.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/laptop_v2/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "laptop_v2.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/laptop_v2/basecolor_realesrgan4x.png"
+    },
+    {
+      "asset": "monitor_v2.glb",
+      "label": "original"
+    },
+    {
+      "asset": "monitor_v2.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/monitor_v2/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "monitor_v2.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/monitor_v2/basecolor_realesrgan4x.png"
+    },
+    {
+      "asset": "rug_v1.glb",
+      "label": "original"
+    },
+    {
+      "asset": "rug_v1.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/rug_v1/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "rug_v1.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/rug_v1/basecolor_realesrgan4x.png"
+    },
+    {
+      "asset": "desk_v1.glb",
+      "label": "original"
+    },
+    {
+      "asset": "desk_v1.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/desk_v1/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "desk_v1.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/desk_v1/basecolor_realesrgan4x.png"
+    },
+    {
+      "asset": "cabinet_v1.glb",
+      "label": "original"
+    },
+    {
+      "asset": "cabinet_v1.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/cabinet_v1/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "cabinet_v1.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/cabinet_v1/basecolor_realesrgan4x.png"
+    },
+    {
+      "asset": "mug_v3.glb",
+      "label": "original"
+    },
+    {
+      "asset": "mug_v3.glb",
+      "label": "lanczos4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/mug_v3/basecolor_lanczos4x.png"
+    },
+    {
+      "asset": "mug_v3.glb",
+      "label": "realesrgan4x",
+      "base_color_texture": "Assets/MVLTexelIntervention/mug_v3/basecolor_realesrgan4x.png"
+    }
+  ]
+}

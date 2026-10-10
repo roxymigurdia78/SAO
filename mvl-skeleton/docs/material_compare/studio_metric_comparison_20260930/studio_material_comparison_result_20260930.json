@@ -1,0 +1,207 @@
+{
+  "capture_root": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\aaa0930",
+  "labels": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\docs\\material_compare\\studio_review_labels_20260930.csv",
+  "labels_sha256": "f8ac6ce4bdaae385c6fe7282be6923564ca52e05b456f554aa880775a82e9b2b",
+  "examples_excluded": 4,
+  "assets_aggregated": 44,
+  "reflection": "uniform linear RGB (0.5, 0.5, 0.5) cubemap, intensity 0.35",
+  "normalization_size": 256,
+  "mask_erosion_pixels": 4,
+  "input_white_distance": 0.08,
+  "lowest_counts": [
+    {
+      "label": "detail_lost",
+      "metric": "laplacian_median",
+      "lowest_count": 0,
+      "yes_count": 4,
+      "fraction": "0 / 4",
+      "chance_expectation": 1.333333
+    },
+    {
+      "label": "detail_lost",
+      "metric": "glcm_contrast_median",
+      "lowest_count": 0,
+      "yes_count": 4,
+      "fraction": "0 / 4",
+      "chance_expectation": 1.333333
+    },
+    {
+      "label": "detail_lost",
+      "metric": "input_laplacian_ratio",
+      "lowest_count": 1,
+      "yes_count": 4,
+      "fraction": "1 / 4",
+      "chance_expectation": 1.333333
+    },
+    {
+      "label": "flat_surface",
+      "metric": "laplacian_median",
+      "lowest_count": 1,
+      "yes_count": 7,
+      "fraction": "1 / 7",
+      "chance_expectation": 2.333333
+    },
+    {
+      "label": "flat_surface",
+      "metric": "glcm_contrast_median",
+      "lowest_count": 1,
+      "yes_count": 7,
+      "fraction": "1 / 7",
+      "chance_expectation": 2.333333
+    },
+    {
+      "label": "flat_surface",
+      "metric": "input_laplacian_ratio",
+      "lowest_count": 2,
+      "yes_count": 7,
+      "fraction": "2 / 7",
+      "chance_expectation": 2.333333
+    }
+  ],
+  "distributions": [
+    {
+      "label": "detail_lost",
+      "label_value": "yes",
+      "metric": "laplacian_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 4,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 1.5,
+      "q3": 2.0,
+      "maximum": 2.0
+    },
+    {
+      "label": "detail_lost",
+      "label_value": "no",
+      "metric": "laplacian_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 39,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 3.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "detail_lost",
+      "label_value": "yes",
+      "metric": "glcm_contrast_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 4,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 1.5,
+      "q3": 2.0,
+      "maximum": 2.0
+    },
+    {
+      "label": "detail_lost",
+      "label_value": "no",
+      "metric": "glcm_contrast_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 39,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 3.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "detail_lost",
+      "label_value": "yes",
+      "metric": "input_laplacian_ratio",
+      "measure": "input_laplacian_ratio",
+      "n": 4,
+      "minimum": 0.1214840539,
+      "q1": 0.1726969453,
+      "median": 0.2288337379,
+      "q3": 0.2802207253,
+      "maximum": 0.317184201
+    },
+    {
+      "label": "detail_lost",
+      "label_value": "no",
+      "metric": "input_laplacian_ratio",
+      "measure": "input_laplacian_ratio",
+      "n": 39,
+      "minimum": 0.004359302,
+      "q1": 0.1108378331,
+      "median": 0.2204357163,
+      "q3": 0.3770749324,
+      "maximum": 3.8682381569
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "yes",
+      "metric": "laplacian_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 7,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 2.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "no",
+      "metric": "laplacian_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 37,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 3.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "yes",
+      "metric": "glcm_contrast_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 7,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 2.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "no",
+      "metric": "glcm_contrast_median",
+      "measure": "class_rank_1_best_3_lowest",
+      "n": 37,
+      "minimum": 1.0,
+      "q1": 1.0,
+      "median": 2.0,
+      "q3": 3.0,
+      "maximum": 3.0
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "yes",
+      "metric": "input_laplacian_ratio",
+      "measure": "input_laplacian_ratio",
+      "n": 7,
+      "minimum": 0.1214840539,
+      "q1": 0.1695023098,
+      "median": 0.2014896853,
+      "q3": 0.2978796562,
+      "maximum": 0.6736453707
+    },
+    {
+      "label": "flat_surface",
+      "label_value": "no",
+      "metric": "input_laplacian_ratio",
+      "measure": "input_laplacian_ratio",
+      "n": 37,
+      "minimum": 0.004359302,
+      "q1": 0.1052695561,
+      "median": 0.2345202652,
+      "q3": 0.3966820251,
+      "maximum": 3.8682381569
+    }
+  ]
+}

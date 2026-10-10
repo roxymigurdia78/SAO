@@ -1,0 +1,5 @@
+{
+  "assets_dir": "test/normal_compare",
+  "assets": ["desk_v1_nonormal.glb", "desk_v1_normal_v1.glb", "desk_v1_normal_v2.glb"],
+  "capture": { "width": 2048, "height": 2048, "margin": 1.15, "elevation_deg": 25.0 }
+}

@@ -1,0 +1,6 @@
+run_id,file,visual_label,label_source
+20260929_182639_brick_seam_test,wall_01.png,acceptable,user
+20260929_182639_brick_seam_test,wall_02.png,reject,user
+20260929_182639_brick_seam_test,wall_03.png,acceptable,user
+20260929_182639_brick_seam_test,wall_04.png,acceptable,user
+20260929_182639_brick_seam_test,wall_05.png,reject,user

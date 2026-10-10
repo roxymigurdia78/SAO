@@ -1,0 +1,210 @@
+{
+    "success": true,
+    "manifest": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\asset_studio_manifest_desk.json",
+    "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+    "width": 1024,
+    "height": 1024,
+    "margin": 1.149999976158142,
+    "elevation_deg": 25.0,
+    "background": "linear RGB (0.5, 0.5, 0.5)",
+    "lighting": "Directional Light 1.4 at camera-relative Euler(20,30,0) + flat ambient 0.35",
+    "total_seconds": 1.285780668258667,
+    "error": "",
+    "assets": [
+        {
+            "asset": "desk_v1.glb",
+            "output_folder": "desk_v1__none",
+            "bounding_box_size": [
+                1.0019440650939942,
+                0.6018931865692139,
+                0.49525487422943118
+            ],
+            "orthographic_size": 0.5761178135871887,
+            "material_override_label": "none",
+            "material_override_path": "Assets/Materials/Desk_test_base.mat",
+            "capture_seconds": 0.3161148130893707,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "desk_v1.glb",
+            "output_folder": "desk_v1__normal1",
+            "bounding_box_size": [
+                1.0019440650939942,
+                0.6018931865692139,
+                0.49525487422943118
+            ],
+            "orthographic_size": 0.5761178135871887,
+            "material_override_label": "normal1",
+            "material_override_path": "Assets/Materials/Desk_testnormal.mat",
+            "capture_seconds": 0.2599233090877533,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "desk_v1.glb",
+            "output_folder": "desk_v1__normal3",
+            "bounding_box_size": [
+                1.0019440650939942,
+                0.6018931865692139,
+                0.49525487422943118
+            ],
+            "orthographic_size": 0.5761178135871887,
+            "material_override_label": "normal3",
+            "material_override_path": "Assets/Materials/Desk_testnormal 1.mat",
+            "capture_seconds": 0.26232680678367617,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        }
+    ]
+}

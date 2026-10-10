@@ -1,0 +1,48 @@
+{
+  "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+  "scene_json": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\scene_study_seed1.json",
+  "asset_count": 48,
+  "glb_reader": "trimesh 4.12.2",
+  "texture_source": "material.pbrMetallicRoughness.baseColorTexture",
+  "untextured_surface_policy": "excluded from P50/P10; coverage reported separately",
+  "scale_method": "per-axis target_dimensions / transformed GLB AABB",
+  "triangle_metric": "sqrt(UV area * texture width * texture height / scaled 3D area)",
+  "asset_aggregation": "scaled 3D area-weighted P50 and P10",
+  "degenerate_triangle_policy": "zero 3D-area triangles excluded and counted",
+  "validation_fields": "mapped triangle min/max for Khronos glTF Asset Auditor comparison",
+  "quest2_reference_px_per_m": 1100.0,
+  "weighted_median_px_per_m_distribution": {
+    "minimum": 161.563775,
+    "p10": 226.099395,
+    "q1": 382.806234,
+    "median": 576.237067,
+    "q3": 785.79205,
+    "p90": 1355.307432,
+    "maximum": 2263.8862
+  },
+  "weighted_p10_px_per_m_distribution": {
+    "minimum": 149.90494,
+    "p10": 209.761409,
+    "q1": 372.61197,
+    "median": 541.070301,
+    "q3": 756.676337,
+    "p90": 1290.385165,
+    "maximum": 2101.150187
+  },
+  "khronos_reference": {
+    "path": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\docs\\material_compare\\khronos_desk_v1.json",
+    "auditor_version": "1.0.4",
+    "scope": "native GLB dimensions, maximum triangle, largest texture",
+    "raw_max_uv_area_per_m2": 8.320895108307344,
+    "largest_texture_width": 1024,
+    "largest_texture_height": 1024,
+    "auditor_console_area_density_px2_per_m2": 8725090.909088481,
+    "sqrt_conversion_px_per_m": 2953.8264859480964,
+    "native_dimensions": {
+      "length": 1.001944,
+      "width": 0.495255,
+      "height": 0.601893
+    },
+    "comparison_note": "Reference only: Khronos 1.0.x reports an extreme UV-area ratio times texture pixel area, while this study uses target-scaled, surface-area-weighted P50/P10 of the square-root metric."
+  }
+}

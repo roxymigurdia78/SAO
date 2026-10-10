@@ -50,8 +50,11 @@ SURFACE_INSTRUCTIONS = {
     ),
     "wall": (
         "A single continuous wall surface with subtle irregular detail only. "
-        "No panels, no grid, no border, no corners, and no architectural "
-        "features. All opposite edges must match exactly."
+        "No border, no corners, and no architectural features. Do not invent "
+        "panels or a grid unless the material description explicitly requires "
+        "a structured pattern. If it does, preserve the complete pattern and "
+        "its row offset across every boundary. All opposite edges must match "
+        "exactly in both color and pattern phase."
     ),
     "ceiling": (
         "A single continuous ceiling surface with very subtle fine detail. "
@@ -95,6 +98,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--model", default="gpt-image-2")
     p.add_argument("--quality", choices=["low", "medium", "high"], default="low")
     p.add_argument("--size", default="1024x1024")
+    p.add_argument("--count", type=int, default=1,
+                   help="各面について独立に生成する候補数（既定: 1）")
     p.add_argument("--delay", type=float, default=1.0)
     p.add_argument("--output-root", type=Path,
                    default=Path(__file__).resolve().parents[1] / "images" / "shell")
@@ -104,18 +109,22 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.count < 1:
+        raise ValueError("--count は1以上で指定してください")
     scene_id, surfaces = load_surfaces(args.scene)
 
     run_dir = args.output_root.resolve() / f"{datetime.now():%Y%m%d_%H%M%S}_{scene_id}"
-    plan = [
-        {
-            "surface": name,
-            "material_text": surfaces[name],
-            "prompt": build_prompt(name, surfaces[name]),
-            "output": str(run_dir / f"{name}.png"),
-        }
-        for name in args.surfaces
-    ]
+    plan = []
+    for name in args.surfaces:
+        for candidate in range(1, args.count + 1):
+            suffix = "" if args.count == 1 else f"_{candidate:02d}"
+            plan.append({
+                "surface": name,
+                "candidate": candidate,
+                "material_text": surfaces[name],
+                "prompt": build_prompt(name, surfaces[name]),
+                "output": str(run_dir / f"{name}{suffix}.png"),
+            })
 
     print(f"Scene : {args.scene} ({scene_id})")
     print(f"Output: {run_dir}")
@@ -141,6 +150,7 @@ def main() -> int:
         "model": args.model,
         "quality": args.quality,
         "size": args.size,
+        "count_per_surface": args.count,
         "template": TEXTURE_TEMPLATE,
         "surface_instructions": SURFACE_INSTRUCTIONS,
         "textures": plan,

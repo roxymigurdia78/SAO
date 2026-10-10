@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -355,6 +356,67 @@ namespace MVL
                 "scene JSON は mvl-skeleton 配下に置いてください。");
         }
 
+        // ---------- GLB / glTF のコピー ----------
+
+        // 従来どおり: GLB 1個を Assets/MVLImported/ 直下にコピーして読み込む。
+        static string CopyGlb(string src, string importFolder)
+        {
+            string dst = $"{importFolder}/{Path.GetFileName(src)}";
+            File.Copy(src, dst, true);
+            AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
+            return dst;
+        }
+
+        // .gltf は .bin と PNG を別ファイルで持つので、物のフォルダごとコピーする。
+        //   コピー元: <assets_dir>/<物>/<物>.gltf      例: assets/gltf/1006/desk_v1/desk_v1.gltf
+        //   コピー先: Assets/MVLImported/<セット名>/<物>/  例: Assets/MVLImported/1006/desk_v1/
+        // セット名（assets_dir の最後のフォルダ名）を挟むのは、1024版と4096版など、
+        // 同じ名前の物が別のセットにあっても上書きし合わないようにするため。
+        //
+        // 4096 の PNG は読み込み（圧縮）に時間がかかるので、前回と同じファイルなら
+        // コピーも読み込み直しもしない（大きさと更新日時が同じなら「同じ」とみなす）。
+        // 画像の設定（Max Size 4096 など）は MVLTextureImportSettings.cs が自動で付ける。
+        static string CopyGltfFolder(string src, string assetsDirAbs, string importFolder)
+        {
+            string setName = new DirectoryInfo(assetsDirAbs).Name;
+            string srcDir = Path.GetDirectoryName(src);
+            string objectFolder = new DirectoryInfo(srcDir).Name;
+            string dstDir = $"{importFolder}/{setName}/{objectFolder}";
+            EnsureAssetFolder(dstDir);
+
+            // glTFast が .gltf を読むときに PNG と .bin が先に揃っているよう、
+            // .gltf 以外を先に読み込み、.gltf を最後に読み込む。
+            var files = Directory.GetFiles(srcDir)
+                .Where(f => !f.EndsWith(".meta", StringComparison.OrdinalIgnoreCase))
+                .OrderBy(f => Path.GetExtension(f).Equals(".gltf", StringComparison.OrdinalIgnoreCase) ? 1 : 0)
+                .ThenBy(f => f, StringComparer.Ordinal);
+
+            int copied = 0;
+            foreach (string file in files)
+            {
+                string dstFile = $"{dstDir}/{Path.GetFileName(file)}";
+                if (IsSameFile(file, dstFile)) continue;
+                File.Copy(file, dstFile, true);
+                File.SetLastWriteTimeUtc(dstFile, File.GetLastWriteTimeUtc(file));
+                AssetDatabase.ImportAsset(dstFile, ImportAssetOptions.ForceSynchronousImport);
+                copied++;
+            }
+
+            string dst = $"{dstDir}/{Path.GetFileName(src)}";
+            Debug.Log(copied > 0
+                ? $"[MVL] glTFコピー: {objectFolder} ({copied}ファイル) -> {dstDir}"
+                : $"[MVL] glTF変更なし: {objectFolder}（コピー・再読み込みを省略）");
+            return dst;
+        }
+
+        static bool IsSameFile(string a, string b)
+        {
+            if (!File.Exists(b)) return false;
+            var fa = new FileInfo(a);
+            var fb = new FileInfo(b);
+            return fa.Length == fb.Length && fa.LastWriteTimeUtc == fb.LastWriteTimeUtc;
+        }
+
         static void EnsureAssetFolder(string assetPath)
         {
             if (AssetDatabase.IsValidFolder(assetPath)) return;
@@ -418,9 +480,11 @@ namespace MVL
             if (!File.Exists(src)) { Debug.LogWarning($"[MVL] GLBなし: {src}(スキップ)"); return null; }
 
             // Assets配下へコピー → glTFastのScriptedImporterが取り込む
-            string dst = $"{importFolder}/{Path.GetFileName(obj.asset)}";
-            File.Copy(src, dst, true);
-            AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
+            //   .glb  : ファイル1個をそのままコピー（従来どおり）
+            //   .gltf : .bin と PNG が横に必要なので、物のフォルダごとコピーする
+            string dst = Path.GetExtension(src).Equals(".gltf", StringComparison.OrdinalIgnoreCase)
+                ? CopyGltfFolder(src, assetsDirAbs, importFolder)
+                : CopyGlb(src, importFolder);
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(dst);
             if (prefab == null) { Debug.LogWarning($"[MVL] インポート失敗: {dst}"); return null; }
 

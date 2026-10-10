@@ -1,0 +1,5 @@
+{
+  "assets_dir": "test",
+  "assets": ["desk_v1_t1024.glb", "desk_v1_t2048.glb", "desk_v1_t4096.glb"],
+  "capture": { "width": 2048, "height": 2048, "margin": 1.15, "elevation_deg": 25.0 }
+}
