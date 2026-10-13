@@ -65,20 +65,22 @@ def metrics(rgb):
     hi = float((luma >= 0.99).mean())
     lo = float((luma <= 0.01).mean())
     cct_o, duv = cct_ohno(rgb)
+    Y = srgb_to_linear(rgb) @ np.array([0.2126, 0.7152, 0.0722])   # 線形の輝度
+    rms_rel = float(Y.std() / Y.mean()) if Y.mean() > 0 else float("nan")
     return {
         "L1_cct_K": cct_mccamy(rgb),
         "L1_cct_ohno_K": cct_o,
         "L1_duv": duv,
         "L2_median": float(np.median(luma)),
+        "L3_rms_rel": rms_rel, # 明るさに左右されにくいコントラスト
         "L3_std": float(luma.std()),
-        "L3_logstd": float(np.log(luma + 0.01).std()),  # 明るさに左右されにくいコントラスト
         "L4_clip": hi + lo,
         "L4_hi": hi,
         "L4_lo": lo,
     }
     
 
-KEYS = ["L1_cct_K", "L1_cct_ohno_K", "L1_duv", "L2_median", "L3_std", "L3_logstd", "L4_clip", "L4_hi", "L4_lo"]
+KEYS = ["L1_cct_K", "L1_cct_ohno_K", "L1_duv", "L2_median", "L3_rms_rel", "L3_std", "L4_clip", "L4_hi", "L4_lo"]
 
 
 # ---- 写真の選び出し（フォルダから n 枚、seed 固定で再現可能） ----
