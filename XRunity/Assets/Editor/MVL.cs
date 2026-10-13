@@ -72,7 +72,7 @@ namespace MVL
         public string asset = "";            // mvl-skeleton からの相対パス。空なら器具なし
         public float fixture_width = 0.35f;  // 器具の直径 [m]
         public float fixture_height = 0.15f; // 器具の高さ [m]
-
+        public float light_offset = 0.05f; // 器具の下端から光源までの距離 [m]
         public float fixture_emission = 1.5f; // 発光の係数(照明の強さに掛ける。0で発光なし)
     }
 

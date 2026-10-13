@@ -153,7 +153,7 @@ namespace MVL
                 PlaceFixtures(scene.room, sceneJsonPath, importFolder, fastIteration);
                  UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                  UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
-                    "Assets/MVL_Temp.unity");
+                    RunSceneAssetPath(sceneJsonPath));
 
                 // 5) ライトマップベイク(同期)
                 if (!fastIteration)
@@ -182,7 +182,7 @@ namespace MVL
                 //      Gameビューに部屋が映り、そのまま歩き回れる。
                 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                     UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
-                    "Assets/MVL_Temp.unity");
+                    RunSceneAssetPath(sceneJsonPath));
 
                 // 7) レポート出力
                 report.total_seconds = (float)totalSw.Elapsed.TotalSeconds;
@@ -426,6 +426,17 @@ namespace MVL
             return fa.Length == fb.Length && fa.LastWriteTimeUtc == fb.LastWriteTimeUtc;
         }
 
+        // runs/<ラン名>/iter_XX/scene.json → Assets/MVLRuns/<ラン名>_iter_XX.unity
+        // ランごとに別名で保存し、ライトマップもシーンごとに残す(MVLRunBrowser で歩いて見比べるため)
+        static string RunSceneAssetPath(string sceneJsonPath)
+        {
+            string iterDir = Path.GetDirectoryName(Path.GetFullPath(sceneJsonPath));
+            string runName = Path.GetFileName(Path.GetDirectoryName(iterDir));
+            string iter = Path.GetFileName(iterDir);
+            EnsureAssetFolder("Assets/MVLRuns");
+            return $"Assets/MVLRuns/{runName}_{iter}.unity";
+        }
+
         static void EnsureAssetFolder(string assetPath)
         {
             if (AssetDatabase.IsValidFolder(assetPath)) return;
@@ -507,7 +518,7 @@ namespace MVL
             if (c == null || c.intensity <= 0f) return;   // JSONに無ければ何もしない
             float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
             var go = new GameObject("CeilingLight");
-            float drop = string.IsNullOrWhiteSpace(c.asset) ? 0.15f : c.fixture_height + 0.05f;
+            float drop = string.IsNullOrWhiteSpace(c.asset) ? 0.15f : c.fixture_height + c.light_offset;
             go.transform.position = new Vector3(w / 2, h - drop, d / 2); // 器具があるときは、その5cm下
             var light = go.AddComponent<Light>();
             light.type = LightType.Point;
