@@ -136,7 +136,7 @@ namespace MVL
 
                 // 3) 照明(太陽=Mixed必須。C4の教訓: Realtimeのままだとベイクされない)
                 SetupLighting(scene.room.lighting, fastIteration);
-
+                SetupCeilingLight(scene.room, fastIteration);
                 // 4) GLBをAssets配下へコピー → glTFastインポート → 配置
                 string importFolder = "Assets/MVLImported";
                 if (!AssetDatabase.IsValidFolder(importFolder))
@@ -150,6 +150,7 @@ namespace MVL
                     if (or != null) report.objects.Add(or);
                 }
                 report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
+                PlaceFixtures(scene.room, sceneJsonPath, importFolder, fastIteration);
                  UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                  UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
                     "Assets/MVL_Temp.unity");
@@ -261,13 +262,21 @@ namespace MVL
                 AddShellTextureReport(report, "Wall_E", room.wall_texture,
                                       assetPath, eastWestTiling);
             }
+            float t = 0.1f; // 壁の厚み。角のすき間をふさぐため、床・天井を外側に広げる
+            MakeBox("Floor",   new Vector3(w / 2, -0.05f, d / 2),    new Vector3(w + 2 * t, 0.1f, d + 2 * t), floorMat);
+            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w + 2 * t, 0.1f, d + 2 * t), ceilingMat);
+            MakeBox("Wall_N",  new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w + 2 * t, h + 2 * t, 0.1f), northMat);
+            MakeBox("Wall_W",  new Vector3(-0.05f, h / 2, d / 2),    new Vector3(0.1f, h + 2 * t, d + 2 * t), westMat);
+            bool hasWin = room.window != null && room.window.width > 0f;
+            if (hasWin && room.window.wall == "S")
+                MakeWallWithWindow("Wall_S", true, -0.05f, w, h, room.window, southMat);
+            else
+                MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w + 2 * t, h + 2 * t, 0.1f), southMat);
+            if (hasWin && room.window.wall == "E")
+                MakeWallWithWindow("Wall_E", false, w + 0.05f, d, h, room.window, eastMat);
+            else
+                MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h + 2 * t, d + 2 * t), eastMat);
 
-            MakeBox("Floor", new Vector3(w / 2, -0.05f, d / 2), new Vector3(w, 0.1f, d), floorMat);
-            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w, 0.1f, d), ceilingMat);
-            MakeBox("Wall_N", new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w, h, 0.1f), northMat);
-            MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w, h, 0.1f), southMat);
-            MakeBox("Wall_W", new Vector3(-0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), westMat);
-            MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), eastMat);
         }
 
         static Material MakeMat(Color c)
@@ -448,6 +457,27 @@ namespace MVL
             GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.ContributeGI);
             return go;
         }
+                // 壁を「窓の穴」を残した4枚の箱で作る。alongX: 壁がx方向に伸びているか(S/N)
+        static void MakeWallWithWindow(string name, bool alongX, float fixedCoord,
+                                       float length, float h, Window win, Material mat)
+        {
+            float a0 = win.center - win.width / 2, a1 = win.center + win.width / 2;
+            float b0 = win.sill_height, b1 = win.sill_height + win.height;
+            void Piece(string n, float s0, float s1, float t0, float t1)
+            {
+                if (s1 - s0 < 0.001f || t1 - t0 < 0.001f) return;
+                float s = (s0 + s1) / 2, t = (t0 + t1) / 2;
+                var pos  = alongX ? new Vector3(s, t, fixedCoord) : new Vector3(fixedCoord, t, s);
+                var size = alongX ? new Vector3(s1 - s0, t1 - t0, 0.1f) : new Vector3(0.1f, t1 - t0, s1 - s0);
+                MakeBox(n, pos, size, mat);
+            }
+            Piece(name + "_L", 0, a0, 0, h);       // 窓の左
+            Piece(name + "_R", a1, length, 0, h);  // 窓の右
+            Piece(name + "_B", a0, a1, 0, b0);     // 窓の下
+            Piece(name + "_T", a0, a1, b1, h);     // 窓の上
+        }
+
+
 
         // ---------- 照明 ----------
         static void SetupLighting(Lighting lighting, bool fastIteration)
@@ -466,9 +496,26 @@ namespace MVL
                         s.rotation_euler_deg.Length > 2 ? s.rotation_euler_deg[2] : 0);
                 light.intensity = s.intensity;
                 if (ColorUtility.TryParseHtmlString("#" + (s.color_hex ?? "FFFFFF"), out var c)) light.color = c;
+                    light.shadows = LightShadows.Soft;
             }
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = Color.white * (lighting?.ambient_intensity ?? 1.0f) * 0.35f;
+        }
+        static void SetupCeilingLight(Room room, bool fastIteration)
+        {
+            var c = room.lighting?.ceiling_light;
+            if (c == null || c.intensity <= 0f) return;   // JSONに無ければ何もしない
+            float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
+            var go = new GameObject("CeilingLight");
+            float drop = string.IsNullOrWhiteSpace(c.asset) ? 0.15f : c.fixture_height + 0.05f;
+            go.transform.position = new Vector3(w / 2, h - drop, d / 2); // 器具があるときは、その5cm下
+            var light = go.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.range = c.range;
+            light.intensity = c.intensity;
+            light.shadows = LightShadows.Soft;
+            light.lightmapBakeType = fastIteration ? LightmapBakeType.Realtime : LightmapBakeType.Mixed;
+            if (ColorUtility.TryParseHtmlString("#" + (c.color_hex ?? "FFFFFF"), out var col)) light.color = col;
         }
 
         // ---------- 配置 ----------
@@ -572,6 +619,68 @@ namespace MVL
                 lod_cache_hits = lodResult?.cacheHits ?? 0,
                 lod_cache_misses = lodResult?.cacheMisses ?? 0
             };
+        }
+
+        // 窓・天井照明のモデルを「部屋の一部」として置く。report.objects には入れない
+        // (機械検査と修正ループの対象外にするため)
+        static void PlaceFixtures(Room room, string sceneJsonPath, string importFolder, bool fastIteration)
+        {
+            string root = FindMvlSkeletonRoot(sceneJsonPath);
+            float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
+
+            var win = room.window;
+            if (win != null && win.width > 0f && !string.IsNullOrWhiteSpace(win.asset))
+            {
+                bool east = win.wall == "E";
+                var obj = new SceneObject {
+                    id = "fixture_window", @class = "window",
+                    asset = Path.GetFullPath(Path.Combine(root, win.asset)),
+                    target_dimensions = new Dimensions { width = win.width, height = win.height, depth = 0.12f },
+                    rotation_y_deg = east ? 90f : 0f,
+                    position = east ? new[] { w + 0.05f, win.sill_height, win.center }
+                                    : new[] { win.center, win.sill_height, -0.05f },
+                };
+                PlaceObject(obj, root, importFolder, fastIteration, false);
+            }
+
+            var cl = room.lighting?.ceiling_light;
+            if (cl != null && cl.intensity > 0f && !string.IsNullOrWhiteSpace(cl.asset))
+            {
+                var obj = new SceneObject {
+                    id = "fixture_ceiling_light", @class = "ceiling_light",
+                    asset = Path.GetFullPath(Path.Combine(root, cl.asset)),
+                    target_dimensions = new Dimensions { width = cl.fixture_width, height = cl.fixture_height, depth = cl.fixture_width },
+                    position = new[] { w / 2, h - cl.fixture_height, d / 2 },
+                };
+                PlaceObject(obj, root, importFolder, fastIteration, false);
+                var go = GameObject.Find("fixture_ceiling_light");
+                if (go != null)
+                    foreach (var r in go.GetComponentsInChildren<Renderer>(true))
+                    {
+                        r.shadowCastingMode = ShadowCastingMode.Off; // 器具が自分の光を遮らないように
+                        if (cl.fixture_emission <= 0f) continue;
+                        foreach (var m in r.materials)
+                        {
+                            // 元の色の画像を発光にも使う(白いドームは強く、木の枠は弱く光る)
+                            Texture tex = m.HasProperty("baseColorTexture") ? m.GetTexture("baseColorTexture")
+                                        : m.HasProperty("_BaseMap") ? m.GetTexture("_BaseMap") : null;
+                            Color e = Color.white * cl.fixture_emission * cl.intensity; // 照明の強さに連動
+                            if (m.HasProperty("emissiveFactor"))   // glTFast のシェーダー
+                            {
+                                m.SetColor("emissiveFactor", e);
+                                if (tex != null && m.HasProperty("emissiveTexture")) m.SetTexture("emissiveTexture", tex);
+                            }
+                            if (m.HasProperty("_EmissionColor"))   // URP/Lit のシェーダー
+                            {
+                                m.SetColor("_EmissionColor", e);
+                                if (tex != null) m.SetTexture("_EmissionMap", tex);
+                            }
+                            m.EnableKeyword("_EMISSION");
+                            m.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None; // 部屋を照らすのは点光源の役目
+                            Debug.Log($"[MVL] fixture emission: shader={m.shader.name} glTFast={m.HasProperty("emissiveFactor")} URP={m.HasProperty("_EmissionColor")}");
+                        }
+                    }
+            }
         }
 
         static Bounds MeasureBounds(GameObject go)

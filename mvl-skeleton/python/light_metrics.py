@@ -15,7 +15,7 @@ L4 白飛び/黒つぶれ: 輝度 >=0.99 / <=0.01 の画素の割合（合計と
 import argparse
 import csv
 from pathlib import Path
-
+import colour
 import numpy as np
 from PIL import Image
 
@@ -35,35 +35,50 @@ def srgb_to_linear(c):
 
 
 # ---- L1〜L4 ----
-def cct_mccamy(rgb_srgb):
+def mean_xyz(rgb_srgb):
+    """①〜④: 画像全体の平均色を XYZ で返す(ここは今までと同じ)"""
     lin = srgb_to_linear(rgb_srgb).reshape(-1, 3).mean(axis=0)  # 平均は線形空間で取る
     M = np.array([[0.4124, 0.3576, 0.1805],    # sRGB(D65) → XYZ
                   [0.2126, 0.7152, 0.0722],
                   [0.0193, 0.1192, 0.9505]])
-    X, Y, Z = M @ lin
-    s = X + Y + Z
-    if s <= 0:
-        return float("nan")
-    x, y = X / s, Y / s
-    n = (x - 0.3320) / (0.1858 - y)
-    return 449 * n**3 + 3525 * n**2 + 6823.3 * n + 5520.33
+    return M @ lin
 
+
+def cct_mccamy(rgb_srgb):
+    """⑤⑥: XYZ → xy → 色温度。式は colour-science の McCamy 1992"""
+    XYZ = mean_xyz(rgb_srgb)
+    if XYZ.sum() <= 0:
+        return float("nan")
+    xy = colour.XYZ_to_xy(XYZ)                                   # ⑤
+    return float(colour.temperature.xy_to_CCT_McCamy1992(xy))   # ⑥
+
+def cct_ohno(rgb_srgb):
+    """Ohno 2013: 色温度と Duv(黒体の色の線からのずれ)を返す"""
+    XYZ = mean_xyz(rgb_srgb)
+    if XYZ.sum() <= 0:
+        return float("nan"), float("nan")
+    cct, duv = colour.temperature.XYZ_to_CCT_Ohno2013(XYZ)
+    return float(cct), float(duv)
 
 def metrics(rgb):
     luma = rgb @ np.array([0.2126, 0.7152, 0.0722])  # Y'（ガンマ後の輝度）
     hi = float((luma >= 0.99).mean())
     lo = float((luma <= 0.01).mean())
+    cct_o, duv = cct_ohno(rgb)
     return {
         "L1_cct_K": cct_mccamy(rgb),
+        "L1_cct_ohno_K": cct_o,
+        "L1_duv": duv,
         "L2_median": float(np.median(luma)),
         "L3_std": float(luma.std()),
+        "L3_logstd": float(np.log(luma + 0.01).std()),  # 明るさに左右されにくいコントラスト
         "L4_clip": hi + lo,
         "L4_hi": hi,
         "L4_lo": lo,
     }
+    
 
-
-KEYS = ["L1_cct_K", "L2_median", "L3_std", "L4_clip", "L4_hi", "L4_lo"]
+KEYS = ["L1_cct_K", "L1_cct_ohno_K", "L1_duv", "L2_median", "L3_std", "L3_logstd", "L4_clip", "L4_hi", "L4_lo"]
 
 
 # ---- 写真の選び出し（フォルダから n 枚、seed 固定で再現可能） ----

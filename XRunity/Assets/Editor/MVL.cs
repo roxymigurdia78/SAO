@@ -24,6 +24,7 @@ namespace MVL
     {
         public SunLight sun;
         public float ambient_intensity = 1.0f;
+        public CeilingLight ceiling_light;      
     }
 
     [Serializable] public class Bounds3
@@ -51,6 +52,7 @@ namespace MVL
         public string ceiling_texture;
         public float texture_tile_m = 2.0f;
         public Lighting lighting;
+        public Window window;  
     }
 
     [Serializable] public class Dimensions
@@ -58,6 +60,30 @@ namespace MVL
         public float width;
         public float height;
         public float depth;
+    }
+
+
+
+    [Serializable] public class CeilingLight
+    {
+        public float intensity = 0f;      // 0 = 照明なし(JSONに書かなければ無効)
+        public string color_hex = "FFFFFF";
+        public float range = 6f;
+        public string asset = "";            // mvl-skeleton からの相対パス。空なら器具なし
+        public float fixture_width = 0.35f;  // 器具の直径 [m]
+        public float fixture_height = 0.15f; // 器具の高さ [m]
+
+        public float fixture_emission = 1.5f; // 発光の係数(照明の強さに掛ける。0で発光なし)
+    }
+
+    [Serializable] public class Window
+    {
+        public string wall = "";          // "E" か "S"。空なら窓なし
+        public float center;              // 壁に沿った窓の中心位置 [m]
+        public float width;               // 0 なら窓なし
+        public float height;
+        public float sill_height = 0.9f;  // 床から窓の下端まで [m]
+        public string asset = "";        // mvl-skeleton からの相対パス
     }
 
     [Serializable] public class SceneObject
