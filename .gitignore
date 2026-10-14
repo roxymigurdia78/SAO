@@ -161,3 +161,8 @@ venv/
 !/XRunity_view/Assets/**/*.glb
 !/XRunity_view2/Assets/**/*.png
 !/XRunity_view2/Assets/**/*.glb
+
+# 実験ごとに生成するシーン・ベイク結果は素材の保存例外より後で除外する
+# フォルダ全体とUnityの対応する.metaを除外し、今後のランも自動で対象外にする
+**/Assets/MVLRuns/
+**/Assets/MVLRuns.meta

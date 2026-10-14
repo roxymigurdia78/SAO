@@ -148,6 +148,13 @@ namespace MVL
                     var or = PlaceObject(obj, assetsDirAbs, importFolder,
                                          fastIteration, uniformScale);
                     if (or != null) report.objects.Add(or);
+                    if (!scene.room.lighting.furniture_shadows)
+                    {
+                        var go = GameObject.Find(obj.id);
+                        if (go != null)
+                            foreach (var r in go.GetComponentsInChildren<Renderer>())
+                                r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    }
                 }
                 report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
                 PlaceFixtures(scene.room, sceneJsonPath, importFolder, fastIteration);
@@ -159,7 +166,7 @@ namespace MVL
                 if (!fastIteration)
                 {
                     var sw = Stopwatch.StartNew();
-                    BakeLightmaps();
+                    BakeLightmaps(scene.room.lighting?.lightmap_resolution ?? 80);
                     report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
                 }
 
@@ -756,7 +763,7 @@ namespace MVL
         }
 
         // ---------- ベイク ----------
-        static void BakeLightmaps()
+        static void BakeLightmaps(int resolution)
         {
             var ls = new LightingSettings
             {
@@ -765,7 +772,7 @@ namespace MVL
                 indirectSampleCount = 64,
                 environmentSampleCount = 64,
                 lightmapMaxSize = 1024,
-                lightmapResolution = 12, // texels/unit — 品質と時間のトレードオフ(~1分/部屋狙い)
+                lightmapResolution = resolution > 0 ? resolution : 80, // texels/unit。シーンJSONの lighting.lightmap_resolution（既定80, 10/14 決定）
                 ao = true
             };
             Lightmapping.lightingSettings = ls;

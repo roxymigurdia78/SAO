@@ -1,0 +1,237 @@
+{
+  "name": "lightloop_20261014_155625",
+  "start_scene": "mvl-skeleton\\scene\\scene_study_room_seed1_4096_model_holodeck.json",
+  "reference": {
+    "L1_cct_ohno_K": [
+      4824.36283254491,
+      6577.197190578972
+    ],
+    "L2_median": [
+      0.2488566274509804,
+      0.6651705098039215
+    ],
+    "L3_rms_rel": [
+      0.6138448433707582,
+      1.4230400483720842
+    ],
+    "L4_clip": [
+      0.0031524658203125,
+      0.1103546142578125
+    ],
+    "_meta": {
+      "name": "daylight",
+      "tags_file": "tags_gpt-5.jsonl",
+      "conditions": "main_light=daylight  photo_type=real_photo",
+      "ask": null,
+      "categories": null,
+      "n_photos": 73,
+      "percentiles_P10_P50_P90": {
+        "L1_cct_ohno_K": [
+          4824.36283254491,
+          5835.353459003269,
+          6577.197190578972
+        ],
+        "L2_median": [
+          0.2488566274509804,
+          0.48428352941176467,
+          0.6651705098039215
+        ],
+        "L3_rms_rel": [
+          0.6138448433707582,
+          0.9496753549452134,
+          1.4230400483720842
+        ],
+        "L4_clip": [
+          0.0031524658203125,
+          0.022979736328125,
+          0.1103546142578125
+        ]
+      },
+      "created": "2026-10-13T20:23:34"
+    }
+  },
+  "knobs": {
+    "ceil_int": [
+      0.3,
+      0.45,
+      0.6,
+      0.75,
+      0.9,
+      1.05
+    ],
+    "sun_int": [
+      0.35,
+      0.7,
+      1.0,
+      1.4,
+      1.8
+    ],
+    "ceil_cct": [
+      2700,
+      3000,
+      3500,
+      4000,
+      5000,
+      6500
+    ]
+  },
+  "trials": [
+    {
+      "step": 0,
+      "run": "lightloop_20261014_155625_start_20261014_155625",
+      "knobs": {
+        "ceil_int": 3,
+        "sun_int": 0,
+        "ceil_cct": 3
+      },
+      "score": 1.8498764852965688,
+      "detail": {
+        "L1_cct_ohno_K:low": 1.7422235492200562,
+        "L2_median:low": 0.1076529360765125
+      },
+      "accepted": true
+    },
+    {
+      "step": 1,
+      "run": "lightloop_20261014_155625_t01_20261014_160032",
+      "move": [
+        "ceil_cct",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 3,
+        "sun_int": 0,
+        "ceil_cct": 4
+      },
+      "score": 0.8148970484045887,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.7260591014708837,
+        "L2_median:low": 0.08883794693370499
+      },
+      "accepted": true
+    },
+    {
+      "step": 2,
+      "run": "lightloop_20261014_155625_t02_20261014_160419",
+      "move": [
+        "ceil_cct",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 3,
+        "sun_int": 0,
+        "ceil_cct": 5
+      },
+      "score": 0.0931130070653097,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.03386811604982026,
+        "L2_median:low": 0.059244891015489444
+      },
+      "accepted": true
+    },
+    {
+      "step": 3,
+      "run": "lightloop_20261014_155625_t03_20261014_160807",
+      "move": [
+        "ceil_int",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 4,
+        "sun_int": 0,
+        "ceil_cct": 5
+      },
+      "score": 0.08894880363290478,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.07176116881287266,
+        "L2_median:low": 0.017187634820032115
+      },
+      "accepted": true
+    },
+    {
+      "step": 4,
+      "run": "lightloop_20261014_155625_t04_20261014_161154",
+      "move": [
+        "ceil_int",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 5,
+        "sun_int": 0,
+        "ceil_cct": 5
+      },
+      "score": 0.09675334453050782,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.09675334453050782
+      },
+      "accepted": false
+    },
+    {
+      "step": 5,
+      "run": "lightloop_20261014_155625_t05_20261014_161539",
+      "move": [
+        "ceil_int",
+        -1
+      ],
+      "knobs": {
+        "ceil_int": 3,
+        "sun_int": 0,
+        "ceil_cct": 5
+      },
+      "score": 0.09310860508776214,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.03386371407227269,
+        "L2_median:low": 0.059244891015489444
+      },
+      "accepted": false
+    },
+    {
+      "step": 6,
+      "run": "lightloop_20261014_155625_t06_20261014_161925",
+      "move": [
+        "sun_int",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 4,
+        "sun_int": 1,
+        "ceil_cct": 5
+      },
+      "score": 0.0987695817327725,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.08256913568923295,
+        "L2_median:low": 0.016200446043539554
+      },
+      "accepted": false
+    },
+    {
+      "step": 7,
+      "run": "lightloop_20261014_155625_t07_20261014_162313",
+      "move": [
+        "ceil_cct",
+        -1
+      ],
+      "knobs": {
+        "ceil_int": 4,
+        "sun_int": 0,
+        "ceil_cct": 4
+      },
+      "score": 0.8461600213303343,
+      "detail": {
+        "L1_cct_ohno_K:low": 0.7952610201619098,
+        "L2_median:low": 0.05089900116842454
+      },
+      "accepted": false
+    }
+  ],
+  "end_reason": "手が尽きた",
+  "best_run": "lightloop_20261014_155625_t03_20261014_160807",
+  "best_knobs": {
+    "ceil_int": 4,
+    "sun_int": 0,
+    "ceil_cct": 5
+  },
+  "best_score": 0.08894880363290478,
+  "accepted": 3,
+  "captures": 8
+}

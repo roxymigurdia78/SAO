@@ -24,7 +24,9 @@ namespace MVL
     {
         public SunLight sun;
         public float ambient_intensity = 1.0f;
-        public CeilingLight ceiling_light;      
+        public CeilingLight ceiling_light;   
+        public bool furniture_shadows = true;   // false なら家具が影を落とさない（物差しの検証用）   
+        public int lightmap_resolution = 80;   // ライトマップの細かさ（画素/m）。10/14 実測で 12→80 に変更（12 は粗すぎ、80 はベイク+9秒）
     }
 
     [Serializable] public class Bounds3

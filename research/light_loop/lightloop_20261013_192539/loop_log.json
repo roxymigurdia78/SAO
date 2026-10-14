@@ -1,0 +1,109 @@
+{
+  "name": "lightloop_20261013_192539",
+  "start_scene": "mvl-skeleton\\scene\\scene_study_room_seed1_start_cool.json",
+  "reference": {
+    "L1_cct_ohno_K": [
+      4170.840265956213,
+      6550.890511178408
+    ],
+    "L2_median": [
+      0.21778537254901958,
+      0.627451450980392
+    ],
+    "L3_rms_rel": [
+      0.6963548787420665,
+      1.4618603964466939
+    ],
+    "L4_clip": [
+      0.0009201049804687501,
+      0.058695983886718775
+    ]
+  },
+  "knobs": {
+    "ceil_int": [
+      0.3,
+      0.45,
+      0.6,
+      0.75,
+      0.9,
+      1.05
+    ],
+    "sun_int": [
+      0.35,
+      0.7,
+      1.0,
+      1.4,
+      1.8
+    ],
+    "ceil_cct": [
+      2700,
+      3000,
+      3500,
+      4000,
+      5000,
+      6500
+    ]
+  },
+  "trials": [
+    {
+      "step": 0,
+      "run": "lightloop_20261013_192539_start_20261013_192539",
+      "knobs": {
+        "ceil_int": 1,
+        "sun_int": 4,
+        "ceil_cct": 5
+      },
+      "score": 0.18717873781717698,
+      "detail": {
+        "L1_cct_ohno_K:high": 0.03176075754698518,
+        "L3_rms_rel:high": 0.07020778755943788,
+        "L2_median:low": 0.08521019271075393
+      },
+      "accepted": true
+    },
+    {
+      "step": 1,
+      "run": "lightloop_20261013_192539_t01_20261013_192924",
+      "move": [
+        "ceil_int",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 2,
+        "sun_int": 4,
+        "ceil_cct": 5
+      },
+      "score": 0.030803375489458825,
+      "detail": {
+        "L2_median:low": 0.030803375489458825
+      },
+      "accepted": true
+    },
+    {
+      "step": 2,
+      "run": "lightloop_20261013_192539_t02_20261013_193307",
+      "move": [
+        "ceil_int",
+        1
+      ],
+      "knobs": {
+        "ceil_int": 3,
+        "sun_int": 4,
+        "ceil_cct": 5
+      },
+      "score": 0,
+      "detail": {},
+      "accepted": true
+    }
+  ],
+  "end_reason": "外れ具合ゼロ",
+  "best_run": "lightloop_20261013_192539_t02_20261013_193307",
+  "best_knobs": {
+    "ceil_int": 3,
+    "sun_int": 4,
+    "ceil_cct": 5
+  },
+  "best_score": 0,
+  "accepted": 2,
+  "captures": 3
+}
