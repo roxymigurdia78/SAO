@@ -1,0 +1,13 @@
+﻿label,label_value,metric,measure,n,minimum,q1,median,q3,maximum
+detail_lost,yes,laplacian_median,class_rank_1_best_3_lowest,4,1.0,1.0,1.5,2.0,2.0
+detail_lost,no,laplacian_median,class_rank_1_best_3_lowest,39,1.0,1.0,2.0,3.0,3.0
+detail_lost,yes,glcm_contrast_median,class_rank_1_best_3_lowest,4,1.0,1.0,1.5,2.0,2.0
+detail_lost,no,glcm_contrast_median,class_rank_1_best_3_lowest,39,1.0,1.0,2.0,3.0,3.0
+detail_lost,yes,input_laplacian_ratio,input_laplacian_ratio,4,0.1214840539,0.1726969453,0.2288337379,0.2802207253,0.317184201
+detail_lost,no,input_laplacian_ratio,input_laplacian_ratio,39,0.004359302,0.1108378331,0.2204357163,0.3770749324,3.8682381569
+flat_surface,yes,laplacian_median,class_rank_1_best_3_lowest,7,1.0,1.0,2.0,2.0,3.0
+flat_surface,no,laplacian_median,class_rank_1_best_3_lowest,37,1.0,1.0,2.0,3.0,3.0
+flat_surface,yes,glcm_contrast_median,class_rank_1_best_3_lowest,7,1.0,1.0,2.0,2.0,3.0
+flat_surface,no,glcm_contrast_median,class_rank_1_best_3_lowest,37,1.0,1.0,2.0,3.0,3.0
+flat_surface,yes,input_laplacian_ratio,input_laplacian_ratio,7,0.1214840539,0.1695023098,0.2014896853,0.2978796562,0.6736453707
+flat_surface,no,input_laplacian_ratio,input_laplacian_ratio,37,0.004359302,0.1052695561,0.2345202652,0.3966820251,3.8682381569

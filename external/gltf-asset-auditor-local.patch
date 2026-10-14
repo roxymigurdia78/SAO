@@ -1,0 +1,13 @@
+diff --git a/cli-example/package.json b/cli-example/package.json
+index 164cbcb..25eb281 100644
+--- a/cli-example/package.json
++++ b/cli-example/package.json
+@@ -16,5 +16,8 @@
+   },
+   "devDependencies": {
+     "tslib": "^2.8.1"
++  },
++  "allowScripts": {
++    "canvas@3.2.3": true
+   }
+ }

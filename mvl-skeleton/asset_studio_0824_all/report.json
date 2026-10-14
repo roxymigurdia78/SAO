@@ -1,0 +1,3254 @@
+{
+    "success": false,
+    "manifest": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\asset_studio_manifest_all_0824.json",
+    "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\assets\\0824",
+    "width": 1024,
+    "height": 1024,
+    "margin": 1.149999976158142,
+    "elevation_deg": 25.0,
+    "background": "linear RGB (0.5, 0.5, 0.5)",
+    "lighting": "Directional Light 1.4 at camera-relative Euler(20,30,0) + flat ambient 0.35",
+    "reflection": "uniform linear RGB (0.5, 0.5, 0.5) cubemap, intensity 0.35",
+    "mask": "white unlit asset on black background",
+    "total_seconds": 25.611553192138673,
+    "error": "System.IO.IOException: Win32 IO returned 1224. Path: C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\asset_studio_0824_all\\printer_v1\\azimuth_000.png\r\n  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <816f70bc2a9c4332b0bd119906a8d40e>:0 \r\n  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 \r\n  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)\r\n  at System.IO.File.InternalWriteAllBytes (System.String path, System.Byte[] bytes) [0x00000] in <816f70bc2a9c4332b0bd119906a8d40e>:0 \r\n  at System.IO.File.WriteAllBytes (System.String path, System.Byte[] bytes) [0x00039] in <816f70bc2a9c4332b0bd119906a8d40e>:0 \r\n  at MVL.AssetStudioCapture.WritePng (UnityEngine.Camera camera, UnityEngine.RenderTexture target, UnityEngine.Texture2D pixels, System.String path) [0x0003f] in C:\\Users\\Astra\\Desktop\\sao\\XRunity\\Assets\\Editor\\AssetStudioCapture.cs:487 \r\n  at MVL.AssetStudioCapture.CaptureOne (MVL.AssetStudioCapture+CaptureTask task, System.String assetsDir, System.String outRoot, MVL.AssetStudioCapture+CaptureSettings settings) [0x003e2] in C:\\Users\\Astra\\Desktop\\sao\\XRunity\\Assets\\Editor\\AssetStudioCapture.cs:318 \r\n  at MVL.AssetStudioCapture.BuildAndCapture (System.String manifestPath, System.String outDir) [0x000e0] in C:\\Users\\Astra\\Desktop\\sao\\XRunity\\Assets\\Editor\\AssetStudioCapture.cs:180 ",
+    "assets": [
+        {
+            "asset": "backpack_v1.glb",
+            "output_folder": "backpack_v1",
+            "bounding_box_size": [
+                0.7697435617446899,
+                1.0015039443969727,
+                0.7731176614761353
+            ],
+            "orthographic_size": 0.5758647322654724,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5429731011390686,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "backpack_v2.glb",
+            "output_folder": "backpack_v2",
+            "bounding_box_size": [
+                0.7536439895629883,
+                1.000159502029419,
+                0.7755450010299683
+            ],
+            "orthographic_size": 0.5750917196273804,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4235512912273407,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "backpack_v3.glb",
+            "output_folder": "backpack_v3",
+            "bounding_box_size": [
+                0.7024072408676148,
+                1.0013492107391358,
+                0.9464229941368103
+            ],
+            "orthographic_size": 0.5757758021354675,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.44454219937324526,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "books_v1.glb",
+            "output_folder": "books_v1",
+            "bounding_box_size": [
+                0.6761049032211304,
+                0.8647862076759338,
+                1.0008946657180787
+            ],
+            "orthographic_size": 0.5755144357681274,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4991663992404938,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "books_v2.glb",
+            "output_folder": "books_v2",
+            "bounding_box_size": [
+                0.7345952987670898,
+                0.8746124505996704,
+                0.9976606369018555
+            ],
+            "orthographic_size": 0.57365483045578,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5146967172622681,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "books_v3.glb",
+            "output_folder": "books_v3",
+            "bounding_box_size": [
+                1.0017509460449219,
+                0.6819003224372864,
+                0.8843552470207214
+            ],
+            "orthographic_size": 0.5760067701339722,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.48656201362609866,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "bookshelf_v1.glb",
+            "output_folder": "bookshelf_v1",
+            "bounding_box_size": [
+                0.4694982171058655,
+                1.0019057989120484,
+                0.15266592800617219
+            ],
+            "orthographic_size": 0.5760958194732666,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.42775699496269228,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "bookshelf_v2.glb",
+            "output_folder": "bookshelf_v2",
+            "bounding_box_size": [
+                0.46969783306121828,
+                1.0019521713256837,
+                0.2232321798801422
+            ],
+            "orthographic_size": 0.5761224627494812,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4268822968006134,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "bookshelf_v3.glb",
+            "output_folder": "bookshelf_v3",
+            "bounding_box_size": [
+                0.45139279961586,
+                1.0019538402557374,
+                0.21970389783382417
+            ],
+            "orthographic_size": 0.5761234164237976,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.45061320066452029,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "cabinet_v1.glb",
+            "output_folder": "cabinet_v1",
+            "bounding_box_size": [
+                0.7801618576049805,
+                1.001936435699463,
+                0.5894976854324341
+            ],
+            "orthographic_size": 0.5761134624481201,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5804067254066467,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "cabinet_v2.glb",
+            "output_folder": "cabinet_v2",
+            "bounding_box_size": [
+                0.840407133102417,
+                1.0019323825836182,
+                0.5603853464126587
+            ],
+            "orthographic_size": 0.5761110782623291,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.6499212980270386,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "cabinet_v3.glb",
+            "output_folder": "cabinet_v3",
+            "bounding_box_size": [
+                0.6928752660751343,
+                1.0019406080245972,
+                0.5585771203041077
+            ],
+            "orthographic_size": 0.5761158466339111,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.6719232201576233,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "chair_v1.glb",
+            "output_folder": "chair_v1",
+            "bounding_box_size": [
+                0.7143636345863342,
+                1.0018037557601929,
+                0.7585158944129944
+            ],
+            "orthographic_size": 0.5760371685028076,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5480293035507202,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "chair_v2.glb",
+            "output_folder": "chair_v2",
+            "bounding_box_size": [
+                0.7335125207901001,
+                1.0018337965011597,
+                0.6976958513259888
+            ],
+            "orthographic_size": 0.5760543942451477,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5359655022621155,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "chair_v3.glb",
+            "output_folder": "chair_v3",
+            "bounding_box_size": [
+                0.6562531590461731,
+                1.0017781257629395,
+                0.6347458362579346
+            ],
+            "orthographic_size": 0.5760223865509033,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5310822129249573,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "desk_v1.glb",
+            "output_folder": "desk_v1",
+            "bounding_box_size": [
+                1.0019440650939942,
+                0.6018931865692139,
+                0.49525487422943118
+            ],
+            "orthographic_size": 0.5761178135871887,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5388053059577942,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "desk_v2.glb",
+            "output_folder": "desk_v2",
+            "bounding_box_size": [
+                1.0018179416656495,
+                0.6557623744010925,
+                0.5421509742736816
+            ],
+            "orthographic_size": 0.5760452747344971,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.48846718668937685,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "desk_v3.glb",
+            "output_folder": "desk_v3",
+            "bounding_box_size": [
+                1.0020140409469605,
+                0.5897194147109985,
+                0.48814401030540469
+            ],
+            "orthographic_size": 0.5761580467224121,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5019623041152954,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "floor_lamp_v1.glb",
+            "output_folder": "floor_lamp_v1",
+            "bounding_box_size": [
+                0.34151691198349,
+                1.001738429069519,
+                0.3416934013366699
+            ],
+            "orthographic_size": 0.5759995579719544,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.45236819982528689,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "floor_lamp_v2.glb",
+            "output_folder": "floor_lamp_v2",
+            "bounding_box_size": [
+                0.32309120893478396,
+                1.001941204071045,
+                0.32323354482650759
+            ],
+            "orthographic_size": 0.5761162042617798,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.49513140320777895,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "floor_lamp_v3.glb",
+            "output_folder": "floor_lamp_v3",
+            "bounding_box_size": [
+                0.2832532525062561,
+                1.0017850399017335,
+                0.28322267532348635
+            ],
+            "orthographic_size": 0.5760263800621033,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.3264085054397583,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "lamp_v1.glb",
+            "output_folder": "lamp_v1",
+            "bounding_box_size": [
+                0.35202398896217348,
+                1.0014081001281739,
+                0.7356171607971191
+            ],
+            "orthographic_size": 0.5758096575737,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.31613078713417055,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "lamp_v2.glb",
+            "output_folder": "lamp_v2",
+            "bounding_box_size": [
+                0.6815780401229858,
+                1.001943826675415,
+                0.5024389028549194
+            ],
+            "orthographic_size": 0.5761176943778992,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.352000892162323,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "lamp_v3.glb",
+            "output_folder": "lamp_v3",
+            "bounding_box_size": [
+                0.35719138383865359,
+                1.001840591430664,
+                0.6567776203155518
+            ],
+            "orthographic_size": 0.5760583281517029,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.3546462953090668,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "laptop_v1.glb",
+            "output_folder": "laptop_v1",
+            "bounding_box_size": [
+                1.0019748210906983,
+                0.6995006799697876,
+                0.8305227756500244
+            ],
+            "orthographic_size": 0.576135516166687,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4345613121986389,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "laptop_v2.glb",
+            "output_folder": "laptop_v2",
+            "bounding_box_size": [
+                1.0019187927246094,
+                0.733335018157959,
+                0.8743691444396973
+            ],
+            "orthographic_size": 0.5761032700538635,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.44998469948768618,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "laptop_v3.glb",
+            "output_folder": "laptop_v3",
+            "bounding_box_size": [
+                1.0019416809082032,
+                0.6664067506790161,
+                0.8311772346496582
+            ],
+            "orthographic_size": 0.5761164426803589,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.44950059056282046,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "monitor_v1.glb",
+            "output_folder": "monitor_v1",
+            "bounding_box_size": [
+                1.0019551515579224,
+                0.8398640751838684,
+                0.36909201741218569
+            ],
+            "orthographic_size": 0.5761241912841797,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4376598000526428,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "monitor_v2.glb",
+            "output_folder": "monitor_v2",
+            "bounding_box_size": [
+                1.0019469261169434,
+                0.8885074853897095,
+                0.3983559012413025
+            ],
+            "orthographic_size": 0.5761194825172424,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5011587142944336,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "monitor_v3.glb",
+            "output_folder": "monitor_v3",
+            "bounding_box_size": [
+                1.0019594430923463,
+                0.8104579448699951,
+                0.3035425543785095
+            ],
+            "orthographic_size": 0.5761266946792603,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.4853033125400543,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "mug_v1.glb",
+            "output_folder": "mug_v1",
+            "bounding_box_size": [
+                0.7364715933799744,
+                0.8958063125610352,
+                1.001582145690918
+            ],
+            "orthographic_size": 0.5759097337722778,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.6166650056838989,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "mug_v2.glb",
+            "output_folder": "mug_v2",
+            "bounding_box_size": [
+                0.783980131149292,
+                0.8281849026679993,
+                1.0014904737472535
+            ],
+            "orthographic_size": 0.5758569836616516,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.6312305927276611,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "mug_v3.glb",
+            "output_folder": "mug_v3",
+            "bounding_box_size": [
+                1.0010465383529664,
+                0.8071244359016419,
+                0.740408182144165
+            ],
+            "orthographic_size": 0.5756017565727234,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5952306985855103,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "pen_holder_v1.glb",
+            "output_folder": "pen_holder_v1",
+            "bounding_box_size": [
+                0.5838704109191895,
+                1.0019011497497559,
+                0.607629656791687
+            ],
+            "orthographic_size": 0.5760931372642517,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5533053874969482,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "pen_holder_v2.glb",
+            "output_folder": "pen_holder_v2",
+            "bounding_box_size": [
+                0.6253489851951599,
+                1.0011307001113892,
+                0.6241129636764526
+            ],
+            "orthographic_size": 0.575650155544281,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5691444873809815,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "pen_holder_v3.glb",
+            "output_folder": "pen_holder_v3",
+            "bounding_box_size": [
+                0.5716114640235901,
+                1.0010079145431519,
+                0.6356202363967896
+            ],
+            "orthographic_size": 0.5755795240402222,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5513435006141663,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "plant_v1.glb",
+            "output_folder": "plant_v1",
+            "bounding_box_size": [
+                0.9907981157302856,
+                1.0015983581542969,
+                0.8381062150001526
+            ],
+            "orthographic_size": 0.5759190320968628,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5731866955757141,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "plant_v2.glb",
+            "output_folder": "plant_v2",
+            "bounding_box_size": [
+                0.6285412311553955,
+                0.9997005462646484,
+                0.5889012217521668
+            ],
+            "orthographic_size": 0.5748277902603149,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.5512291193008423,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        },
+        {
+            "asset": "plant_v3.glb",
+            "output_folder": "plant_v3",
+            "bounding_box_size": [
+                0.46495452523231509,
+                1.0014638900756837,
+                0.5082873106002808
+            ],
+            "orthographic_size": 0.5758417248725891,
+            "material_override_label": "",
+            "material_override_path": "",
+            "capture_seconds": 0.538236677646637,
+            "files": [
+                "azimuth_000.png",
+                "azimuth_045.png",
+                "azimuth_090.png",
+                "azimuth_135.png",
+                "azimuth_180.png",
+                "azimuth_225.png",
+                "azimuth_270.png",
+                "azimuth_315.png"
+            ],
+            "mask_files": [
+                "azimuth_000_mask.png",
+                "azimuth_045_mask.png",
+                "azimuth_090_mask.png",
+                "azimuth_135_mask.png",
+                "azimuth_180_mask.png",
+                "azimuth_225_mask.png",
+                "azimuth_270_mask.png",
+                "azimuth_315_mask.png"
+            ],
+            "views": [
+                {
+                    "file": "azimuth_000.png",
+                    "mask_file": "azimuth_000_mask.png",
+                    "azimuth_deg": 0.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_045.png",
+                    "mask_file": "azimuth_045_mask.png",
+                    "azimuth_deg": 45.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_090.png",
+                    "mask_file": "azimuth_090_mask.png",
+                    "azimuth_deg": 90.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_135.png",
+                    "mask_file": "azimuth_135_mask.png",
+                    "azimuth_deg": 135.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_180.png",
+                    "mask_file": "azimuth_180_mask.png",
+                    "azimuth_deg": 180.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_225.png",
+                    "mask_file": "azimuth_225_mask.png",
+                    "azimuth_deg": 225.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_270.png",
+                    "mask_file": "azimuth_270_mask.png",
+                    "azimuth_deg": 270.0,
+                    "elevation_deg": 25.0
+                },
+                {
+                    "file": "azimuth_315.png",
+                    "mask_file": "azimuth_315_mask.png",
+                    "azimuth_deg": 315.0,
+                    "elevation_deg": 25.0
+                }
+            ]
+        }
+    ]
+}

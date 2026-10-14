@@ -1,0 +1,2 @@
+﻿asset,class,variant,target_width_m,target_height_m,target_depth_m,scale_x,scale_y,scale_z,source_triangle_count,analyzed_triangle_count,degenerate_triangle_count,surface_area_m2,basecolor_mapped_area_fraction,zero_uv_area_fraction,weighted_median_px_per_m,weighted_p10_px_per_m,mapped_min_px_per_m,mapped_max_px_per_m,quest2_reference_px_per_m
+desk_v1_t2048,desk,,1.4,0.73,0.7,1.3972855847,1.2128599581,1.4134447387,140165,140155,10,11.3055908053,1.0,1.763e-07,509.868638,508.452548,0.0,4757.262398,1100.0

@@ -1,0 +1,7 @@
+﻿label,metric,lowest_count,yes_count,fraction,chance_expectation
+detail_lost,laplacian_median,0,4,0 / 4,1.333333
+detail_lost,glcm_contrast_median,0,4,0 / 4,1.333333
+detail_lost,input_laplacian_ratio,1,4,1 / 4,1.333333
+flat_surface,laplacian_median,1,7,1 / 7,2.333333
+flat_surface,glcm_contrast_median,1,7,1 / 7,2.333333
+flat_surface,input_laplacian_ratio,2,7,2 / 7,2.333333

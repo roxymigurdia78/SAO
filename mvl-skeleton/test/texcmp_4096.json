@@ -1,0 +1,32 @@
+{
+  "assets_dir": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\test",
+  "scene_json": "C:\\Users\\Astra\\Desktop\\sao\\mvl-skeleton\\scene\\scene_texture_compare.json",
+  "asset_count": 1,
+  "glb_reader": "trimesh 4.12.2",
+  "texture_source": "material.pbrMetallicRoughness.baseColorTexture",
+  "untextured_surface_policy": "excluded from P50/P10; coverage reported separately",
+  "scale_method": "per-axis target_dimensions / transformed GLB AABB",
+  "triangle_metric": "sqrt(UV area * texture width * texture height / scaled 3D area)",
+  "asset_aggregation": "scaled 3D area-weighted P50 and P10",
+  "degenerate_triangle_policy": "zero 3D-area triangles excluded and counted",
+  "validation_fields": "mapped triangle min/max for Khronos glTF Asset Auditor comparison",
+  "quest2_reference_px_per_m": 1100.0,
+  "weighted_median_px_per_m_distribution": {
+    "minimum": 1017.6819,
+    "p10": 1017.6819,
+    "q1": 1017.6819,
+    "median": 1017.6819,
+    "q3": 1017.6819,
+    "p90": 1017.6819,
+    "maximum": 1017.6819
+  },
+  "weighted_p10_px_per_m_distribution": {
+    "minimum": 1014.343681,
+    "p10": 1014.343681,
+    "q1": 1014.343681,
+    "median": 1014.343681,
+    "q3": 1014.343681,
+    "p90": 1014.343681,
+    "maximum": 1014.343681
+  }
+}

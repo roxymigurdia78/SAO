@@ -1,0 +1,11 @@
+﻿source,label,metric,lowest_count,yes_count,fraction,chance_expectation
+studio_material_20260930,detail_lost,laplacian_median,0,4,0 / 4,1.333333
+studio_material_20260930,detail_lost,glcm_contrast_median,0,4,0 / 4,1.333333
+studio_material_20260930,detail_lost,input_laplacian_ratio,1,4,1 / 4,1.333333
+studio_material_20260930,flat_surface,laplacian_median,1,7,1 / 7,2.333333
+studio_material_20260930,flat_surface,glcm_contrast_median,1,7,1 / 7,2.333333
+studio_material_20260930,flat_surface,input_laplacian_ratio,2,7,2 / 7,2.333333
+texel_density_20261001,detail_lost,weighted_median_px_per_m,3,4,3 / 4,1.333333
+texel_density_20261001,detail_lost,weighted_p10_px_per_m,2,4,2 / 4,1.333333
+texel_density_20261001,flat_surface,weighted_median_px_per_m,3,7,3 / 7,2.333333
+texel_density_20261001,flat_surface,weighted_p10_px_per_m,3,7,3 / 7,2.333333

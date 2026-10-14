@@ -1,0 +1,5 @@
+﻿source,label,metric,lowest_count,yes_count,fraction,chance_expectation
+texel_density_20261001,detail_lost,weighted_median_px_per_m,3,4,3 / 4,1.333333
+texel_density_20261001,detail_lost,weighted_p10_px_per_m,2,4,2 / 4,1.333333
+texel_density_20261001,flat_surface,weighted_median_px_per_m,3,7,3 / 7,2.333333
+texel_density_20261001,flat_surface,weighted_p10_px_per_m,3,7,3 / 7,2.333333

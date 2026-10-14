@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -131,11 +132,11 @@ namespace MVL
                     UnityEditor.SceneManagement.NewSceneMode.Single);
 
                 // 2) 部屋の殻(L1簡易版: 床+壁4面+天井。8月はテンプレート箱、材質は9月に生成置換)
-                BuildRoomShell(scene.room);
+                BuildRoomShell(scene.room, sceneJsonPath, report);
 
                 // 3) 照明(太陽=Mixed必須。C4の教訓: Realtimeのままだとベイクされない)
                 SetupLighting(scene.room.lighting, fastIteration);
-
+                SetupCeilingLight(scene.room, fastIteration);
                 // 4) GLBをAssets配下へコピー → glTFastインポート → 配置
                 string importFolder = "Assets/MVLImported";
                 if (!AssetDatabase.IsValidFolder(importFolder))
@@ -147,17 +148,25 @@ namespace MVL
                     var or = PlaceObject(obj, assetsDirAbs, importFolder,
                                          fastIteration, uniformScale);
                     if (or != null) report.objects.Add(or);
+                    if (!scene.room.lighting.furniture_shadows)
+                    {
+                        var go = GameObject.Find(obj.id);
+                        if (go != null)
+                            foreach (var r in go.GetComponentsInChildren<Renderer>())
+                                r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    }
                 }
                 report.geometry_seconds = (float)geometrySw.Elapsed.TotalSeconds;
+                PlaceFixtures(scene.room, sceneJsonPath, importFolder, fastIteration);
                  UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                  UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
-                    "Assets/MVL_Temp.unity");
+                    RunSceneAssetPath(sceneJsonPath));
 
                 // 5) ライトマップベイク(同期)
                 if (!fastIteration)
                 {
                     var sw = Stopwatch.StartNew();
-                    BakeLightmaps();
+                    BakeLightmaps(scene.room.lighting?.lightmap_resolution ?? 80);
                     report.bake_seconds = (float)sw.Elapsed.TotalSeconds;
                 }
 
@@ -180,7 +189,7 @@ namespace MVL
                 //      Gameビューに部屋が映り、そのまま歩き回れる。
                 UnityEditor.SceneManagement.EditorSceneManager.SaveScene(
                     UnityEngine.SceneManagement.SceneManager.GetActiveScene(),
-                    "Assets/MVL_Temp.unity");
+                    RunSceneAssetPath(sceneJsonPath));
 
                 // 7) レポート出力
                 report.total_seconds = (float)totalSw.Elapsed.TotalSeconds;
@@ -203,18 +212,78 @@ namespace MVL
         }
 
         // ---------- 部屋の殻 ----------
-        static void BuildRoomShell(Room room)
+        static void BuildRoomShell(Room room, string sceneJsonPath,
+                                   BuildReport report)
         {
             float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
             var floorMat = MakeMat(new Color(0.55f, 0.42f, 0.28f)); // 仮: 木目調ブラウン
             var wallMat = MakeMat(new Color(0.93f, 0.91f, 0.86f));  // 仮: オフホワイト
+            var ceilingMat = wallMat;
+            var northMat = wallMat;
+            var southMat = wallMat;
+            var westMat = wallMat;
+            var eastMat = wallMat;
 
-            MakeBox("Floor", new Vector3(w / 2, -0.05f, d / 2), new Vector3(w, 0.1f, d), floorMat);
-            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w, 0.1f, d), wallMat);
-            MakeBox("Wall_N", new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w, h, 0.1f), wallMat);
-            MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w, h, 0.1f), wallMat);
-            MakeBox("Wall_W", new Vector3(-0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), wallMat);
-            MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h, d), wallMat);
+            float tile = room.texture_tile_m > 0f ? room.texture_tile_m : 2.0f;
+            if (room.texture_tile_m <= 0f)
+                Debug.LogWarning("[MVL] texture_tile_m は正数である必要があります。既定値 2.0m を使います。");
+
+            if (!string.IsNullOrWhiteSpace(room.floor_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.floor_texture, "floor", sceneJsonPath, out var assetPath);
+                var tiling = new Vector2(w / tile, d / tile);
+                floorMat = MakeTexturedMat(texture, tiling);
+                AddShellTextureReport(report, "Floor", room.floor_texture,
+                                      assetPath, tiling);
+            }
+
+            if (!string.IsNullOrWhiteSpace(room.ceiling_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.ceiling_texture, "ceiling", sceneJsonPath, out var assetPath);
+                var tiling = new Vector2(w / tile, d / tile);
+                ceilingMat = MakeTexturedMat(texture, tiling);
+                AddShellTextureReport(report, "Ceiling", room.ceiling_texture,
+                                      assetPath, tiling);
+            }
+
+            if (!string.IsNullOrWhiteSpace(room.wall_texture))
+            {
+                var texture = ImportShellTexture(
+                    room.wall_texture, "wall", sceneJsonPath, out var assetPath);
+                var northSouthTiling = new Vector2(w / tile, h / tile);
+                var eastWestTiling = new Vector2(d / tile, h / tile);
+
+                // 各壁を独立したマテリアルにして、向きごとの寸法を反映する。
+                northMat = MakeTexturedMat(texture, northSouthTiling);
+                southMat = MakeTexturedMat(texture, northSouthTiling);
+                westMat = MakeTexturedMat(texture, eastWestTiling);
+                eastMat = MakeTexturedMat(texture, eastWestTiling);
+                AddShellTextureReport(report, "Wall_N", room.wall_texture,
+                                      assetPath, northSouthTiling);
+                AddShellTextureReport(report, "Wall_S", room.wall_texture,
+                                      assetPath, northSouthTiling);
+                AddShellTextureReport(report, "Wall_W", room.wall_texture,
+                                      assetPath, eastWestTiling);
+                AddShellTextureReport(report, "Wall_E", room.wall_texture,
+                                      assetPath, eastWestTiling);
+            }
+            float t = 0.1f; // 壁の厚み。角のすき間をふさぐため、床・天井を外側に広げる
+            MakeBox("Floor",   new Vector3(w / 2, -0.05f, d / 2),    new Vector3(w + 2 * t, 0.1f, d + 2 * t), floorMat);
+            MakeBox("Ceiling", new Vector3(w / 2, h + 0.05f, d / 2), new Vector3(w + 2 * t, 0.1f, d + 2 * t), ceilingMat);
+            MakeBox("Wall_N",  new Vector3(w / 2, h / 2, d + 0.05f), new Vector3(w + 2 * t, h + 2 * t, 0.1f), northMat);
+            MakeBox("Wall_W",  new Vector3(-0.05f, h / 2, d / 2),    new Vector3(0.1f, h + 2 * t, d + 2 * t), westMat);
+            bool hasWin = room.window != null && room.window.width > 0f;
+            if (hasWin && room.window.wall == "S")
+                MakeWallWithWindow("Wall_S", true, -0.05f, w, h, room.window, southMat);
+            else
+                MakeBox("Wall_S", new Vector3(w / 2, h / 2, -0.05f), new Vector3(w + 2 * t, h + 2 * t, 0.1f), southMat);
+            if (hasWin && room.window.wall == "E")
+                MakeWallWithWindow("Wall_E", false, w + 0.05f, d, h, room.window, eastMat);
+            else
+                MakeBox("Wall_E", new Vector3(w + 0.05f, h / 2, d / 2), new Vector3(0.1f, h + 2 * t, d + 2 * t), eastMat);
+
         }
 
         static Material MakeMat(Color c)
@@ -223,6 +292,177 @@ namespace MVL
             var m = new Material(shader);
             m.color = c;
             return m;
+        }
+
+        static Material MakeTexturedMat(Texture2D texture, Vector2 tiling)
+        {
+            var m = MakeMat(Color.white);
+            string textureProperty = m.HasProperty("_BaseMap")
+                ? "_BaseMap"
+                : "_MainTex";
+            m.SetTexture(textureProperty, texture);
+            m.SetTextureScale(textureProperty, tiling);
+            return m;
+        }
+
+        static Texture2D ImportShellTexture(string relativePath, string surface,
+                                            string sceneJsonPath,
+                                            out string assetPath)
+        {
+            if (Path.IsPathRooted(relativePath))
+                throw new ArgumentException(
+                    $"{surface}_texture は mvl-skeleton からの相対パスで指定してください: {relativePath}");
+
+            string skeletonRoot = FindMvlSkeletonRoot(sceneJsonPath);
+            string rootWithSeparator = skeletonRoot.TrimEnd(
+                Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                + Path.DirectorySeparatorChar;
+            string sourcePath = Path.GetFullPath(Path.Combine(
+                skeletonRoot,
+                relativePath.Replace('/', Path.DirectorySeparatorChar)));
+            if (!sourcePath.StartsWith(rootWithSeparator,
+                                       StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException(
+                    $"{surface}_texture が mvl-skeleton の外を指しています: {relativePath}");
+            if (!File.Exists(sourcePath))
+                throw new FileNotFoundException(
+                    $"{surface}_texture が見つかりません", sourcePath);
+
+            EnsureAssetFolder("Assets/MVLGenerated");
+            EnsureAssetFolder("Assets/MVLGenerated/Shell");
+            string fileName = surface + "_" + Path.GetFileName(sourcePath);
+            assetPath = "Assets/MVLGenerated/Shell/" + fileName;
+            string destinationPath = Path.Combine(
+                Application.dataPath, "MVLGenerated", "Shell", fileName);
+            File.Copy(sourcePath, destinationPath, true);
+            AssetDatabase.ImportAsset(
+                assetPath,
+                ImportAssetOptions.ForceSynchronousImport
+                | ImportAssetOptions.ForceUpdate);
+
+            var importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            if (importer == null)
+                throw new InvalidOperationException(
+                    $"テクスチャとしてインポートできませんでした: {assetPath}");
+            if (importer.wrapMode != TextureWrapMode.Repeat)
+            {
+                importer.wrapMode = TextureWrapMode.Repeat;
+                importer.SaveAndReimport();
+            }
+
+            var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+            if (texture == null)
+                throw new InvalidOperationException(
+                    $"テクスチャを読み込めませんでした: {assetPath}");
+            return texture;
+        }
+
+        static string FindMvlSkeletonRoot(string sceneJsonPath)
+        {
+            var directory = new DirectoryInfo(
+                Path.GetDirectoryName(Path.GetFullPath(sceneJsonPath)));
+            while (directory != null)
+            {
+                if (string.Equals(directory.Name, "mvl-skeleton",
+                                  StringComparison.OrdinalIgnoreCase))
+                    return directory.FullName;
+                directory = directory.Parent;
+            }
+            throw new DirectoryNotFoundException(
+                "scene JSON は mvl-skeleton 配下に置いてください。");
+        }
+
+        // ---------- GLB / glTF のコピー ----------
+
+        // 従来どおり: GLB 1個を Assets/MVLImported/ 直下にコピーして読み込む。
+        static string CopyGlb(string src, string importFolder)
+        {
+            string dst = $"{importFolder}/{Path.GetFileName(src)}";
+            File.Copy(src, dst, true);
+            AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
+            return dst;
+        }
+
+        // .gltf は .bin と PNG を別ファイルで持つので、物のフォルダごとコピーする。
+        //   コピー元: <assets_dir>/<物>/<物>.gltf      例: assets/gltf/1006/desk_v1/desk_v1.gltf
+        //   コピー先: Assets/MVLImported/<セット名>/<物>/  例: Assets/MVLImported/1006/desk_v1/
+        // セット名（assets_dir の最後のフォルダ名）を挟むのは、1024版と4096版など、
+        // 同じ名前の物が別のセットにあっても上書きし合わないようにするため。
+        //
+        // 4096 の PNG は読み込み（圧縮）に時間がかかるので、前回と同じファイルなら
+        // コピーも読み込み直しもしない（大きさと更新日時が同じなら「同じ」とみなす）。
+        // 画像の設定（Max Size 4096 など）は MVLTextureImportSettings.cs が自動で付ける。
+        static string CopyGltfFolder(string src, string assetsDirAbs, string importFolder)
+        {
+            string setName = new DirectoryInfo(assetsDirAbs).Name;
+            string srcDir = Path.GetDirectoryName(src);
+            string objectFolder = new DirectoryInfo(srcDir).Name;
+            string dstDir = $"{importFolder}/{setName}/{objectFolder}";
+            EnsureAssetFolder(dstDir);
+
+            // glTFast が .gltf を読むときに PNG と .bin が先に揃っているよう、
+            // .gltf 以外を先に読み込み、.gltf を最後に読み込む。
+            var files = Directory.GetFiles(srcDir)
+                .Where(f => !f.EndsWith(".meta", StringComparison.OrdinalIgnoreCase))
+                .OrderBy(f => Path.GetExtension(f).Equals(".gltf", StringComparison.OrdinalIgnoreCase) ? 1 : 0)
+                .ThenBy(f => f, StringComparer.Ordinal);
+
+            int copied = 0;
+            foreach (string file in files)
+            {
+                string dstFile = $"{dstDir}/{Path.GetFileName(file)}";
+                if (IsSameFile(file, dstFile)) continue;
+                File.Copy(file, dstFile, true);
+                File.SetLastWriteTimeUtc(dstFile, File.GetLastWriteTimeUtc(file));
+                AssetDatabase.ImportAsset(dstFile, ImportAssetOptions.ForceSynchronousImport);
+                copied++;
+            }
+
+            string dst = $"{dstDir}/{Path.GetFileName(src)}";
+            Debug.Log(copied > 0
+                ? $"[MVL] glTFコピー: {objectFolder} ({copied}ファイル) -> {dstDir}"
+                : $"[MVL] glTF変更なし: {objectFolder}（コピー・再読み込みを省略）");
+            return dst;
+        }
+
+        static bool IsSameFile(string a, string b)
+        {
+            if (!File.Exists(b)) return false;
+            var fa = new FileInfo(a);
+            var fb = new FileInfo(b);
+            return fa.Length == fb.Length && fa.LastWriteTimeUtc == fb.LastWriteTimeUtc;
+        }
+
+        // runs/<ラン名>/iter_XX/scene.json → Assets/MVLRuns/<ラン名>_iter_XX.unity
+        // ランごとに別名で保存し、ライトマップもシーンごとに残す(MVLRunBrowser で歩いて見比べるため)
+        static string RunSceneAssetPath(string sceneJsonPath)
+        {
+            string iterDir = Path.GetDirectoryName(Path.GetFullPath(sceneJsonPath));
+            string runName = Path.GetFileName(Path.GetDirectoryName(iterDir));
+            string iter = Path.GetFileName(iterDir);
+            EnsureAssetFolder("Assets/MVLRuns");
+            return $"Assets/MVLRuns/{runName}_{iter}.unity";
+        }
+
+        static void EnsureAssetFolder(string assetPath)
+        {
+            if (AssetDatabase.IsValidFolder(assetPath)) return;
+            string parent = Path.GetDirectoryName(assetPath).Replace('\\', '/');
+            string folderName = Path.GetFileName(assetPath);
+            EnsureAssetFolder(parent);
+            AssetDatabase.CreateFolder(parent, folderName);
+        }
+
+        static void AddShellTextureReport(BuildReport report, string surface,
+                                          string sourceImage, string assetPath,
+                                          Vector2 tiling)
+        {
+            report.shell_textures.Add(new ShellTextureReport {
+                surface = surface,
+                source_image = sourceImage.Replace('\\', '/'),
+                imported_asset = assetPath,
+                tiling = new[] { tiling.x, tiling.y },
+            });
         }
 
         static GameObject MakeBox(string name, Vector3 center, Vector3 size, Material mat)
@@ -235,6 +475,27 @@ namespace MVL
             GameObjectUtility.SetStaticEditorFlags(go, StaticEditorFlags.ContributeGI);
             return go;
         }
+                // 壁を「窓の穴」を残した4枚の箱で作る。alongX: 壁がx方向に伸びているか(S/N)
+        static void MakeWallWithWindow(string name, bool alongX, float fixedCoord,
+                                       float length, float h, Window win, Material mat)
+        {
+            float a0 = win.center - win.width / 2, a1 = win.center + win.width / 2;
+            float b0 = win.sill_height, b1 = win.sill_height + win.height;
+            void Piece(string n, float s0, float s1, float t0, float t1)
+            {
+                if (s1 - s0 < 0.001f || t1 - t0 < 0.001f) return;
+                float s = (s0 + s1) / 2, t = (t0 + t1) / 2;
+                var pos  = alongX ? new Vector3(s, t, fixedCoord) : new Vector3(fixedCoord, t, s);
+                var size = alongX ? new Vector3(s1 - s0, t1 - t0, 0.1f) : new Vector3(0.1f, t1 - t0, s1 - s0);
+                MakeBox(n, pos, size, mat);
+            }
+            Piece(name + "_L", 0, a0, 0, h);       // 窓の左
+            Piece(name + "_R", a1, length, 0, h);  // 窓の右
+            Piece(name + "_B", a0, a1, 0, b0);     // 窓の下
+            Piece(name + "_T", a0, a1, b1, h);     // 窓の上
+        }
+
+
 
         // ---------- 照明 ----------
         static void SetupLighting(Lighting lighting, bool fastIteration)
@@ -253,9 +514,26 @@ namespace MVL
                         s.rotation_euler_deg.Length > 2 ? s.rotation_euler_deg[2] : 0);
                 light.intensity = s.intensity;
                 if (ColorUtility.TryParseHtmlString("#" + (s.color_hex ?? "FFFFFF"), out var c)) light.color = c;
+                    light.shadows = LightShadows.Soft;
             }
             RenderSettings.ambientMode = AmbientMode.Flat;
             RenderSettings.ambientLight = Color.white * (lighting?.ambient_intensity ?? 1.0f) * 0.35f;
+        }
+        static void SetupCeilingLight(Room room, bool fastIteration)
+        {
+            var c = room.lighting?.ceiling_light;
+            if (c == null || c.intensity <= 0f) return;   // JSONに無ければ何もしない
+            float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
+            var go = new GameObject("CeilingLight");
+            float drop = string.IsNullOrWhiteSpace(c.asset) ? 0.15f : c.fixture_height + c.light_offset;
+            go.transform.position = new Vector3(w / 2, h - drop, d / 2); // 器具があるときは、その5cm下
+            var light = go.AddComponent<Light>();
+            light.type = LightType.Point;
+            light.range = c.range;
+            light.intensity = c.intensity;
+            light.shadows = LightShadows.Soft;
+            light.lightmapBakeType = fastIteration ? LightmapBakeType.Realtime : LightmapBakeType.Mixed;
+            if (ColorUtility.TryParseHtmlString("#" + (c.color_hex ?? "FFFFFF"), out var col)) light.color = col;
         }
 
         // ---------- 配置 ----------
@@ -267,9 +545,11 @@ namespace MVL
             if (!File.Exists(src)) { Debug.LogWarning($"[MVL] GLBなし: {src}(スキップ)"); return null; }
 
             // Assets配下へコピー → glTFastのScriptedImporterが取り込む
-            string dst = $"{importFolder}/{Path.GetFileName(obj.asset)}";
-            File.Copy(src, dst, true);
-            AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
+            //   .glb  : ファイル1個をそのままコピー（従来どおり）
+            //   .gltf : .bin と PNG が横に必要なので、物のフォルダごとコピーする
+            string dst = Path.GetExtension(src).Equals(".gltf", StringComparison.OrdinalIgnoreCase)
+                ? CopyGltfFolder(src, assetsDirAbs, importFolder)
+                : CopyGlb(src, importFolder);
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(dst);
             if (prefab == null) { Debug.LogWarning($"[MVL] インポート失敗: {dst}"); return null; }
 
@@ -359,6 +639,68 @@ namespace MVL
             };
         }
 
+        // 窓・天井照明のモデルを「部屋の一部」として置く。report.objects には入れない
+        // (機械検査と修正ループの対象外にするため)
+        static void PlaceFixtures(Room room, string sceneJsonPath, string importFolder, bool fastIteration)
+        {
+            string root = FindMvlSkeletonRoot(sceneJsonPath);
+            float w = room.bounds.width, d = room.bounds.depth, h = room.bounds.height;
+
+            var win = room.window;
+            if (win != null && win.width > 0f && !string.IsNullOrWhiteSpace(win.asset))
+            {
+                bool east = win.wall == "E";
+                var obj = new SceneObject {
+                    id = "fixture_window", @class = "window",
+                    asset = Path.GetFullPath(Path.Combine(root, win.asset)),
+                    target_dimensions = new Dimensions { width = win.width, height = win.height, depth = 0.12f },
+                    rotation_y_deg = east ? 90f : 0f,
+                    position = east ? new[] { w + 0.05f, win.sill_height, win.center }
+                                    : new[] { win.center, win.sill_height, -0.05f },
+                };
+                PlaceObject(obj, root, importFolder, fastIteration, false);
+            }
+
+            var cl = room.lighting?.ceiling_light;
+            if (cl != null && cl.intensity > 0f && !string.IsNullOrWhiteSpace(cl.asset))
+            {
+                var obj = new SceneObject {
+                    id = "fixture_ceiling_light", @class = "ceiling_light",
+                    asset = Path.GetFullPath(Path.Combine(root, cl.asset)),
+                    target_dimensions = new Dimensions { width = cl.fixture_width, height = cl.fixture_height, depth = cl.fixture_width },
+                    position = new[] { w / 2, h - cl.fixture_height, d / 2 },
+                };
+                PlaceObject(obj, root, importFolder, fastIteration, false);
+                var go = GameObject.Find("fixture_ceiling_light");
+                if (go != null)
+                    foreach (var r in go.GetComponentsInChildren<Renderer>(true))
+                    {
+                        r.shadowCastingMode = ShadowCastingMode.Off; // 器具が自分の光を遮らないように
+                        if (cl.fixture_emission <= 0f) continue;
+                        foreach (var m in r.materials)
+                        {
+                            // 元の色の画像を発光にも使う(白いドームは強く、木の枠は弱く光る)
+                            Texture tex = m.HasProperty("baseColorTexture") ? m.GetTexture("baseColorTexture")
+                                        : m.HasProperty("_BaseMap") ? m.GetTexture("_BaseMap") : null;
+                            Color e = Color.white * cl.fixture_emission * cl.intensity; // 照明の強さに連動
+                            if (m.HasProperty("emissiveFactor"))   // glTFast のシェーダー
+                            {
+                                m.SetColor("emissiveFactor", e);
+                                if (tex != null && m.HasProperty("emissiveTexture")) m.SetTexture("emissiveTexture", tex);
+                            }
+                            if (m.HasProperty("_EmissionColor"))   // URP/Lit のシェーダー
+                            {
+                                m.SetColor("_EmissionColor", e);
+                                if (tex != null) m.SetTexture("_EmissionMap", tex);
+                            }
+                            m.EnableKeyword("_EMISSION");
+                            m.globalIlluminationFlags = MaterialGlobalIlluminationFlags.None; // 部屋を照らすのは点光源の役目
+                            Debug.Log($"[MVL] fixture emission: shader={m.shader.name} glTFast={m.HasProperty("emissiveFactor")} URP={m.HasProperty("_EmissionColor")}");
+                        }
+                    }
+            }
+        }
+
         static Bounds MeasureBounds(GameObject go)
         {
             var rends = go.GetComponentsInChildren<Renderer>(true);
@@ -421,7 +763,7 @@ namespace MVL
         }
 
         // ---------- ベイク ----------
-        static void BakeLightmaps()
+        static void BakeLightmaps(int resolution)
         {
             var ls = new LightingSettings
             {
@@ -430,7 +772,7 @@ namespace MVL
                 indirectSampleCount = 64,
                 environmentSampleCount = 64,
                 lightmapMaxSize = 1024,
-                lightmapResolution = 12, // texels/unit — 品質と時間のトレードオフ(~1分/部屋狙い)
+                lightmapResolution = resolution > 0 ? resolution : 80, // texels/unit。シーンJSONの lighting.lightmap_resolution（既定80, 10/14 決定）
                 ao = true
             };
             Lightmapping.lightingSettings = ls;

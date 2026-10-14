@@ -29,6 +29,8 @@ CLASS_PROMPTS = {
     "cabinet": "modern small three-drawer storage cabinet, light wood",
     "trash_bin": "modern small waste basket",
     "backpack": "modern school backpack, standing upright",
+    "window": "modern double-hung window with white wooden frame, closed glass panes",
+    "ceiling_light": "modern flush-mount ceiling light with a frosted glass dome",
 }
 
 MATERIAL_ANCHOR = (

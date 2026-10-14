@@ -1,0 +1,13 @@
+{
+  "assets_dir": "scene/assets/0824",
+  "assets": [
+    "printer_v1.glb",
+    "laptop_v1.glb"
+  ],
+  "capture": {
+    "width": 1024,
+    "height": 1024,
+    "margin": 1.15,
+    "elevation_deg": 25.0
+  }
+}

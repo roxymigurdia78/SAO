@@ -24,6 +24,9 @@ namespace MVL
     {
         public SunLight sun;
         public float ambient_intensity = 1.0f;
+        public CeilingLight ceiling_light;   
+        public bool furniture_shadows = true;   // false なら家具が影を落とさない（物差しの検証用）   
+        public int lightmap_resolution = 80;   // ライトマップの細かさ（画素/m）。10/14 実測で 12→80 に変更（12 は粗すぎ、80 はベイク+9秒）
     }
 
     [Serializable] public class Bounds3
@@ -46,7 +49,12 @@ namespace MVL
         public Entrance entrance;
         public string wall_material;
         public string floor_material;
+        public string floor_texture;
+        public string wall_texture;
+        public string ceiling_texture;
+        public float texture_tile_m = 2.0f;
         public Lighting lighting;
+        public Window window;  
     }
 
     [Serializable] public class Dimensions
@@ -54,6 +62,30 @@ namespace MVL
         public float width;
         public float height;
         public float depth;
+    }
+
+
+
+    [Serializable] public class CeilingLight
+    {
+        public float intensity = 0f;      // 0 = 照明なし(JSONに書かなければ無効)
+        public string color_hex = "FFFFFF";
+        public float range = 6f;
+        public string asset = "";            // mvl-skeleton からの相対パス。空なら器具なし
+        public float fixture_width = 0.35f;  // 器具の直径 [m]
+        public float fixture_height = 0.15f; // 器具の高さ [m]
+        public float light_offset = 0.05f; // 器具の下端から光源までの距離 [m]
+        public float fixture_emission = 1.5f; // 発光の係数(照明の強さに掛ける。0で発光なし)
+    }
+
+    [Serializable] public class Window
+    {
+        public string wall = "";          // "E" か "S"。空なら窓なし
+        public float center;              // 壁に沿った窓の中心位置 [m]
+        public float width;               // 0 なら窓なし
+        public float height;
+        public float sill_height = 0.9f;  // 床から窓の下端まで [m]
+        public string asset = "";        // mvl-skeleton からの相対パス
     }
 
     [Serializable] public class SceneObject
@@ -114,12 +146,21 @@ namespace MVL
         public List<string> files = new List<string>();
     }
 
+    [Serializable] public class ShellTextureReport
+    {
+        public string surface;
+        public string source_image;
+        public string imported_asset;
+        public float[] tiling;
+    }
+
     [Serializable] public class BuildReport
     {
         public string scene_id;
         public List<ObjectReport> objects = new List<ObjectReport>();
         public List<string> captures = new List<string>();
         public List<DetailCaptureReport> detail_captures = new List<DetailCaptureReport>();
+        public List<ShellTextureReport> shell_textures = new List<ShellTextureReport>();
         public bool fast_iteration;
         public string scale_mode;
         public int capture_width;

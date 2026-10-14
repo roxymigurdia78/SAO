@@ -1,0 +1,2 @@
+﻿asset,class,variant,target_width_m,target_height_m,target_depth_m,scale_x,scale_y,scale_z,triangle_count,surface_area_m2,basecolor_mapped_area_fraction,zero_uv_area_fraction,weighted_median_px_per_m,weighted_p10_px_per_m,mapped_min_px_per_m,mapped_max_px_per_m,quest2_reference_px_per_m
+desk_v1,desk,1,1.4,0.73,0.7,1.3972836729,1.21283972,1.4134136086,140228,11.3050280439,1.0,2.188e-07,256.901512,255.995927,0.0,2256.980995,1100.0

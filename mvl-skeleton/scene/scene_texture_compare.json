@@ -1,0 +1,10 @@
+{
+  "objects": [
+    {
+      "id": "desk_01",
+      "class": "desk",
+      "asset_variants": ["desk_v1_t1024.glb", "desk_v1_t2048.glb", "desk_v1_t4096.glb"],
+      "target_dimensions": {"width": 1.4, "height": 0.73, "depth": 0.7}
+    }
+  ]
+}
